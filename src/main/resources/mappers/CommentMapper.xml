@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carstoreapi.comment.model.CommentDAO">
+
+    <insert id="postComment" parameterType="com.example.carstoreapi.comment.model.CommentDTO">
+        INSERT INTO Comment (carId, author, content, writeDate, writeTime)
+        values (#{carId}, #{author}, #{content}, #{writeDate}, #{writeTime})
+    </insert>
+
+    <select id="getCommentsByCarId" parameterType="int" resultType="com.example.carstoreapi.comment.model.CommentDTO">
+        SELECT * FROM Comment
+        WHERE carId = #{carId}
+    </select>
+
+    <update id="putComment" parameterType="com.example.carstoreapi.comment.model.CommentDTO">
+        UPDATE Comment
+        SET content=#{content},
+            writeDate=#{writeDate},
+            writeTime=#{writeTime}
+        WHERE cid=#{cid}
+    </update>
+
+    <delete id="delComment" parameterType="int">
+        DELETE
+        FROM Comment
+        WHERE cid=#{cid}
+    </delete>
+</mapper>

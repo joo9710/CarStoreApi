@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.carstoreapi.car.model.CarDAO">
+
+
+    <select id="getCarList" resultType="com.example.carstoreapi.car.model.CarDTO">
+        SELECT * FROM Car Where isDel = 'N';
+    </select>
+
+    <insert id="postCar" parameterType="com.example.carstoreapi.car.model.CarDTO">
+        insert into Car (author, carName, content, writeDate, writeTime, readCount)
+        values (#{author}, #{carName}, #{content}, #{writeDate}, #{writeTime}, 0)
+    </insert>
+
+    <update id="putCar" parameterType="com.example.carstoreapi.car.model.CarDTO">
+        UPDATE Car
+        SET content=#{content},
+            writeDate=#{writeDate},
+            writeTime=#{writeTime}
+        WHERE carId=#{carId}
+    </update>
+
+    <update id="updateIsDelCarById" parameterType="int">
+        UPDATE Car
+        SET isDel= 'Y'
+        WHERE carId = #{carId}
+    </update>
+
+    <select id="getCarById" parameterType="int" resultType="com.example.carstoreapi.car.model.CarDTO">
+        SELECT * from CAR
+        WHERE carId = #{carId}
+    </select>
+</mapper>
+
