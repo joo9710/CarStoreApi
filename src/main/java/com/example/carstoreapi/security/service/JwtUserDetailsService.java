@@ -4,6 +4,7 @@ import com.example.carstoreapi.member.Member;
 import com.example.carstoreapi.member.MemberRepository;
 import com.example.carstoreapi.member.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -36,5 +37,13 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
         return new User(member.getID(), member.getPassword(), grantedAuthorities);
     }
-    
+
+    public Member authenticateByEmailAndPassword(String ID, String password){
+        Member member = memberRepository.findByID(ID)
+                .orElseThrow(() -> new UsernameNotFoundException(ID));
+        if(!passwordEncoder.matches(password, member.getPassword())){
+            throw new BadCredentialsException("Password not matched");
+        }
+        return member;
+    }
 }
