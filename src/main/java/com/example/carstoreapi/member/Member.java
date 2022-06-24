@@ -15,19 +15,19 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Long id;
 
     @Column(unique = true)
-    private String ID;
+    private String email;
     private String password;
 
-    public Member(String ID, String password) {
-        this.ID = ID;
+    public Member(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public static Member createMember(String ID, String password) {
-        return new Member(ID, password);
+    public static Member createMember(String email, String password){
+        return new Member(email, password);
     }
 }

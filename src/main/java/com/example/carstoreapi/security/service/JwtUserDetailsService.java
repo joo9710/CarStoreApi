@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,20 +26,20 @@ public class JwtUserDetailsService implements UserDetailsService {
     private MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String ID) throws UsernameNotFoundException {
-        Member member = memberRepository.findByID((ID))
-            .orElseThrow(() -> new UsernameNotFoundException(ID));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
-        if(ID.equals("superuser")){
+        if(email.equals("superuser@email.com")){
             grantedAuthorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         }
-        return new User(member.getID(), member.getPassword(), grantedAuthorities);
+        return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 
-    public Member authenticateByEmailAndPassword(String ID, String password){
-        Member member = memberRepository.findByID(ID)
-                .orElseThrow(() -> new UsernameNotFoundException(ID));
+    public Member authenticateByEmailAndPassword(String email, String password){
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
         if(!passwordEncoder.matches(password, member.getPassword())){
             throw new BadCredentialsException("Password not matched");
         }

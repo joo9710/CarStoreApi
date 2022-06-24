@@ -24,16 +24,16 @@ public class JwtAuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         final Member member = userDetailsService
-                .authenticateByEmailAndPassword(authenticationRequest.getID(),
+                .authenticateByEmailAndPassword(authenticationRequest.getEmail(),
                                                 authenticationRequest.getPassword());
-        final String token = jwtTokenUtil.generateToken(member.getID());
+        final String token = jwtTokenUtil.generateToken(member.getEmail());
         return ResponseEntity.ok(new JwtResponse(token));
     }
 }
 
 @Data
 class JwtRequest {
-    private String ID;
+    private String email;
     private String password;
 }
 

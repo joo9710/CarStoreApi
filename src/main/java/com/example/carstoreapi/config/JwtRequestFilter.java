@@ -2,6 +2,7 @@ package com.example.carstoreapi.config;
 
 import com.example.carstoreapi.security.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
+import com.example.carstoreapi.security.service.JwtUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,11 +28,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
 
     private static final List<String> EXCLUDE_URL =
-            Collections.unmodifiableList(
-                    Arrays.asList(
-                            "/api/member",
-                            "/authenticate"
-                    ));
+        Collections.unmodifiableList(
+            Arrays.asList(
+                    "/api/member",
+                    "/authenticate"
+            ));
 
     public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
         this.jwtUserDetailsService = jwtUserDetailsService;

@@ -3,7 +3,6 @@ package com.example.carstoreapi.member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
 @Getter
 @AllArgsConstructor
 public enum Role {
