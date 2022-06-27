@@ -24,6 +24,12 @@ public class CarService {
         return carDAO.getCarList();
     }
 
+    //{carId} 글 읽기
+    public ApiResponse<CarDTO> getCarById(int carId) {
+        CarDTO data = carDAO.getCarById(carId);
+        carDAO.updateReadCount(carId);
+        return new ApiResponse(true, data);
+    }
     //글 쓰기
     public CarDTO postCar(CarDTO carDTO) throws Exception {
 

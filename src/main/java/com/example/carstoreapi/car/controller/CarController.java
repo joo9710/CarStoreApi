@@ -25,6 +25,13 @@ public class CarController {
         return carService.getCarList();
     }
 
+    //{carId} 글 읽기
+    @GetMapping(value = "/{carId}")
+    public ApiResponse<CarDTO> getCarById(@PathVariable int carId) throws Exception {
+        log.debug("data" + carId);
+        return carService.getCarById(carId);
+    }
+
     //글 등록
     @PostMapping(value = "/")
     public ApiResponse<CarDTO> postCar(@RequestBody CarDTO carDTO) throws Exception{
