@@ -2,6 +2,7 @@ package com.example.carstoreapi.car.controller;
 
 import com.example.carstoreapi.car.model.CarDTO;
 import com.example.carstoreapi.car.service.CarService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,13 @@ public class CarController {
     public List<CarDTO> getCarList(){
         log.debug("car");
         return carService.getCarList();
+    }
+
+    //{carId} 글 읽기
+    @GetMapping(value = "/{carId}")
+    public ApiResponse<CarDTO> getCarById(@PathVariable int carId) throws Exception {
+        log.debug("data" + carId);
+        return carService.getCarById(carId);
     }
 
     //글 등록
