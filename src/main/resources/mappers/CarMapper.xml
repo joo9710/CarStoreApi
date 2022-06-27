@@ -31,11 +31,5 @@
         SELECT * from CAR
         WHERE carId = #{carId}
     </select>
-
-    <update id="updateReadCount" parameterType="int">
-        UPDATE CAR
-        SET readCount = readCount + 1
-        WHERE carId = #{carId}
-    </update>
 </mapper>
 

@@ -22,6 +22,4 @@ public interface CarDAO {
     //carId 가져오기
     CarDTO getCarById(int carId);
 
-    //조회수 증가
-    int updateReadCount(int carId);
 }
