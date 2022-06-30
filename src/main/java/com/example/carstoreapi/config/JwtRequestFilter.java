@@ -61,6 +61,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             log.warn("JWT Token does not begin with Bearer String");
         }
 
+        // token값의 username과 DB의 username을 비교 후 authenticationToken을 생성
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 

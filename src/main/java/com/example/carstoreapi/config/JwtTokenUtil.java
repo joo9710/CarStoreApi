@@ -12,15 +12,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+
 public class JwtTokenUtil {
     private static final String secret = "jwtpassword";
 
-    public static final long JWT_TOKEN_VALIDITY_HOUR = 5 * 60 * 60 * 1000; // 5 hours
+    public static final long JWT_TOKEN_VALIDITY_HOUR = 5 * 60 * 60000; // 5 hours
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getId);
     }
 
+    // 토큰이 틀렸는지, 유효기간이 안지났는지 검사
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
@@ -47,15 +49,17 @@ public class JwtTokenUtil {
         return doGenerateToken(id, claims);
     }
 
+    // 토큰 생성
     private String doGenerateToken(String id, Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setId(id)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY_HOUR))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setId(id) //claims에 토큰 id set
+                .setIssuedAt(new Date(System.currentTimeMillis())) //claims에 토큰 생성시간 기록
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY_HOUR)) //claims에 토큰 유효기간 기록
+                .signWith(SignatureAlgorithm.HS512, secret) //calims에 토큰 암호화 알고리즘 설정
                 .compact();
     }
+
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);

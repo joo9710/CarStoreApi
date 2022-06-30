@@ -26,6 +26,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     private MemberRepository memberRepository;
 
     @Override
+    // 권한부여
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));
@@ -37,8 +38,9 @@ public class JwtUserDetailsService implements UserDetailsService {
         return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 
+    //패스워드 일치 검사
     public Member authenticateByEmailAndPassword(String email, String password){
-        Member member = memberRepository.findByEmail(email)
+        Member member = memberRepository.findByEmail(email) // memberRepository의 findByEmail에 넣어서 Member가 있는지 확인
                 .orElseThrow(() -> new UsernameNotFoundException(email));
         if(!passwordEncoder.matches(password, member.getPassword())){
             throw new BadCredentialsException("Password not matched");
