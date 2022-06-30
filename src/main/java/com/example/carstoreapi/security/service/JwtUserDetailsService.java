@@ -26,7 +26,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     private MemberRepository memberRepository;
 
     @Override
-    // 권한부여
+    // email,password가져오기 및 권한부여
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));

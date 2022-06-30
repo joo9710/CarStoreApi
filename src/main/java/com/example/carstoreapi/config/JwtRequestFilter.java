@@ -1,6 +1,7 @@
 package com.example.carstoreapi.config;
 
 import com.example.carstoreapi.security.service.JwtUserDetailsService;
+import com.example.carstoreapi.token.TokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import com.example.carstoreapi.security.service.JwtUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUserDetailsService jwtUserDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
+    private final TokenService tokenService;
 
     private static final List<String> EXCLUDE_URL =
         Collections.unmodifiableList(
@@ -34,9 +36,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     "/authenticate"
             ));
 
-    public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
+    public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil, TokenService tokenService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -62,20 +65,28 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         // token값의 username과 DB의 username을 비교 후 authenticationToken을 생성
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+        if (tokenService.compareToken(jwtToken)) {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 
-            if(jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null ,userDetails.getAuthorities());
+                if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
             }
-        }
-        filterChain.doFilter(request,response);
-    }
 
+        } else {
+            username = null;
+            jwtToken = null;
+            response.addHeader("Header", "ExpToken");
+            log.warn("이미 로그아웃 처리된 token입니다");
+        }
+        filterChain.doFilter(request, response);
+
+    }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return EXCLUDE_URL.stream().anyMatch(exclude -> exclude.equalsIgnoreCase(request.getServletPath()));

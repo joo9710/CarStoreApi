@@ -1,6 +1,7 @@
 package com.example.carstoreapi.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -51,11 +53,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .and()
                 .logout()
-                .logoutUrl("/api/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
+                .deleteCookies("viewCookie")
+                .logoutSuccessHandler(logoutSuccessHandler())
                 .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //jwtRequestFilter가 UsernamePasswordAuthenticationFilter보다 먼저 실행
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        CustomLogoutSuccessHandler logoutSuccessHandler = new CustomLogoutSuccessHandler();
+
+        logoutSuccessHandler.setDefaultTargetUrl("/");
+        return logoutSuccessHandler;
     }
 }
