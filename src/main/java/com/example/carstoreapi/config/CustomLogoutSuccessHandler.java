@@ -45,7 +45,7 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler{
         Date jwtTokenExp = jwtTokenUtil.getExpirationDateFromToken(jwtToken); //jwtTokenUtil 에서 구한 Date
         LocalDateTime time2 = LocalDateTime.ofInstant(jwtTokenExp.toInstant(), ZoneId.systemDefault()); //data -> LocalDataTime
         LocalTime JwtTokenTime = LocalTime.of(time2.getHour(), time2.getMinute(), time2.getSecond()); //LocalDataTime -> LocalTime
-        log.debug("time :: " + JwtTokenTime);
+        log.debug("남은 토큰 시간 :: " + JwtTokenTime);
         return JwtTokenTime;
     }
 }
