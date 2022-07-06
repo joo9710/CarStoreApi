@@ -16,11 +16,17 @@ public class CarDTO {
     private String mid;
     private String author;
     private String carName;
+    private String year;
+    private String distance;
+    private String fuel;
+    private String area;
+    private String price;
     private String content;
     private LocalDate writeDate;
     private LocalTime writeTime;
     private int readCount;
     private String isDel;
+    private String thumb;
 
     @Override
     public String toString() {
@@ -29,11 +35,16 @@ public class CarDTO {
                 ", mid=" + mid + '\'' +
                 ", author=" + author + '\'' +
                 ", carName=" + carName + '\'' +
+                ", year=" + year + '\'' +
+                ", distance=" + distance + '\'' +
+                ", fuel=" + fuel + '\'' +
+                ", area=" + area + '\'' +
                 ", content=" + content + '\'' +
                 ", writeDate=" + writeDate + '\'' +
                 ", writeTime=" + writeTime + '\'' +
                 ", readCount=" + readCount + '\'' +
                 ", readCount=" + isDel +
+                ", thumb=" + thumb +
                 '}';
     }
 }
