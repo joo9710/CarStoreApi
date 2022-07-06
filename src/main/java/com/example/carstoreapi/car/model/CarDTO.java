@@ -26,6 +26,7 @@ public class CarDTO {
     private LocalTime writeTime;
     private int readCount;
     private String isDel;
+    private String thumb;
 
     @Override
     public String toString() {
@@ -37,12 +38,17 @@ public class CarDTO {
                 ", year=" + year + '\'' +
                 ", distance=" + distance + '\'' +
                 ", fuel=" + fuel + '\'' +
+<<<<<<< HEAD
                 ", price=" + price + '\'' +
+=======
+                ", area=" + area + '\'' +
+>>>>>>> Vue
                 ", content=" + content + '\'' +
                 ", writeDate=" + writeDate + '\'' +
                 ", writeTime=" + writeTime + '\'' +
                 ", readCount=" + readCount + '\'' +
                 ", readCount=" + isDel +
+                ", thumb=" + thumb +
                 '}';
     }
 }

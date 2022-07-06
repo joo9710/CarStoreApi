@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -18,6 +20,8 @@ public class CarStoreApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(CarStoreApiApplication.class, args);
     }
+
+    // Bean : 해당 메서드의 리턴되는 오브젝츠를 IOC로 등록
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
@@ -30,6 +34,13 @@ public class CarStoreApiApplication {
         sessionFactory.setMapperLocations(res);
 
         return sessionFactory.getObject();
+    }
+
+    //password 암호화
+  @Bean
+    public PasswordEncoder passwordEncoder(){
+
+        return new BCryptPasswordEncoder();
     }
 
 }
