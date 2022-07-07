@@ -3,6 +3,7 @@ package com.example.carstoreapi.security.service;
 import com.example.carstoreapi.member.Member;
 import com.example.carstoreapi.member.MemberRepository;
 import com.example.carstoreapi.member.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -40,11 +42,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     //패스워드 일치 검사
     public Member authenticateByEmailAndPassword(String email, String password){
-        Member member = memberRepository.findByEmail(email) // memberRepository의 findByEmail에 넣어서 Member가 있는지 확인
+        Member member = memberRepository.findByEmail(email)                     // memberRepository의 findByEmail에 넣어서 Member가 있는지 확인
                 .orElseThrow(() -> new UsernameNotFoundException(email));
         if(!passwordEncoder.matches(password, member.getPassword())){
             throw new BadCredentialsException("Password not matched");
         }
+        log.debug("login");
         return member;
     }
 }

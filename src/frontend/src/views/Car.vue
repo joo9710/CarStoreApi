@@ -3,6 +3,7 @@
 
     <v-card width="100vw" height="1500px">
 
+
       <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -18,6 +19,15 @@
           :items-per-page="5"
           class="elevation-1"
       >
+
+        <template v-slot:top>
+          <v-toolbar
+              flat
+          >
+
+            <v-btn @click="linkTo(link1)">글 쓰기</v-btn>
+          </v-toolbar>
+        </template>
 
         <template v-slot:item.thumb="{ item }">
           <img alt="" :src="item.thumb"/>
@@ -51,6 +61,7 @@ export default {
   data: () => ({
       users: [],
     search: '',
+    link1:"CarWrite",
       headers: [
         { text: '사진', value: 'thumb' },
         { text: '차량정보', value: 'content' },
@@ -75,6 +86,11 @@ export default {
             console.log(e);
           })
     },
+
+    linkTo(data){
+      this.$router.push({name: data})
+    }
+
   },
   mounted() {
     this.retrieveUsers();

@@ -38,11 +38,8 @@ public class CarDTO {
                 ", year=" + year + '\'' +
                 ", distance=" + distance + '\'' +
                 ", fuel=" + fuel + '\'' +
-<<<<<<< HEAD
                 ", price=" + price + '\'' +
-=======
                 ", area=" + area + '\'' +
->>>>>>> Vue
                 ", content=" + content + '\'' +
                 ", writeDate=" + writeDate + '\'' +
                 ", writeTime=" + writeTime + '\'' +
