@@ -37,5 +37,15 @@
         SET readCount = readCount + 1
         WHERE carId = #{carId}
     </update>
+
+
+    <insert id="fileUpload" parameterType="com.example.carstoreapi.car.model.FileDTO">
+        insert into file (carId, fileName)
+        values (#{carId},#{fileName})
+    </insert>
+
+    <select id="maxCarId"  resultType="int">
+        SELECT MAX(carId) AS carId FROM car;
+    </select>
 </mapper>
 

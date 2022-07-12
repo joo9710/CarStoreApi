@@ -1,11 +1,14 @@
 package com.example.carstoreapi.car.controller;
 
 import com.example.carstoreapi.car.model.CarDTO;
+import com.example.carstoreapi.car.model.FileDTO;
 import com.example.carstoreapi.car.service.CarService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import com.example.carstoreapi.common.ApiResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -36,8 +39,48 @@ public class CarController {
     @PostMapping(value = "/")
     public ApiResponse<CarDTO> postCar(@RequestBody CarDTO carDTO) throws Exception{
 
-        CarDTO dto = carService.postCar(carDTO);
-        return new ApiResponse(true, dto);
+     //   CarDTO dto = carService.postCar(carDTO);
+      //  return new ApiResponse(true, dto);
+        return null;
+    }
+
+    // 글 및 파일 등록
+    @SneakyThrows
+    @PostMapping("/img")
+    public String uploadFile(@RequestParam("author")String author,
+                             @RequestParam("carName")String carName,
+                             @RequestParam("year")String year,
+                             @RequestParam("distance")String distance,
+                             @RequestParam("fuel")String fuel,
+                             @RequestParam("area")String area,
+                             @RequestParam("price")String price,
+                             @RequestParam("content")String content,
+                             @RequestParam("file")MultipartFile multipartFile){
+
+        log.debug("upload data " + author);
+        log.debug("upload data " + carName);
+        log.debug("upload data " + year);
+        log.debug("upload data " + distance);
+        log.debug("upload data " + fuel);
+        log.debug("upload data " + area);
+        log.debug("upload data " + price);
+        log.debug("upload data " + content);
+        log.debug("upload file " + multipartFile.getOriginalFilename());
+        CarDTO carDTO = new CarDTO();
+        carDTO.setAuthor(author.replace("\"", ""));
+        carDTO.setCarName(carName.replace("\"", ""));
+        carDTO.setYear(year.replace("\"", ""));
+        carDTO.setDistance(distance.replace("\"", ""));
+        carDTO.setFuel(fuel.replace("\"", ""));
+        carDTO.setArea(area.replace("\"", ""));
+        carDTO.setPrice(price.replace("\"", ""));
+        carDTO.setContent(content.replace("\"", ""));
+
+       int newId = carService.postCar(carDTO);
+       log.debug("test : " + newId);
+
+       return carService.saveFile(newId, multipartFile);
+
     }
 
     //글 수정

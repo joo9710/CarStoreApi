@@ -43,16 +43,33 @@
           </tr>
         </table>
       </form>
+      <tr style="height: 160px">
+          <v-col>
+            <v-card style="width: 200px; height: 200px">
+              <img
+                  :src="imageUrl"
+                  style="object-fit: cover; width: 200px; height: 200px;"
+                  alt=""
+              >
+            </v-card>
+            <div class="file-div">
+              <input @change="upload" type="file" id="file" accept="image/png, image/jpeg">
+              <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
+            </div>
+          </v-col>
+      </tr>
     </div>
 
     <div class="btnWrap">
-      <v-btn @click="write">글 쓰기</v-btn>
+      <v-btn @click="editImage">글 쓰기</v-btn>
       <v-btn @click="linkTo(link1)">취소</v-btn>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "CarWrite.vue",
 
@@ -66,12 +83,18 @@ export default {
       area:this.$store.state.userStore.area,
       price:'',
       content:'',
-      link1: "Car"
+
+      link1: "Car",
+
+      imageUrl: this.$store.state.userStore.fileName,
+      imgFile:[],
+
+      dialog:false,
+      dialogMsg:'',
     }
   },
 
   methods: {
-
     write() {
       let data = {}
       data.author = this.nickName
@@ -99,6 +122,39 @@ export default {
           .catch((err)=>{
             console.log(err);
           })
+    },
+
+    editImage() {
+      let data = new FormData();
+      data.append("file", this.imgFile);
+      data.append("author", JSON.stringify(this.author));
+      data.append("carName", JSON.stringify(this.carName));
+      data.append("year", JSON.stringify(this.year));
+      data.append("distance", JSON.stringify(this.distance));
+      data.append("fuel", JSON.stringify(this.fuel));
+      data.append("area", JSON.stringify(this.area));
+      data.append("price", JSON.stringify(this.price));
+      data.append("content", JSON.stringify(this.content));
+
+
+      axios({
+        method: 'post',
+        url: '/car/img',
+        data: data,
+        headers: {
+          "Content-Type": "multipart/form-data", // Content-Type 주의
+        },
+      }).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error.response);
+      })
+    },
+
+    upload(e) {
+      let imageFile = e.target.files;
+      this.imgFile = imageFile[0]
+      this.imageUrl = URL.createObjectURL(imageFile[0]);
     },
 
     linkTo(data) {

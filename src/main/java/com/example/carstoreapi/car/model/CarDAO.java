@@ -24,4 +24,8 @@ public interface CarDAO {
 
     //조회수 증가
     int updateReadCount(int carId);
+
+    //carId 1증가
+    int maxCarId();
+
 }

@@ -9,7 +9,9 @@ const userStore = {
         mid:'',
         nickName:'',
         area:'',
+        fileName:''
     },
+
     mutations: {
         loginData: function (state, data) {
             console.log("store : " + data)
@@ -27,6 +29,13 @@ const userStore = {
             state.mid = data.mid
             console.log("nickName state : " + data.nickName)
         },
+
+        putImage: function (state, data) {
+            state.carId = data.carId
+            state.fileName = require('@/assets' + data.fileName)
+            console.log("carId state : " + data.carId)
+            console.log("carId state : " + state.fileName)
+        }
 
         //loginCheck: function (state) {
           //  if (!state.token) {
@@ -68,6 +77,19 @@ const userStore = {
                 .catch((error)=>{
                     console.log(error.res)
                 })
+        },
+
+        uploadImage: function ({commit}, payload) {
+            let data = {};
+            data.carId = payload.carId;
+            data.fileName = payload.fileName;
+
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    commit('putImage', data);
+                    resolve()
+                    }, 1000)
+            })
         }
     },
 }

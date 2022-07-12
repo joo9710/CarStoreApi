@@ -1,16 +1,16 @@
 package com.example.carstoreapi.car.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Data
 @AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class CarDTO {
     private int carId;
     private String mid;
