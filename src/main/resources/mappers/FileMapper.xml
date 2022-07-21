@@ -7,5 +7,10 @@
         insert into File (carId, fileName)
         values (#{carId},#{fileName})
     </insert>
+
+    <select id="getFileByCarId" parameterType="int" resultType="com.example.carstoreapi.car.model.FileDTO">
+        SELECT * FROM file
+        WHERE carId = #{carId}
+    </select>
 </mapper>
 

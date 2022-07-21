@@ -53,8 +53,6 @@ public class CarService {
         carDTO.setCarId(getNewCarIdValue());
 
         int insertedRowCount = carDAO.postCar(carDTO);
-        log.debug("test11: " + insertedRowCount);
-        log.debug("test12: " + carDTO.getWriteTime());
         if(insertedRowCount > 0){
             return carDTO.getCarId();
         }   else {
@@ -96,6 +94,12 @@ public class CarService {
         }
         log.debug("newCarIdValue= " + result);
         return result;
+    }
+
+    // 파일 읽기
+    public ApiResponse<FileDTO> getFileByCarId(int carId) {
+        FileDTO data = fileDAO.getFileByCarId(carId);
+        return new ApiResponse(true, data);
     }
 
     //글 수정

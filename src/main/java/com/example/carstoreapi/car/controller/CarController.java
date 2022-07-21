@@ -57,15 +57,7 @@ public class CarController {
                              @RequestParam("content")String content,
                              @RequestParam("file")MultipartFile multipartFile){
 
-        log.debug("upload data " + author);
-        log.debug("upload data " + carName);
-        log.debug("upload data " + year);
-        log.debug("upload data " + distance);
-        log.debug("upload data " + fuel);
-        log.debug("upload data " + area);
-        log.debug("upload data " + price);
-        log.debug("upload data " + content);
-        log.debug("upload file " + multipartFile.getOriginalFilename());
+
         CarDTO carDTO = new CarDTO();
         carDTO.setAuthor(author.replace("\"", ""));
         carDTO.setCarName(carName.replace("\"", ""));
@@ -81,6 +73,13 @@ public class CarController {
 
        return carService.saveFile(newId, multipartFile);
 
+    }
+
+    // 파일 읽기
+    @GetMapping(value = "/showFile/{carId}")
+    public ApiResponse<FileDTO> getFileByCarId(@PathVariable int carId) throws Exception {
+        log.debug("FileData: " + carId);
+        return carService.getFileByCarId(carId);
     }
 
     //글 수정

@@ -36,7 +36,10 @@
         <template v-slot:item.content="{ item }">
           <v-row>
             <v-col cols="12" class="pa-0">
-              <a>{{item.carName}}</a>
+              <router-link :to="{ name: 'CarDetail', query:{ carId: item.carId } }">
+                {{item.carName}}
+              </router-link>
+
             </v-col>
 
             <v-col cols="12" class="pa-0">
@@ -71,6 +74,7 @@ export default {
   }),
 
   methods: {
+
     retrieveUsers() {
       this.$axios.get("car/",
           {
@@ -92,12 +96,12 @@ export default {
     }
 
   },
+
   mounted() {
     this.retrieveUsers();
   },
+
 }
 
 </script>
-<style lang="sass">
 
-</style>

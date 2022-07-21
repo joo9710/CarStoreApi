@@ -47,5 +47,7 @@
     <select id="maxCarId"  resultType="int">
         SELECT MAX(carId) AS carId FROM car;
     </select>
+
+
 </mapper>
 

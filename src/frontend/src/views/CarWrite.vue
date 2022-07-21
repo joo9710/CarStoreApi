@@ -43,6 +43,7 @@
           </tr>
         </table>
       </form>
+
       <tr style="height: 160px">
           <v-col>
             <v-card style="width: 200px; height: 200px">
@@ -52,6 +53,7 @@
                   alt=""
               >
             </v-card>
+
             <div class="file-div">
               <input @change="upload" type="file" id="file" accept="image/png, image/jpeg">
               <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
