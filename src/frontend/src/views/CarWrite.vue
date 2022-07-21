@@ -55,9 +55,11 @@
             </v-card>
 
             <div class="file-div">
+              <h5>게시글 이미지 선택</h5>
               <input @change="upload" type="file" id="file" accept="image/png, image/jpeg">
               <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
             </div>
+
           </v-col>
       </tr>
     </div>
