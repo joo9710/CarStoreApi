@@ -21,11 +21,13 @@
         style="object-fit: cover"
         alt=""/>
 
+      <v-btn @click="putAuthority()">글 수정</v-btn>
+
       <v-data-table
           :headers="headers"
           :items="cusers"
-          class="elevation-1"
-      >
+          class="elevation-1">
+
       </v-data-table>
     </v-card>
   </div>
@@ -39,6 +41,8 @@ export default {
       users: '',
       userFile: '',
       cusers:[],
+      link1: "Car",
+      mid:this.$store.state.userStore.mid,
 
       headers: [
         {text: '작성자', value: 'author'},
@@ -58,6 +62,15 @@ export default {
       },
 
       methods: {
+
+        linkTo(data){
+          this.$router.push({name:data})
+        },
+
+        linkTo2(){
+          let carId = this.$route.query.carId
+          this.$router.push({name:"CarChange", query: { carId: carId }})
+        },
 
         retrieveUsers() {
           let carId = this.$route.query.carId
@@ -94,6 +107,14 @@ export default {
             console.log(e);
           })
         },
+
+      putAuthority() {
+          if(this.users.mid == this.mid){
+            this.linkTo2(this.link1);
+          } else {
+            alert("글을 수정할 권한이 없습니다.");
+          }
+      }
 
       }
 }

@@ -15,7 +15,11 @@
 
     <update id="putCar" parameterType="com.example.carstoreapi.car.model.CarDTO">
         UPDATE Car
-        SET content=#{content},
+        SET carName=#{carName},
+            distance=#{distance},
+            area=#{area},
+            price=#{price},
+            content=#{content},
             writeDate=#{writeDate},
             writeTime=#{writeTime}
         WHERE carId=#{carId}
