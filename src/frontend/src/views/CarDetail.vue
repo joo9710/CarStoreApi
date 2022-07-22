@@ -22,7 +22,7 @@
         alt=""/>
 
       <v-btn @click="putAuthority()">글 수정</v-btn>
-
+      <v-btn @click="delAuthority()">글 삭제</v-btn>
       <v-data-table
           :headers="headers"
           :items="cusers"
@@ -96,6 +96,7 @@ export default {
           })
         },
 
+        //댓글보여주기
         showComment() {
           let carId = this.$route.query.carId
           this.$axios.get("comment/" + carId)
@@ -108,13 +109,24 @@ export default {
           })
         },
 
+        //수정권한 mid비교
       putAuthority() {
           if(this.users.mid == this.mid){
             this.linkTo2(this.link1);
           } else {
             alert("글을 수정할 권한이 없습니다.");
           }
-      }
+      },
+
+        //삭제 권한 확인 및 삭제
+        delAuthority() {
+          if(this.users.mid == this.mid){
+            let carId = this.$route.query.carId
+            this.$axios.delete("car/" + carId)
+              alert("삭제 되었습니다.");
+            this.$router.go(-1);
+          }else alert("글 삭제 권한이 없습니다.");
+        }
 
       }
 }
