@@ -79,6 +79,7 @@ export default {
 
   data() {
     return {
+      mid: this.$store.state.userStore.mid,
       nickName: this.$store.state.userStore.nickName,
       carName:'',
       year:'',
@@ -99,8 +100,9 @@ export default {
   },
 
   methods: {
-    write() {
+    write1() {
       let data = {}
+      data.mid = this.mid
       data.author = this.nickName
       data.carName = this. carName
       data.year = this.year
@@ -131,7 +133,8 @@ export default {
     editImage() {
       let data = new FormData();
       data.append("file", this.imgFile);
-      data.append("author", JSON.stringify(this.author));
+      data.append("mid", this.mid);
+      data.append("author", JSON.stringify(this.nickName));
       data.append("carName", JSON.stringify(this.carName));
       data.append("year", JSON.stringify(this.year));
       data.append("distance", JSON.stringify(this.distance));

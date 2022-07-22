@@ -41,12 +41,6 @@ export default {
       cusers:[],
 
       headers: [
-        {
-          test:'ID',
-          align: 'start',
-          sortable: false,
-          value: 'cid',
-        },
         {text: '작성자', value: 'author'},
         {text: '내용', value: 'content'},
         {text: '날짜', value: 'writeDate'},

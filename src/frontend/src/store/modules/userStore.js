@@ -28,6 +28,7 @@ const userStore = {
             state.area = data.area
             state.mid = data.mid
             console.log("nickName state : " + data.nickName)
+            console.log("mid state : " + data.mid)
         },
 
         putImage: function (state, data) {

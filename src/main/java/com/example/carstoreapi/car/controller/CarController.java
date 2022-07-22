@@ -48,6 +48,7 @@ public class CarController {
     @SneakyThrows
     @PostMapping("/img")
     public String uploadFile(@RequestParam("author")String author,
+                             @RequestParam("mid")Long mid,
                              @RequestParam("carName")String carName,
                              @RequestParam("year")String year,
                              @RequestParam("distance")String distance,
@@ -59,6 +60,7 @@ public class CarController {
 
 
         CarDTO carDTO = new CarDTO();
+        carDTO.setMid(mid);
         carDTO.setAuthor(author.replace("\"", ""));
         carDTO.setCarName(carName.replace("\"", ""));
         carDTO.setYear(year.replace("\"", ""));

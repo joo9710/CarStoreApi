@@ -9,8 +9,8 @@
     </select>
 
     <insert id="postCar" parameterType="com.example.carstoreapi.car.model.CarDTO">
-        insert into Car (author, carName, year, distance, fuel, area, price, content, writeDate, writeTime, readCount)
-        values (#{author}, #{carName}, #{year},#{distance},#{fuel},#{area},#{price},#{content},#{writeDate}, #{writeTime}, 0)
+        insert into Car (carId, mid,author, carName, year, distance, fuel, area, price, content, writeDate, writeTime, readCount)
+        values (#{carId}, #{mid}, #{author}, #{carName}, #{year},#{distance},#{fuel},#{area},#{price},#{content},#{writeDate}, #{writeTime}, 0)
     </insert>
 
     <update id="putCar" parameterType="com.example.carstoreapi.car.model.CarDTO">

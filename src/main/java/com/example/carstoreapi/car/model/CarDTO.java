@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class CarDTO {
     private int carId;
-    private String mid;
+    private long mid;
     private String author;
     private String carName;
     private String year;
@@ -32,7 +32,7 @@ public class CarDTO {
     public String toString() {
         return "CarDTO{" +
                 "carId" + carId +
-                ", mid=" + mid + '\'' +
+                ", mid=" + mid +
                 ", author=" + author + '\'' +
                 ", carName=" + carName + '\'' +
                 ", year=" + year + '\'' +
