@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-card color="red" width="600px">
-    </v-card>
-    <v-card width="600px" height="1500px" >
+    <v-card width="650px" height="790px" >
       <div>작성자 : {{users.author}}</div>
       <div>차량명 : {{users.carName}}</div>
       <div>연식 : {{users.year}}</div>
@@ -23,6 +21,31 @@
 
       <v-btn @click="putAuthority()">글 수정</v-btn>
       <v-btn @click="delAuthority()">글 삭제</v-btn>
+      <v-btn @click="linkTo(link1)">글 목록</v-btn>
+
+    </v-card>
+
+    <v-card width="650px" height="1500px" >
+      <v-form>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                  v-model="content"
+                  :append-outer-icon="'mdi-send'"
+                  filled
+                  clear-icon="mdi-close-circle"
+                  clearable
+                  label="댓글을 입력하세요"
+                  type="text"
+                  @click:append-outer="writeComment"
+                  @click:clear="clearComment"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+
       <v-data-table
           :headers="headers"
           :items="cusers"
@@ -43,13 +66,15 @@ export default {
       cusers:[],
       link1: "Car",
       mid:this.$store.state.userStore.mid,
+      nickName:this.$store.state.userStore.nickName,
+      content: '',
 
       headers: [
         {text: '작성자', value: 'author'},
         {text: '내용', value: 'content'},
         {text: '날짜', value: 'writeDate'},
-        {text: '시간', value: 'writeDate'},
-        { text: 'Actions', value: 'actions',  align: 'center',sortable: false },
+        {text: '시간', value: 'writeTime'},
+        { text: '수정/삭제', value: 'actions',  align: 'center',sortable: false },
 
       ],
     }
@@ -94,6 +119,34 @@ export default {
           .catch(e => {
             console.log(e);
           })
+        },
+
+        writeComment () {
+          let data = {}
+          data.carId = this.$route.query.carId
+          data.mid = this.mid
+          data.author = this.nickName
+          data.content = this.content
+
+          this.$axios.post("comment/", JSON.stringify(data), {
+            headers: {
+              "Content-Type": `application/json`,
+            },
+          }).then(res => {
+            if(res.data.success===true) {
+              alert('댓글이 등록되었습니다.')
+              this.$router.go(0);
+            } else {
+              alert("실행중 실패했습니다.");
+            }
+          })
+            .catch((err)=>{
+              console.log(err);
+            })
+        },
+
+        clearComment () {
+          this.message = ''
         },
 
         //댓글보여주기

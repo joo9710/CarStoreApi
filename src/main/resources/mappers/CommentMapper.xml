@@ -4,8 +4,8 @@
 <mapper namespace="com.example.carstoreapi.comment.model.CommentDAO">
 
     <insert id="postComment" parameterType="com.example.carstoreapi.comment.model.CommentDTO">
-        INSERT INTO Comment (carId, author, content, writeDate, writeTime)
-        values (#{carId}, #{author}, #{content}, #{writeDate}, #{writeTime})
+        INSERT INTO Comment (carId, mid,author, content, writeDate, writeTime)
+        values (#{carId},#{mid}, #{author}, #{content}, #{writeDate}, #{writeTime})
     </insert>
 
     <select id="getCommentsByCarId" parameterType="int" resultType="com.example.carstoreapi.comment.model.CommentDTO">

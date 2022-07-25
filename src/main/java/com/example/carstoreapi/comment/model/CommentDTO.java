@@ -16,7 +16,7 @@ import java.time.LocalTime;
 public class CommentDTO {
     private int cid;
     private int carId;
-    private String mid;
+    private long mid;
     private String author;
     private String content;
     private LocalDate writeDate;
@@ -27,7 +27,7 @@ public class CommentDTO {
         return "CommentDTO{" +
                 "cid=" + cid +
                 ", carId=" +  carId+
-                ", mid-" + mid + '\'' +
+                ", mid=" + mid +
                 ", author=" + author + '\'' +
                 ", content=" + content + '\'' +
                 ", writeDate=" + writeDate +
