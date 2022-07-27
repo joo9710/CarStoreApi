@@ -29,6 +29,12 @@ public class CommentController {
         return commentService.getCommentsByCarId(carId);
     }
 
+    // cid에 해당하는 댓글 불러오기
+    @GetMapping(value= "/load/{cid}")
+    public ApiResponse<CommentDTO> getCommentByCid(@PathVariable int cid) throws Exception {
+        return commentService.getCommentByCid(cid);
+    }
+
     // 댓글 수정
     @PutMapping(value = "/{cid}")
     public String putComment(@PathVariable int cid,

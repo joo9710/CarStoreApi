@@ -13,6 +13,9 @@ public interface CommentDAO {
    // 글 별로 댓글 리스트 불러오기
    List<CommentDTO> getCommentsByCarId(int carId);
 
+   // cid에 해당하는 댓글 불러오기
+   CommentDTO getCommentByCid(int cid);
+
    // 댓글 수정
    int putComment(CommentDTO commentDTO);
 

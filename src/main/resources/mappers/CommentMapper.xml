@@ -10,7 +10,12 @@
 
     <select id="getCommentsByCarId" parameterType="int" resultType="com.example.carstoreapi.comment.model.CommentDTO">
         SELECT * FROM Comment
-        WHERE carId = #{carId}
+        WHERE carId = #{carId} and isDel = 'N';
+    </select>
+
+    <select id="getCommentByCid" parameterType="int" resultType="com.example.carstoreapi.comment.model.CommentDTO">
+        SELECT * FROM Comment
+        WHERE cid = #{cid}
     </select>
 
     <update id="putComment" parameterType="com.example.carstoreapi.comment.model.CommentDTO">
@@ -22,8 +27,8 @@
     </update>
 
     <delete id="delComment" parameterType="int">
-        DELETE
-        FROM Comment
+        UPDATE Comment
+        SET isDel=#{isDEl}
         WHERE cid=#{cid}
     </delete>
 </mapper>

@@ -51,19 +51,49 @@
           :items="cusers"
           class="elevation-1">
 
+        <template v-slot:item.actions="{ item }">
+
+          <v-icon
+              small
+              class="mr-2"
+              @click="openDialog(item.cid,item.mid)"
+          >
+            mdi-pencil
+          </v-icon>
+            /
+          <v-icon
+              class="mr-2"
+              @click="linkTo5(item.cid)"
+          >
+            mdi-delete
+          </v-icon>
+        </template>
       </v-data-table>
+
+
     </v-card>
+
+
+  <CarCommentChange
+    ref="CarComment"
+  >
+  </CarCommentChange>
+
   </div>
 </template>
 <script>
+
+
+import CarCommentChange from "@/views/CarCommentChange";
 export default {
   name: 'CarDetail.vue',
-
+  components: {CarCommentChange},
   data () {
     return {
       users: '',
       userFile: '',
       cusers:[],
+      cuser:'',
       link1: "Car",
       mid:this.$store.state.userStore.mid,
       nickName:this.$store.state.userStore.nickName,
@@ -74,9 +104,11 @@ export default {
         {text: '내용', value: 'content'},
         {text: '날짜', value: 'writeDate'},
         {text: '시간', value: 'writeTime'},
-        { text: '수정/삭제', value: 'actions',  align: 'center',sortable: false },
+        { text: '수정  /  삭제', value: 'actions',  align: 'center',sortable: false },
 
       ],
+
+
     }
   },
 
@@ -88,6 +120,16 @@ export default {
 
       methods: {
 
+        openDialog(cid,mid){
+          console.log("dialog : " + cid)
+          if(mid==this.mid){
+          this.$refs.CarComment.childDialog(cid)
+          }
+          else{
+            alert("댓글 수정 권한이 없습니다.");
+          }
+        },
+
         linkTo(data){
           this.$router.push({name:data})
         },
@@ -97,6 +139,7 @@ export default {
           this.$router.push({name:"CarChange", query: { carId: carId }})
         },
 
+        //글 상세내용 보여주기
         retrieveUsers() {
           let carId = this.$route.query.carId
           this.$axios.get("car/" + carId)
@@ -109,6 +152,7 @@ export default {
               })
         },
 
+        //이미지 보여주기(fileNmae읽기)
         retrieveUsers2() {
           let carId = this.$route.query.carId
           this.$axios.get("car/showFile/" + carId)
@@ -121,6 +165,7 @@ export default {
           })
         },
 
+        //댓글 쓰기
         writeComment () {
           let data = {}
           data.carId = this.$route.query.carId
@@ -161,6 +206,8 @@ export default {
             console.log(e);
           })
         },
+
+        //해당하는 cid 댓글 불러오기
 
         //수정권한 mid비교
       putAuthority() {

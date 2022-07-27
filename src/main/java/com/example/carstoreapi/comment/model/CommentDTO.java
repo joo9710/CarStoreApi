@@ -21,6 +21,7 @@ public class CommentDTO {
     private String content;
     private LocalDate writeDate;
     private LocalTime writeTime;
+    private String isDel;
 
     @Override
     public String toString() {

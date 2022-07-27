@@ -12,27 +12,27 @@
 
           <tr>
             <th>차량명</th>
-            <td><input type="carName" v-model="carName" ref="carName" /></td>
+            <td><input type="carName" v-model="users.carName" ref="carName" /></td>
           </tr>
 
           <tr>
             <th>주행거리</th>
-            <td><textarea v-model="distance" ref="distance"></textarea></td>
+            <td><textarea v-model="users.distance" ref="distance"></textarea></td>
           </tr>
 
           <tr>
             <th>지역</th>
-            <td><textarea v-model="area" ref="area"></textarea></td>
+            <td><textarea v-model="users.area" ref="area"></textarea></td>
           </tr>
 
           <tr>
             <th>가격</th>
-            <td><textarea v-model="price" ref="users.price"></textarea></td>
+            <td><textarea v-model="users.price" ref="users.price"></textarea></td>
           </tr>
 
           <tr>
             <th>내용</th>
-            <td><textarea v-model="content" ref="content"></textarea></td>
+            <td><textarea v-model="users.content" ref="content"></textarea></td>
           </tr>
 
         </table>
@@ -95,11 +95,11 @@ export default {
 
     change() {
       let data = {}
-      data.carName = this.carName
-      data.distance= this.distance
-      data.area = this.area
-      data.price = this.price
-      data.content = this.content
+      data.carName = this.users.carName
+      data.distance= this.users.distance
+      data.area = this.users.area
+      data.price = this.users.price
+      data.content = this.users.content
 
       let carId = this.$route.query.carId
       this.$axios.put("car/" + carId, JSON.stringify(data), {

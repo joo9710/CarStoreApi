@@ -6,6 +6,8 @@ import Login from "@/views/Login";
 import CarWrite from "@/views/CarWrite";
 import CarDetail from "@/views/CarDetail";
 import CarChange from "@/views/CarChange";
+import test from "@/views/test";
+import test2 from "@/views/test2";
 
 Vue.use(VueRouter)
 
@@ -36,11 +38,20 @@ const routes = [
     component: CarDetail
   },
   {
-    path: '/CarChance',
+    path: '/CarChange',
     name: 'CarChange',
     component: CarChange
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: test
+  },
+  {
+    path: '/test2',
+    name: 'test2',
+    component: test2
   }
-
 ]
 
 const router = new VueRouter({

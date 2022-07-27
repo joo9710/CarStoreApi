@@ -46,6 +46,12 @@ public class CommentService {
         return new ApiResponse(true, "success to get comments by carId" + carId,comments);
     }
 
+    // cid에 해당하는 댓글 불러오기
+    public ApiResponse<CommentDTO> getCommentByCid(int cid) {
+        CommentDTO data = commentDAO.getCommentByCid(cid);
+        return new ApiResponse(true, "success to get comment by cid" + cid, data);
+    }
+
     // 댓글 수정
     public String putComment(int cid, CommentDTO commentDTO) throws Exception {
 
