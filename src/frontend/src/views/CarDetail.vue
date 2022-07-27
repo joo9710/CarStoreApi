@@ -56,14 +56,14 @@
           <v-icon
               small
               class="mr-2"
-              @click="openDialog(item.cid,item.mid)"
+              @click="putOpenDialog(item.cid,item.mid)"
           >
             mdi-pencil
           </v-icon>
             /
           <v-icon
               class="mr-2"
-              @click="linkTo5(item.cid)"
+              @click="delOpenDialog(item.cid,item.mid)"
           >
             mdi-delete
           </v-icon>
@@ -79,15 +79,21 @@
   >
   </CarCommentChange>
 
+  <CarCommentDel
+    ref="CommentDel">
+  </CarCommentDel>
   </div>
 </template>
 <script>
 
 
 import CarCommentChange from "@/views/CarCommentChange";
+import CarCommentDel from "@/views/CarCommentDel"
+
 export default {
   name: 'CarDetail.vue',
-  components: {CarCommentChange},
+  components: {CarCommentDel, CarCommentChange},
+
   data () {
     return {
       users: '',
@@ -119,14 +125,24 @@ export default {
       },
 
       methods: {
-
-        openDialog(cid,mid){
+        //댓글 수정 dialog
+        putOpenDialog(cid,mid){
           console.log("dialog : " + cid)
           if(mid==this.mid){
-          this.$refs.CarComment.childDialog(cid)
+          this.$refs.CarComment.putChildDialog(cid)
           }
           else{
             alert("댓글 수정 권한이 없습니다.");
+          }
+        },
+
+        //댓글 삭제 dialog
+        delOpenDialog(cid,mid){
+          console.log("dialog: " + cid)
+          if(mid==this.mid){
+            this.$refs.CommentDel.delChildDialog(cid)
+          }else{
+            alert("댓글을 삭제할 수 없습니다.");
           }
         },
 

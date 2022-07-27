@@ -28,7 +28,7 @@
 
     <delete id="delComment" parameterType="int">
         UPDATE Comment
-        SET isDel=#{isDEl}
+        SET isDel= 'Y'
         WHERE cid=#{cid}
     </delete>
 </mapper>

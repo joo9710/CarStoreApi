@@ -49,7 +49,7 @@ export default {
   },
 
   methods: {
-    childDialog(cid){
+    putChildDialog(cid){
       console.log('child cid '+ cid);
       this.cid =cid;
       this.dialog = true;
