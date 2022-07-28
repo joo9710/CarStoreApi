@@ -90,7 +90,9 @@
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
-          <v-btn text>
+          <v-btn
+          @click="linkTo(link2)"
+          >
             취소
           </v-btn>
           <v-spacer></v-spacer>
@@ -128,7 +130,8 @@ export default {
     formHasErrors: false,
     show1:false,
     show2:false,
-    link1:"Login"
+    link1:"Login",
+    link2:"Car"
   }),
   computed: {
     form () {

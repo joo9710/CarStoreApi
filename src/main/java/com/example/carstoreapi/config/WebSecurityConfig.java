@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public LogoutSuccessHandler logoutSuccessHandler() {
         CustomLogoutSuccessHandler logoutSuccessHandler = new CustomLogoutSuccessHandler();
 
-        logoutSuccessHandler.setDefaultTargetUrl("/");
+        logoutSuccessHandler.setDefaultTargetUrl("http://localhost:8081/#/");
         return logoutSuccessHandler;
     }
 }

@@ -10,8 +10,9 @@ const userStore = {
         mid:'',
         nickName:'',
         area:'',
-        fileName:''
+        fileName:'',
     },
+
 
     mutations: {
         loginData: function (state, data) {
@@ -37,7 +38,19 @@ const userStore = {
             state.fileName = require('@/assets' + data.fileName)
             console.log("carId state : " + data.carId)
             console.log("carId state : " + state.fileName)
-        }
+        },
+
+        initData : function(state){
+            state.userId = ''
+                state.token= ''
+                state.fullName=''
+                state.email=''
+                state.mid=''
+                state.nickName=''
+                state.area=''
+                state.fileName=''
+            console.log("logout state : " + state.mid)
+        },
 
         //loginCheck: function (state) {
           //  if (!state.token) {
@@ -71,6 +84,7 @@ const userStore = {
             })
                 .then((res) => {
                     console.log(res.data)
+                    data.fullName = res.data.fullName
                     data.nickName = res.data.nickName
                     data.area = res.data.area
                     data.mid = res.data.mid
@@ -92,6 +106,21 @@ const userStore = {
                     resolve()
                     }, 1000)
             })
+        },
+
+        logout({commit}){
+            axios.post("/logout")
+                .then(() => {
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            commit('initData');
+                            resolve()
+                        }, 1000)
+                    })
+                })
+                .catch((err) =>{
+                    console.log(err.response);
+                })
         }
     },
 }

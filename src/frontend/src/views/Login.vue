@@ -12,10 +12,10 @@
                   <v-form style="width: 400px; height: 300px">
                     <div class="mx-3">
                       <v-icon color="black" size="30px"></v-icon>
-                      userId
+                      Email
                       <div class="mx-1">
                         <v-text-field
-                            placeholder="userId"
+                            placeholder="Email"
                             v-model="userId"
                             required
                         ></v-text-field>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="mx-3">
                       <v-icon color="black" size="30px"></v-icon>
-                      userPassword
+                      Password
                       <div class="mx-1">
                         <v-text-field
                             placeholder="userPassword"
@@ -41,7 +41,18 @@
                           large
                           block
                           @click="loginSubmit"
-                      >Login</v-btn
+                      >로그인</v-btn
+                      >
+                    </v-card-actions>
+
+                    <v-card-actions>
+                      <v-btn
+                          color="#2c4f91"
+                          dark
+                          large
+                          block
+                          @click="linkTo(link1)"
+                      >회원가입</v-btn
                       >
                     </v-card-actions>
                   </v-form>
@@ -62,10 +73,15 @@ export default {
       userId: "123@naver.com",
       userPassword: "123",
       token:'',
-      nickName:''
+      nickName:'',
+      link1:"SignUp"
     };
   },
   methods: {
+    linkTo(data){
+      this.$router.push({name: data})
+    },
+
     loginSubmit() {
       let Data = {};
       Data.email = this.userId;

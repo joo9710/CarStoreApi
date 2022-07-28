@@ -26,7 +26,15 @@
           >
 
             <v-btn @click="linkTo(link1)">글 쓰기</v-btn>
+
+            <v-spacer></v-spacer>
+
+            <v-btn @click="linkTo(link2)">로그인</v-btn>
+            <v-btn @click="logout">로그아웃</v-btn>
           </v-toolbar>
+
+
+
         </template>
 
         <template v-slot:item.thumb="{ item }">
@@ -65,6 +73,7 @@ export default {
       users: [],
     search: '',
     link1:"CarWrite",
+    link2:"Login",
       headers: [
         { text: '사진', value: 'thumb' },
         { text: '차량정보', value: 'content' },
@@ -93,6 +102,11 @@ export default {
 
     linkTo(data){
       this.$router.push({name: data})
+    },
+
+    logout(){
+      console.log('logout')
+      this.$store.dispatch('logout')
     }
 
   },
