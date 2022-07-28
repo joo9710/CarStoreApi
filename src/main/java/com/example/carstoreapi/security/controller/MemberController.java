@@ -27,7 +27,7 @@ public class MemberController {
     @PostMapping("/api/member")
     public String saveMember(@RequestBody MemberDto memberDto){
         log.debug("de : " + memberDto);
-        memberRepository.save(Member.createMember(memberDto.getEmail(),
+        memberRepository.save(Member.createMember(memberDto.getFullName(), memberDto.getEmail(),
                 passwordEncoder.encode(memberDto.getPassword()), memberDto.getNickName(), memberDto.getArea(), memberDto.getPhoneNumber()));
         return "success";
     }
@@ -43,6 +43,7 @@ public class MemberController {
 @Data
 class MemberDto{
     private Long mid;
+    private String fullName;
     private String email;
     private String password;
     private String nickName;

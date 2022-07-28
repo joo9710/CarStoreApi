@@ -5,6 +5,7 @@ const userStore = {
     state: {
         userId: '',
         token: '',
+        fullName:'',
         email:'',
         mid:'',
         nickName:'',

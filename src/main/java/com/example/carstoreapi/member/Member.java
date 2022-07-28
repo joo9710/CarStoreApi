@@ -17,6 +17,7 @@ public class Member {
     private Long mid;
 
     @Column(unique = true)
+    private String fullName;
     private String email;
     private String password;
     private String nickName;
@@ -24,7 +25,8 @@ public class Member {
     private String phoneNumber;
 
 
-    public Member(String email, String password, String nickName, String area , String phoneNumber) {
+    public Member(String fullName, String email, String password, String nickName, String area , String phoneNumber) {
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.nickName = nickName;
@@ -32,7 +34,7 @@ public class Member {
         this.phoneNumber = phoneNumber;
     }
 
-    public static Member createMember(String email, String password, String nickName, String area, String phoneNumber){
-        return new Member(email, password, nickName, area, phoneNumber);
+    public static Member createMember(String fullName, String email, String password, String nickName, String area, String phoneNumber){
+        return new Member(fullName, email, password, nickName, area, phoneNumber);
     }
 }

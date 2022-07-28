@@ -8,6 +8,7 @@ import CarDetail from "@/views/CarDetail";
 import CarChange from "@/views/CarChange";
 import test from "@/views/test";
 import test2 from "@/views/test2";
+import SignUp from "@/views/SignUp";
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/test2',
     name: 'test2',
     component: test2
+  },
+  {
+    path: '/SignUp',
+    name: 'SignUp',
+    component: SignUp
   }
 ]
 
