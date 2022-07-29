@@ -56,6 +56,7 @@ public class CarController {
                              @RequestParam("area")String area,
                              @RequestParam("price")String price,
                              @RequestParam("content")String content,
+                             @RequestParam("thumb")MultipartFile multipartThumb,
                              @RequestParam("file")MultipartFile multipartFile){
 
 
@@ -72,7 +73,7 @@ public class CarController {
 
        int newId = carService.postCar(carDTO);
        log.debug("test : " + newId);
-
+       carService.saveThumb(newId, multipartThumb);
        return carService.saveFile(newId, multipartFile);
 
     }

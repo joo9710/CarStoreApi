@@ -62,6 +62,25 @@
 
           </v-col>
       </tr>
+
+      <tr style="height: 160px">
+        <v-col>
+          <v-card style="width: 200px; height: 200px">
+            <img
+                :src="thumbUrl"
+                style="object-fit: cover; width: 200px; height: 200px;"
+                alt=""
+            >
+          </v-card>
+
+          <div class="file-div">
+            <h5>썸네일 이미지 선택</h5>
+            <input @change="upload2" type="file" id="thumb" accept="image/png, image/jpeg">
+            <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
+          </div>
+
+        </v-col>
+      </tr>
     </div>
 
     <div class="btnWrap">
@@ -92,6 +111,8 @@ export default {
       link1: "Car",
 
       imageUrl: this.$store.state.userStore.fileName,
+      thumbUrl:this.$store.state.userStore.thumb,
+      thumbFile:[],
       imgFile:[],
 
       dialog:false,
@@ -100,39 +121,12 @@ export default {
   },
 
   methods: {
-    write1() {
-      let data = {}
-      data.mid = this.mid
-      data.author = this.nickName
-      data.carName = this. carName
-      data.year = this.year
-      data.distance = this.distance
-      data.fuel = this.fuel
-      data.area = this.area
-      data.price = this.price
-      data.content = this.content
-
-      this.$axios.post("car/", JSON.stringify(data), {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      }).then((res)=>{
-        console.log(res.data)
-        if(res.data.success===true) {
-          alert('등록되었습니다.');
-          this.linkTo(this.link1)
-        } else {
-          alert("등록이 실패하였습니다");
-        }
-      })
-          .catch((err)=>{
-            console.log(err);
-          })
-    },
 
     editImage() {
+      console.log(this.thumbFile)
       let data = new FormData();
       data.append("file", this.imgFile);
+      data.append("thumb", this.thumbFile);
       data.append("mid", this.mid);
       data.append("author", JSON.stringify(this.nickName));
       data.append("carName", JSON.stringify(this.carName));
@@ -162,6 +156,12 @@ export default {
       let imageFile = e.target.files;
       this.imgFile = imageFile[0]
       this.imageUrl = URL.createObjectURL(imageFile[0]);
+    },
+
+    upload2(e) {
+      let thumbFile = e.target.files;
+      this.thumbFile = thumbFile[0]
+      this.thumbUrl = URL.createObjectURL(thumbFile[0]);
     },
 
     linkTo(data) {

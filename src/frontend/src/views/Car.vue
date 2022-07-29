@@ -1,7 +1,7 @@
 <template>
   <div>
-
-    <v-card width="100vw" height="1500px">
+    <v-row justify="center">
+    <v-card width="830px" height="900px">
 
 
       <v-text-field
@@ -38,7 +38,13 @@
         </template>
 
         <template v-slot:item.thumb="{ item }">
-          <img alt="" :src="item.thumb"/>
+          <v-img
+              v-if="item.thumb"
+              :src="require('@/assets/thumb/'+ item.thumb)"
+              style="object-fit: cover"
+              height="120px"
+              width="180px"
+              alt=""/>
         </template>
 
         <template v-slot:item.content="{ item }">
@@ -61,6 +67,7 @@
         </template>
       </v-data-table>
     </v-card>
+    </v-row>
   </div>
 
 </template>

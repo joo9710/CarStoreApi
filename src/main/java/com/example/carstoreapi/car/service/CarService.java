@@ -33,6 +33,9 @@ public class CarService {
     @Value("${uploadImg.path}")
     private String uploadFolder;
 
+    @Value("${uploadThumb.path}")
+    private String uploadThumbFolder;
+
     //글 읽기
     public List<CarDTO> getCarList() {
 
@@ -76,6 +79,26 @@ public class CarService {
             fileDTO.setCarId(carId);
             fileDTO.setFileName(imgFileName);
             int result = fileDAO.fileUpload(fileDTO);
+            return "저장 결과 : " + result;
+        }
+        return null;
+    }
+
+    // 썸네일 등록
+    public String saveThumb(int carId, MultipartFile multipartThumb) {
+
+
+        String thumbFileName = carId + "carIdThumb" + multipartThumb.getOriginalFilename();
+        Path thumbFilePath = Paths.get(uploadThumbFolder + thumbFileName);
+        log.debug("thumbFileName :" + thumbFileName);
+        if (multipartThumb.getSize() != 0) {
+            try {
+                Files.write(thumbFilePath, multipartThumb.getBytes());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int result = carDAO.thumbUpload(carId, thumbFileName);
+            log.debug("thumb result : " + result);
             return "저장 결과 : " + result;
         }
         return null;

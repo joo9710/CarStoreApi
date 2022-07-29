@@ -52,6 +52,12 @@
         SELECT MAX(carId) AS carId FROM car;
     </select>
 
+    <update id="thumbUpload" parameterType="com.example.carstoreapi.car.model.CarDTO">
+        update Car
+        SET thumb = #{thumb}
+        WHERE carId = #{carId}
+    </update>
+
 
 </mapper>
 

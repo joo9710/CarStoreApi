@@ -11,6 +11,7 @@ const userStore = {
         nickName:'',
         area:'',
         fileName:'',
+        thumb:''
     },
 
 

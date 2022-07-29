@@ -1,6 +1,7 @@
 package com.example.carstoreapi.car.model;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface CarDAO {
     //carId 1증가
     int maxCarId();
 
+    //썸네일 업로드
+    int thumbUpload(int carId, String thumb);
 }
