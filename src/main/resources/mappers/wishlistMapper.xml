@@ -8,4 +8,15 @@
         values (#{mid}, #{carId}, #{carName}, #{year}, #{distance}, #{area}, #{price}, #{thumb})
     </insert>
 
+    <select id="getWishListByMid" parameterType="long" resultType="com.example.carstoreapi.wishlist.model.WishlistDTO">
+        SELECT * FROM wishlist
+        WHERE mid = #{mid}
+    </select>
+
+    <delete id="delWishList" parameterType="long">
+        DELETE
+        FROM wishlist
+        WHERE wid = #{wid}
+    </delete>
+
 </mapper>
