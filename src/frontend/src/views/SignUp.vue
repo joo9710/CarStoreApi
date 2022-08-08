@@ -133,18 +133,6 @@ export default {
     link1:"Login",
     link2:"Car"
   }),
-  computed: {
-    form () {
-      return {
-        name: this.name,
-        address: this.address,
-        city: this.city,
-        state: this.state,
-        zip: this.zip,
-        country: this.country,
-      }
-    },
-  },
   watch: {
     name () {
       this.errorMessages = ''

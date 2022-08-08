@@ -146,7 +146,11 @@ export default {
           "Content-Type": "multipart/form-data", // Content-Type 주의
         },
       }).then(response => {
+        if(response.status === 200) {
         console.log(response.data)
+          alert("글이 작성되었습니다.");
+          this.linkTo(this.link1);
+        }
       }).catch(error => {
         console.log(error.response);
       })

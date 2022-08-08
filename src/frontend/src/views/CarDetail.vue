@@ -22,7 +22,7 @@
       <v-btn @click="putAuthority()">글 수정</v-btn>
       <v-btn @click="delAuthority()">글 삭제</v-btn>
       <v-btn @click="linkTo(link1)">글 목록</v-btn>
-
+      <v-btn @click="addWishList()">찜하기</v-btn>
     </v-card>
 
     <v-card width="650px" height="1500px" >
@@ -103,8 +103,13 @@ export default {
       link1: "Car",
       mid:this.$store.state.userStore.mid,
       nickName:this.$store.state.userStore.nickName,
+      carName:'',
       content: '',
-
+      year:'',
+      distance:'',
+      area:'',
+      price:'',
+      thumb:'',
       headers: [
         {text: '작성자', value: 'author'},
         {text: '내용', value: 'content'},
@@ -242,7 +247,37 @@ export default {
               alert("삭제 되었습니다.");
             this.$router.go(-1);
           }else alert("글 삭제 권한이 없습니다.");
-        }
+        },
+
+        //찜목록 추가하기
+        addWishList() {
+          let data = {}
+          data.mid = this.mid
+          data.carId = this.$route.query.carId
+          data.carName = this.users.carName
+          data.year =this.users.year
+          data.distance =this.users.distance
+          data.area =this.users.area
+          data.price =this.users.price
+          data.thumb =this.users.thumb
+
+          this.$axios.post("wishlist/", JSON.stringify(data), {
+            headers: {
+              "Content-Type": `application/json`,
+            }
+          }).then(res => {
+            if(res.data.success===true) {
+              alert('찜목록에 추가되었습니다.')
+            } else {
+              alert("실행중 실패했습니다.");
+            }
+          })
+              .catch((err)=>{
+                console.log(err);
+              })
+        },
+
+
 
       }
 }

@@ -17,8 +17,17 @@
           :items="users"
           :search="search"
           :items-per-page="5"
-          class="elevation-1"
-      >
+          class="elevation-1">
+
+          <template v-slot:item.action="{item}">
+            <v-icon
+                small
+                class="mr2"
+                @click="showWishSelectSet(item.carId)" :color="item.select ? 'rgb(200,80,80)' : 'rgb(180,180,180)'"
+                >mdi-heart
+            </v-icon>
+
+          </template>
 
         <template v-slot:top>
           <v-toolbar
@@ -81,13 +90,31 @@ export default {
     search: '',
     link1:"CarWrite",
     link2:"Login",
+
+    //위시리스트
+    showSelect : false,
+    absolute: true,
+    selectWishList: [],
+    select:true,
+
+
+    wishCars:[],
+
       headers: [
-        { text: '사진', value: 'thumb' },
+        { text: '', value: 'thumb' },
         { text: '차량정보', value: 'content' },
+        { text: '찜하기', value: 'action', align:'center', sortable: false},
         { text: '가격', value: 'price',  align: 'center',sortable: false },
       ],
 
   }),
+
+  watch: {
+    select (msg) {
+      console.log('new wish' + msg);
+
+    },
+  },
 
   methods: {
 
@@ -100,6 +127,9 @@ export default {
           })
           .then(response => {
             this.users = response.data;
+            for(let i=0;i<response.data.length;i++){
+              this.users[i].select = false;
+            }
             console.log(response.data);
           })
           .catch(e => {
@@ -114,8 +144,25 @@ export default {
     logout(){
       console.log('logout')
       this.$store.dispatch('logout')
-    }
+      alert("로그아웃 처리 되었습니다.");
+    },
 
+
+    //찜목록 추가
+    postWishList(){
+
+    },
+
+    showWishSelectSet(item){
+      console.log(item)
+      for(let i=0; i<5; i++){
+        if(this.users[i].carId === item){
+          console.log("true")
+          this.users[i].select = !this.users[i].select
+        }
+      }
+      console.log(this.users)
+    }
   },
 
   mounted() {
