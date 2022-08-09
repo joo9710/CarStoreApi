@@ -251,6 +251,7 @@ export default {
 
         //찜목록 추가하기
         addWishList() {
+          if(this.mid!= 0){
           let data = {}
           data.mid = this.mid
           data.carId = this.$route.query.carId
@@ -269,13 +270,17 @@ export default {
             if(res.data.success===true) {
               alert('찜목록에 추가되었습니다.')
             } else {
-              alert("실행중 실패했습니다.");
+              alert("이미 찜목록에 추가된 차량입니다.");
             }
           })
               .catch((err)=>{
                 console.log(err);
               })
-        },
+        }else {
+            alert("로그인 후 이용해 주세요")
+          }
+          },
+
 
 
 

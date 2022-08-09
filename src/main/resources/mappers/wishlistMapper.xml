@@ -19,4 +19,9 @@
         WHERE wid = #{wid}
     </delete>
 
+    <select id="getWishCar" parameterType="int" resultType="com.example.carstoreapi.wishlist.model.WishlistDTO">
+        SELECT * FROM wishlist
+        WHERE carId = #{carId}
+    </select>
+
 </mapper>

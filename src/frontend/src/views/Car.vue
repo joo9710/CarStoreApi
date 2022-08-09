@@ -34,12 +34,20 @@
               flat
           >
 
+            <div v-show="wishBtnShow">
             <v-btn @click="linkTo(link1)">글 쓰기</v-btn>
+            <v-btn @click="linkTo(link3)">나의 찜목록</v-btn>
+            </div>
 
             <v-spacer></v-spacer>
 
+            <div v-show = "loginBtnShow">
             <v-btn @click="linkTo(link2)">로그인</v-btn>
+            </div>
+
+            <div v-show="wishBtnShow">
             <v-btn @click="logout">로그아웃</v-btn>
+            </div>
           </v-toolbar>
 
 
@@ -90,12 +98,17 @@ export default {
     search: '',
     link1:"CarWrite",
     link2:"Login",
+    link3:"WishList",
+
+    loginBtnShow:false,
+    wishBtnShow:false,
 
     //위시리스트
     showSelect : false,
     absolute: true,
     selectWishList: [],
     select:true,
+
 
 
     wishCars:[],
@@ -131,6 +144,14 @@ export default {
               this.users[i].select = false;
             }
             console.log(response.data);
+            if(this.$store.state.userStore.mid==0) {
+              this.loginBtnShow =true
+              this.wishBtnShow = false
+            }
+            else {
+              this.loginBtnShow=false
+              this.wishBtnShow=true
+            }
           })
           .catch(e => {
             console.log(e);
@@ -145,6 +166,7 @@ export default {
       console.log('logout')
       this.$store.dispatch('logout')
       alert("로그아웃 처리 되었습니다.");
+
     },
 
 

@@ -9,6 +9,7 @@ import CarChange from "@/views/CarChange";
 import test from "@/views/test";
 import test2 from "@/views/test2";
 import SignUp from "@/views/SignUp";
+import WishList from "@/views/WishList";
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,12 @@ const routes = [
     path: '/SignUp',
     name: 'SignUp',
     component: SignUp
+  },
+
+  {
+    path: '/WishList',
+    name: 'WishList',
+    component: WishList
   }
 ]
 
