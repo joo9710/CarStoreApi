@@ -2,6 +2,8 @@ package com.example.carstoreapi.wishlist.model;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface WishlistDAO {
 
@@ -9,8 +11,11 @@ public interface WishlistDAO {
     int postWishList(WishlistDTO wishlistDTO);
 
     // mid로 찜목록 불러오기
-    WishlistDTO getWishListByMid(long mid);
+    List getWishListByMid(long mid);
 
     // 찜목록 삭제
     int delWishList(long wid);
+
+    //위시리스트에서 해당 carId가 있는지?
+    WishlistDTO getWishCar(int carId);
 }

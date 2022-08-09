@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -23,7 +25,7 @@ public class WishlistController {
 
     //해당하는 mid 찜목록 보기
     @GetMapping(value= "/{mid}")
-    public ApiResponse<WishlistDTO> getWishListByMid(@PathVariable long mid) throws Exception{
+    public List<WishlistDTO> getWishListByMid(@PathVariable long mid) throws Exception{
         log.debug("data" + mid);
         return wishlistservice.getWishListByMid(mid);
     }
