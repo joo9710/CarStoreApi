@@ -1,8 +1,10 @@
 package com.example.carstoreapi.car.controller;
 
+import com.example.carstoreapi.car.Criteria;
 import com.example.carstoreapi.car.model.CarDTO;
 import com.example.carstoreapi.car.model.FileDTO;
 import com.example.carstoreapi.car.service.CarService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +13,6 @@ import com.example.carstoreapi.common.ApiResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +27,13 @@ public class CarController {
     public List<CarDTO> getCarList(){
         log.debug("car");
         return carService.getCarList();
+    }
+
+    @GetMapping(value = "/pageList")
+    public List<CarDTO> getPageCarList(Criteria criteria) {
+
+        return carService.getPageCarList(criteria);
+
     }
 
     //{carId} 글 읽기

@@ -8,6 +8,10 @@
         SELECT * FROM Car Where isDel = 'N';
     </select>
 
+    <select id="getPageCarList" resultType="com.example.carstoreapi.car.model.CarDTO">
+        SELECT * FROM Car order by carId desc limit ${skip},${size}
+    </select>
+
     <insert id="postCar" parameterType="com.example.carstoreapi.car.model.CarDTO">
         insert into Car (carId, mid,author, carName, year, distance, fuel, area, price, content, writeDate, writeTime, readCount)
         values (#{carId}, #{mid}, #{author}, #{carName}, #{year},#{distance},#{fuel},#{area},#{price},#{content},#{writeDate}, #{writeTime}, 0)

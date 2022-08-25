@@ -1,5 +1,6 @@
 package com.example.carstoreapi.car.model;
 
+import com.example.carstoreapi.car.Criteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,6 +11,9 @@ public interface CarDAO {
 
     //글 읽기
     List<CarDTO> getCarList();
+
+    //페이징 처리
+    List<CarDTO> getPageCarList(Criteria criteria);
 
     //글 쓰기
     int postCar(CarDTO carDTO);

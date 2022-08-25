@@ -1,9 +1,7 @@
 package com.example.carstoreapi.car.service;
 
-import com.example.carstoreapi.car.model.CarDAO;
-import com.example.carstoreapi.car.model.CarDTO;
-import com.example.carstoreapi.car.model.FileDAO;
-import com.example.carstoreapi.car.model.FileDTO;
+import com.example.carstoreapi.car.Criteria;
+import com.example.carstoreapi.car.model.*;
 import com.example.carstoreapi.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +38,13 @@ public class CarService {
     public List<CarDTO> getCarList() {
 
         return carDAO.getCarList();
+    }
+
+    //페이징 처리
+    public List<CarDTO> getPageCarList(Criteria criteria) {
+
+        return carDAO.getPageCarList(criteria);
+
     }
 
     //{carId} 글 읽기
@@ -148,4 +153,5 @@ public class CarService {
         }
         return new ApiResponse(false, "failed to delete board id ");
     }
+
 }
