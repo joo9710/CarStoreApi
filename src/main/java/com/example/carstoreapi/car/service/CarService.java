@@ -42,9 +42,11 @@ public class CarService {
 
     //페이징 처리
     public List<CarDTO> getPageCarList(Criteria criteria) {
-
+            int total = carDAO.getTotalCar();
+        PageDTO pageDTO = new PageDTO(criteria, total);
+        log.debug("pageDTO " + pageDTO);
+        log.debug("totalCar" + total);
         return carDAO.getPageCarList(criteria);
-
     }
 
     //{carId} 글 읽기

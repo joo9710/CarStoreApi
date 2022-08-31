@@ -11,20 +11,15 @@ public class Criteria {
 
     private int pageNum;
 
-    private int size;
+    private int amount;
 
     public Criteria() {
         this(1,5);
     }
 
-    public Criteria(int pageNum, int size) {
+    public Criteria(int pageNum, int amount) {
         this.pageNum=pageNum;
-        this.size=size;
+        this.amount=amount;
     }
-
-    public int getSkip(){
-        return this.pageNum = (pageNum-1) * size;
-    }
-
 
 }

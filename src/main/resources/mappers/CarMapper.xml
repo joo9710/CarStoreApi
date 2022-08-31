@@ -9,7 +9,18 @@
     </select>
 
     <select id="getPageCarList" resultType="com.example.carstoreapi.car.model.CarDTO">
-        SELECT * FROM Car order by carId desc limit ${skip},${size}
+        <![CDATA[
+        select *
+        from (
+                 select @rownum:=@rownum+1 as rn, car.*
+                 from(select @rownum :=0)as rn, car
+             ) car
+        where rn > (#{pageNum} -1)* #{amount} and rn <= #{pageNum} * #{amount};
+        ]]>
+    </select>
+
+    <select id="getTotalCar" resultType="int">
+        select count(*) from car where carId>0
     </select>
 
     <insert id="postCar" parameterType="com.example.carstoreapi.car.model.CarDTO">

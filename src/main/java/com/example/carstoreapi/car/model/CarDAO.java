@@ -15,6 +15,9 @@ public interface CarDAO {
     //페이징 처리
     List<CarDTO> getPageCarList(Criteria criteria);
 
+    //total 글 목록
+    int getTotalCar();
+
     //글 쓰기
     int postCar(CarDTO carDTO);
 

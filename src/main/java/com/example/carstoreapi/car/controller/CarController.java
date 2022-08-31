@@ -3,11 +3,13 @@ package com.example.carstoreapi.car.controller;
 import com.example.carstoreapi.car.Criteria;
 import com.example.carstoreapi.car.model.CarDTO;
 import com.example.carstoreapi.car.model.FileDTO;
+import com.example.carstoreapi.car.model.PageDTO;
 import com.example.carstoreapi.car.service.CarService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import com.example.carstoreapi.common.ApiResponse;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,13 +28,15 @@ public class CarController {
     @GetMapping(value = "/")
     public List<CarDTO> getCarList(){
         log.debug("car");
+
         return carService.getCarList();
     }
 
     @GetMapping(value = "/pageList")
     public List<CarDTO> getPageCarList(Criteria criteria) {
-
-        return carService.getPageCarList(criteria);
+        log.debug("criteria" + criteria);
+            //int total = car.getTotalCar;
+            return carService.getPageCarList(criteria);
 
     }
 
