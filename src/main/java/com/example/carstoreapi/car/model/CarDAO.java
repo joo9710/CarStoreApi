@@ -1,6 +1,8 @@
 package com.example.carstoreapi.car.model;
 
 import com.example.carstoreapi.car.Criteria;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +16,8 @@ public interface CarDAO {
 
     //페이징 처리
     List<CarDTO> getPageCarList(Criteria criteria);
+
+    Page<CarDTO> getPageList(String isDel,PageRequest pageRequest);
 
     //total 글 목록
     int getTotalCar();

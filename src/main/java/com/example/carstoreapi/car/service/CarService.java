@@ -6,6 +6,8 @@ import com.example.carstoreapi.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class CarService {
+    public final CarRepository carRepository;
 
     public final CarDAO carDAO;
 
@@ -40,13 +43,22 @@ public class CarService {
         return carDAO.getCarList();
     }
 
-    //페이징 처리
+    //페이징 처리 Page<CarDTO>
+    /*
     public List<CarDTO> getPageCarList(Criteria criteria) {
             int total = carDAO.getTotalCar();
         PageDTO pageDTO = new PageDTO(criteria, total);
         log.debug("pageDTO " + pageDTO);
         log.debug("totalCar" + total);
+
         return carDAO.getPageCarList(criteria);
+    }
+
+     */
+
+    public Page<Car> getPageList(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return carRepository.findBoardsByIsDel("N", pageRequest);
     }
 
     //{carId} 글 읽기
@@ -55,6 +67,7 @@ public class CarService {
         carDAO.updateReadCount(carId);
         return new ApiResponse(true, data);
     }
+
     //글 쓰기
     public Integer postCar(CarDTO carDTO) throws Exception {
 

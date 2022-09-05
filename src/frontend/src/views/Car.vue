@@ -82,7 +82,21 @@
           </v-row>
 
         </template>
+
       </v-data-table>
+
+      <template>
+        <div class="text-center">
+          <v-pagination
+              v-model="page"
+              :length="totalPage"
+              prev-icon="mdi-menu-left"
+              next-icon="mdi-menu-right"
+              @input="retrieveUsers"
+          ></v-pagination>
+        </div>
+      </template>
+
     </v-card>
     </v-row>
   </div>
@@ -99,6 +113,10 @@ export default {
     link1:"CarWrite",
     link2:"Login",
     link3:"WishList",
+    page:1,
+    size:5,
+    length:5,
+    totalPage:0,
 
     loginBtnShow:false,
     wishBtnShow:false,
@@ -132,14 +150,18 @@ export default {
   methods: {
 
     retrieveUsers() {
-      this.$axios.get("car/",
-          {
+      let data = {};
+      data.page = this.page-1;
+      data.size = this.size;
+      this.$axios.post("car/page", JSON.stringify(data),{
             headers: {
-              Authorization: "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NTY5NTEwMDUsImlhdCI6MTY1NjkzMzAwNSwianRpIjoiMTIzQG5hdmVyLmNvbSJ9.MOAvpcz0nDdXcCCKiR4tuMEWlhAD1_5OmLCBhxs1n015vd8p3dL44nLVy_lrS_pLOZqOepXVUQDifnIkK3XSTg"
-            }
-          })
-          .then(response => {
-            this.users = response.data;
+              "Content-Type": `application/json`,
+            },
+          }).then(response => {
+            console.log(response.data)
+
+            this.users = response.data.content;
+            this.totalPage = response.data.totalPages;
             for(let i=0;i<response.data.length;i++){
               this.users[i].select = false;
             }
@@ -152,11 +174,14 @@ export default {
               this.loginBtnShow=false
               this.wishBtnShow=true
             }
+
+
           })
           .catch(e => {
             console.log(e);
           })
     },
+
 
     linkTo(data){
       this.$router.push({name: data})

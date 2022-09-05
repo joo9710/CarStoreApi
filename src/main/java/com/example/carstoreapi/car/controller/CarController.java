@@ -1,14 +1,13 @@
 package com.example.carstoreapi.car.controller;
 
 import com.example.carstoreapi.car.Criteria;
-import com.example.carstoreapi.car.model.CarDTO;
-import com.example.carstoreapi.car.model.FileDTO;
-import com.example.carstoreapi.car.model.PageDTO;
+import com.example.carstoreapi.car.model.*;
 import com.example.carstoreapi.car.service.CarService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import com.example.carstoreapi.common.ApiResponse;
@@ -28,17 +27,24 @@ public class CarController {
     @GetMapping(value = "/")
     public List<CarDTO> getCarList(){
         log.debug("car");
-
         return carService.getCarList();
     }
 
+    /*
     @GetMapping(value = "/pageList")
     public List<CarDTO> getPageCarList(Criteria criteria) {
         log.debug("criteria" + criteria);
             //int total = car.getTotalCar;
             return carService.getPageCarList(criteria);
-
     }
+
+     */
+
+    @PostMapping(value = "/page")
+    public Page<Car> getPageList(@RequestBody Page2DTO page2DTO) {
+        return carService.getPageList(page2DTO.getPage(), page2DTO.getSize());
+    }
+
 
     //{carId} 글 읽기
     @GetMapping(value = "/{carId}")
