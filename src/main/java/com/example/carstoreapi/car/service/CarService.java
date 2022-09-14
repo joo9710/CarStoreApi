@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -56,10 +57,45 @@ public class CarService {
 
      */
 
+
+    public List<CarDTO> getPageCarList(Criteria criteria) {
+            int total = carDAO.getTotalCar();
+
+        return carDAO.getPageCarList(criteria);
+    }
+
+
+
     public Page<Car> getPageList(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        return carRepository.findBoardsByIsDel("N", pageRequest);
+        return carRepository.findCarsByIsDel("N", pageRequest);
     }
+
+    public Page<Car> getSearch(String category, String keyword, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        log.debug(category);
+        if (Objects.equals(category, "차량명")) {
+            return carRepository.findCarByCarNameContainingAndIsDel(keyword ,"N", pageRequest);
+        }
+
+         else if (Objects.equals(category, "지역")){
+            log.debug("hi");
+            return carRepository.findCarByAreaContainingAndIsDel(keyword,"N", pageRequest);
+        }
+
+         else if(Objects.equals(category, "작성자")) {
+            return carRepository.findCarByAuthorContainingAndIsDel(keyword, "N", pageRequest);
+        }
+
+         return null;
+    }
+
+
+    public Page<Car> pageCar(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return carRepository.findCarsByIsDel("N", pageRequest);
+    }
+
 
     //{carId} 글 읽기
     public ApiResponse<CarDTO> getCarById(int carId) {

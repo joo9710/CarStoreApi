@@ -40,9 +40,32 @@ public class CarController {
 
      */
 
+
+    @GetMapping(value = "/pageList")
+    public List<CarDTO> getPageCarList(Criteria criteria) {
+        log.debug("criteria" + criteria);
+        return carService.getPageCarList(criteria);
+    }
+
+
     @PostMapping(value = "/page")
     public Page<Car> getPageList(@RequestBody Page2DTO page2DTO) {
         return carService.getPageList(page2DTO.getPage(), page2DTO.getSize());
+    }
+
+    @GetMapping(value = "/search")
+    public Page<Car> getSearch(@RequestParam String category, @RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+        log.debug(category);
+        log.debug(keyword);
+        log.debug(":"+page);
+        return carService.getSearch(category, keyword, page, size);
+    }
+
+
+     @GetMapping(value = "/pageJPA")
+    public Page<Car> pageCar(@RequestParam int page, @RequestParam int size) {
+        log.debug(":"+page);
+        return carService.pageCar(page,size);
     }
 
 

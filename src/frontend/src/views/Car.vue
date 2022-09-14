@@ -1,21 +1,13 @@
 <template>
+
   <div>
     <v-row justify="center">
     <v-card width="830px" height="900px">
 
 
-      <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-      ></v-text-field>
-
       <v-data-table
           :headers="headers"
           :items="users"
-          :search="search"
           :items-per-page="5"
           class="elevation-1">
 
@@ -46,11 +38,35 @@
             </div>
 
             <div v-show="wishBtnShow">
-            <v-btn @click="logout">로그아웃</v-btn>
+            <v-btn @click="logout()">로그아웃</v-btn>
             </div>
           </v-toolbar>
 
+          <v-form>
+            <v-row>
+               <v-col>
+                  <v-select
+                    class="pl-8"
+                    label="검색조건"
+                    v-model="category"
+                    :items="keywords"
+                    item-text="name"
+                    item-value="id">
+                    </v-select>
+                </v-col>
 
+              <v-col>
+                <v-text-field
+                    v-model="carName">
+                </v-text-field>
+              </v-col>
+              <v-col class="pt-5 pl-xl-4">
+                <v-btn block color="primary"
+                       @click="keywordSearch">검색
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
 
         </template>
 
@@ -108,40 +124,44 @@ export default {
   name: "Car",
 
   data: () => ({
-      users: [],
+    users: [],
     search: '',
-    link1:"CarWrite",
-    link2:"Login",
-    link3:"WishList",
-    page:1,
-    size:5,
-    length:5,
-    totalPage:0,
+    carName: '',
+    link1: "CarWrite",
+    link2: "Login",
+    link3: "WishList",
+    page: 1,
+    size: 5,
+    length: 5,
+    totalPage: 0,
 
-    loginBtnShow:false,
-    wishBtnShow:false,
+    category:'',
+    keywords:['작성자', '차량명','지역'],
+
+
+    loginBtnShow: false,
+    wishBtnShow: false,
 
     //위시리스트
-    showSelect : false,
+    showSelect: false,
     absolute: true,
     selectWishList: [],
-    select:true,
+    select: true,
 
 
+    wishCars: [],
 
-    wishCars:[],
-
-      headers: [
-        { text: '', value: 'thumb' },
-        { text: '차량정보', value: 'content' },
-        { text: '찜하기', value: 'action', align:'center', sortable: false},
-        { text: '가격', value: 'price',  align: 'center',sortable: false },
-      ],
+    headers: [
+      {text: '', value: 'thumb'},
+      {text: '차량정보', value: 'content'},
+      {text: '찜하기', value: 'action', align: 'center', sortable: false},
+      {text: '가격', value: 'price', align: 'center', sortable: false},
+    ],
 
   }),
 
   watch: {
-    select (msg) {
+    select(msg) {
       console.log('new wish' + msg);
 
     },
@@ -151,31 +171,53 @@ export default {
 
     retrieveUsers() {
       let data = {};
-      data.page = this.page-1;
+      data.page = this.page - 1;
       data.size = this.size;
-      this.$axios.post("car/page", JSON.stringify(data),{
-            headers: {
-              "Content-Type": `application/json`,
-            },
-          }).then(response => {
-            console.log(response.data)
+      this.$axios.post("car/page", JSON.stringify(data), {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }).then(response => {
+        console.log(response.data)
 
-            this.users = response.data.content;
+        this.users = response.data.content;
+        this.totalPage = response.data.totalPages;
+        for (let i = 0; i < response.data.length; i++) {
+          this.users[i].select = false;
+        }
+        console.log(response.data);
+        if (this.$store.state.userStore.mid == 0) {
+          this.loginBtnShow = true
+          this.wishBtnShow = false
+        } else {
+          this.loginBtnShow = false
+          this.wishBtnShow = true
+        }
+
+
+      })
+          .catch(e => {
+            console.log(e);
+          })
+    },
+
+    keywordSearch() {
+      let data = {};
+      data.keyword = this.carName
+      data.page = this.page - 1
+      data.size = this.size
+      this.$axios.get("car/search", {
+          params: {
+              category : this.category,
+              keyword : this.carName,
+              page : this.page-1,
+              size : this.size
+          }
+      })
+          .then(response => {
             this.totalPage = response.data.totalPages;
-            for(let i=0;i<response.data.length;i++){
-              this.users[i].select = false;
-            }
-            console.log(response.data);
-            if(this.$store.state.userStore.mid==0) {
-              this.loginBtnShow =true
-              this.wishBtnShow = false
-            }
-            else {
-              this.loginBtnShow=false
-              this.wishBtnShow=true
-            }
-
-
+            this.users = response.data.content;
+            console.log(response.data.content);
           })
           .catch(e => {
             console.log(e);
@@ -183,34 +225,36 @@ export default {
     },
 
 
-    linkTo(data){
-      this.$router.push({name: data})
-    },
 
-    logout(){
-      console.log('logout')
-      this.$store.dispatch('logout')
-      alert("로그아웃 처리 되었습니다.");
-
-    },
-
-
-    //찜목록 추가
-    postWishList(){
-
-    },
-
-    showWishSelectSet(item){
-      console.log(item)
-      for(let i=0; i<5; i++){
-        if(this.users[i].carId === item){
-          console.log("true")
-          this.users[i].select = !this.users[i].select
-        }
-      }
-      console.log(this.users)
-    }
+  linkTo(data) {
+    this.$router.push({name: data})
   },
+
+  logout() {
+    console.log('logout')
+    this.$store.dispatch('logout')
+    alert("로그아웃 처리 되었습니다.");
+
+  },
+
+
+  //찜목록 추가
+  postWishList() {
+
+  },
+
+  showWishSelectSet(item) {
+    console.log(item)
+    for (let i = 0; i < 5; i++) {
+      if (this.users[i].carId === item) {
+        console.log("true")
+        this.users[i].select = !this.users[i].select
+      }
+    }
+    console.log(this.users)
+
+  }
+},
 
   mounted() {
     this.retrieveUsers();
