@@ -16,6 +16,7 @@ public class CarDTO {
     private long mid;
     private String author;
     private String carName;
+    private String subCarName;
     private String year;
     private String distance;
     private String fuel;
@@ -35,6 +36,7 @@ public class CarDTO {
                 ", mid=" + mid +
                 ", author=" + author + '\'' +
                 ", carName=" + carName + '\'' +
+                ", subCarName=" + subCarName + '\'' +
                 ", year=" + year + '\'' +
                 ", distance=" + distance + '\'' +
                 ", fuel=" + fuel + '\'' +

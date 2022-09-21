@@ -26,6 +26,8 @@ public class Car {
     private String author;
     @Column(name = "carName")
     private String carName;
+    @Column(name = "subCarName")
+    private String subCarName;
 
     @Column(name = "year")
     private String year;
@@ -55,6 +57,7 @@ public class Car {
                  Long mid,
                  String author,
                  String carName,
+                 String subCarName,
                  String year,
                  String distance,
                  String fuel,
@@ -71,6 +74,7 @@ public class Car {
         this.mid = mid;
         this.author = author;
         this.carName = carName;
+        this.subCarName = subCarName;
         this.year = year;
         this.distance = distance;
         this.fuel = fuel;
