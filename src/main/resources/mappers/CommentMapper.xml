@@ -31,4 +31,10 @@
         SET isDel= 'Y'
         WHERE cid=#{cid}
     </delete>
+
+    <select id="getCountComment" parameterType="int" resultType="int">
+        SELECT COUNT (*)
+        FROM comment
+        WHERE carId = #{carId}
+    </select>
 </mapper>

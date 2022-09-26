@@ -28,6 +28,8 @@ public class CarDTO {
     private int readCount;
     private String isDel;
     private String thumb;
+    private int commentCount;
+
 
     @Override
     public String toString() {
@@ -48,6 +50,7 @@ public class CarDTO {
                 ", readCount=" + readCount + '\'' +
                 ", readCount=" + isDel +
                 ", thumb=" + thumb +
+                ", commentCount=" + commentCount +
                 '}';
     }
 }

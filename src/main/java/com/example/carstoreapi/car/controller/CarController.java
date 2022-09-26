@@ -138,4 +138,24 @@ public class CarController {
     public ApiResponse<CarDTO> updateIsDelCarById(@PathVariable int carId) throws  Exception {
         return carService.updateIsDelCarById(carId);
     }
+
+    //판매차량 개수
+    @GetMapping(value = "/carCount/{mid}")
+    public Long getCarCount(@PathVariable long mid) throws Exception {
+        return carService.getCarCount(mid);
+    }
+
+    // 판매차량 가져오기
+    @GetMapping(value="/myCar/{mid}")
+    public List<CarDTO> getMyCar(@PathVariable long mid) throws Exception {
+            log.debug("mid" + mid);
+        return carService.getMyCar(mid);
+    }
+
+    /*//댓글수 전체 list
+    @GetMapping(value= "/countCommentList")
+    public List<CountDTO> getCountComment() {
+        return carService.getCountComment();
+    }
+*/
 }

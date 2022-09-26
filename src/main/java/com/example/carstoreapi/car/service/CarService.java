@@ -205,4 +205,21 @@ public class CarService {
         return new ApiResponse(false, "failed to delete board id ");
     }
 
+    //판매 차량 개수
+    public Long getCarCount(long mid) {
+            long carCount = carDAO.getCarCount(mid);
+
+            return carCount;
+    }
+
+    // 나의 판매차량
+    public List<CarDTO> getMyCar (long mid) throws Exception {
+        return carDAO.getMyCar(mid);
+    }
+
+    /*// 댓글수 전체 list
+    public List<CountDTO> getCountComment() {
+        return carDAO.getCountComment();
+    }*/
+
 }

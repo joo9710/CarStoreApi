@@ -73,6 +73,27 @@
         WHERE carId = #{carId}
     </update>
 
+    <select id="getCarCount" parameterType="long" resultType="long">
+        select COUNT (*)
+        FROM Car
+        WHERE mid = #{mid}
+    </select>
 
+    <select id="getMyCar" parameterType="long" resultType="com.example.carstoreapi.car.model.CarDTO">
+        Select a.carId, a.mid, a.subCarName, a.readCount, COUNT(b.carId) as commentCount, a.thumb, a.isDel
+        FROM Car a
+                 Left join Comment b
+                           ON a.carId = b.carId
+        Where a.mid = #{mid}  GROUP BY a.carId
+    </select>
+
+   <!-- <select id="getCountComment" parameterType="int" resultType="com.example.carstoreapi.car.model.CountDTO">
+        Select a.carId, COUNT(b.carId) As commentCount
+        FROM Car a
+                 Left join Comment b
+                           ON a.carId = b.carId
+        Where 1 GROUP BY a.carId
+
+    </select>-->
 </mapper>
 

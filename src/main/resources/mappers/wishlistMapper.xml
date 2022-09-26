@@ -4,8 +4,8 @@
 <mapper namespace="com.example.carstoreapi.wishlist.model.WishlistDAO">
 
     <insert id="postWishList" parameterType="com.example.carstoreapi.wishlist.model.WishlistDTO">
-        insert into wishlist (mid, carId, carName, year, distance, area, price, thumb)
-        values (#{mid}, #{carId}, #{carName}, #{year}, #{distance}, #{area}, #{price}, #{thumb})
+        insert into wishlist (mid, carId, carName, subCarName, year, distance, area, price, thumb)
+        values (#{mid}, #{carId}, #{carName},#{subCarName}, #{year}, #{distance}, #{area}, #{price}, #{thumb})
     </insert>
 
     <select id="getWishListByMid" parameterType="long" resultType="com.example.carstoreapi.wishlist.model.WishlistDTO">

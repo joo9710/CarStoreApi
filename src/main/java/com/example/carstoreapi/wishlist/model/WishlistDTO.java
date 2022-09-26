@@ -16,6 +16,7 @@ public class WishlistDTO {
     private long mid;
     private int carId;
     private String carName;
+    private String subCarName;
     private String year;
     private String distance;
     private String area;
@@ -28,6 +29,8 @@ public class WishlistDTO {
                 "wid=" + wid +
                 ", mid=" +  mid+
                 ", carId=" + carId +
+                ", carName=" + carName + '\'' +
+                ", subCarName=" + subCarName + '\'' +
                 ", year=" + year + '\'' +
                 ", distance=" + distance + '\'' +
                 ", area=" + area + '\'' +

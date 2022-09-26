@@ -42,4 +42,12 @@ public interface CarDAO {
 
     //썸네일 업로드
     int thumbUpload(int carId, String thumb);
+
+    // 판매중인 차량 수
+    long getCarCount(long mid);
+
+    List getMyCar(long mid);
+
+    /*// 댓글수 전체 list
+    List<CountDTO>getCountComment();*/
 }
