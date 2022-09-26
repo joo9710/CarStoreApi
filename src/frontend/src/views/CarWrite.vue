@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-container>
+<div>
     <h1>차량 등록</h1>
 
     <div class="AddWrap">
@@ -88,6 +89,7 @@
       <v-btn @click="linkTo(link1)">취소</v-btn>
     </div>
   </div>
+  </v-container>
 </template>
 
 <script>

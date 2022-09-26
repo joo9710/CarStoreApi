@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="grey darken-1">
     <v-row justify="center">
     <v-card width="830px" height="900px">
 
@@ -8,14 +8,14 @@
       <v-data-table
           :headers="headers"
           :items="users"
-          :items-per-page="5"
           class="elevation-1">
 
           <template v-slot:item.action="{item}">
             <v-icon
                 small
                 class="mr2"
-                @click="showWishSelectSet(item.carId)" :color="item.select ? 'rgb(200,80,80)' : 'rgb(180,180,180)'"
+                @click="showWishSelectSet(item.carId)"
+                :color="item.select ? 'rgb(200,80,80)' : 'rgb(180,180,180)'"
                 >mdi-heart
             </v-icon>
 
@@ -27,20 +27,41 @@
           >
 
             <div v-show="wishBtnShow">
-            <v-btn @click="linkTo(link1)">글 쓰기</v-btn>
-            <v-btn @click="linkTo(link3)">나의 찜목록</v-btn>
+            <v-btn class="ma-4"
+                   outlined
+                   rounded
+                   text
+                   @click="linkTo(link1)">글 쓰기</v-btn>
             </div>
 
             <v-spacer></v-spacer>
 
             <div v-show = "loginBtnShow">
-            <v-btn @click="linkTo(link2)">로그인</v-btn>
+            <v-btn
+                outlined
+                rounded
+                @click="linkTo(link2)">로그인</v-btn>
+            </div>
+
+
+            <div v-show ="wishBtnShow">
+              <v-btn
+                  outlined
+                  rounded
+                  text
+                  @click="linkTo(link4)">마이페이지</v-btn>
             </div>
 
             <div v-show="wishBtnShow">
-            <v-btn @click="logout()">로그아웃</v-btn>
+            <v-btn
+                outlined
+                rounded
+                text
+                @click="logout()">로그아웃</v-btn>
             </div>
           </v-toolbar>
+
+
 
           <v-form>
             <v-row>
@@ -90,9 +111,9 @@
             </v-col>
 
             <v-col cols="12" class="pa-0">
-              <span>{{item.year}}</span>
-              <span>{{item.distance}}</span>
-              <span>{{item.fuel}}</span>
+              <span>{{item.year}} | </span>
+              <span>{{item.distance}} | </span>
+              <span>{{item.fuel}} | </span>
               <span>{{item.area}}</span>
             </v-col>
           </v-row>
@@ -127,9 +148,12 @@ export default {
     users: [],
     search: '',
     carName: '',
+
     link1: "CarWrite",
     link2: "Login",
     link3: "WishList",
+    link4: "MyPage",
+
     page: 1,
     size: 5,
     length: 5,
@@ -163,7 +187,6 @@ export default {
   watch: {
     select(msg) {
       console.log('new wish' + msg);
-
     },
   },
 
@@ -202,10 +225,6 @@ export default {
     },
 
     keywordSearch() {
-      let data = {};
-      data.keyword = this.carName
-      data.page = this.page - 1
-      data.size = this.size
       this.$axios.get("car/search", {
           params: {
               category : this.category,
@@ -252,13 +271,19 @@ export default {
       }
     }
     console.log(this.users)
+  },
 
-  }
+    showWish() {
+      this.users[i].select = !this.users[i].select
+    }
+
 },
 
   mounted() {
     this.retrieveUsers();
   },
+
+
 
 }
 

@@ -145,7 +145,7 @@ public class CarController {
         return carService.getCarCount(mid);
     }
 
-    // 판매차량 가져오기
+    // 판매차량 가져오기 (댓글수 포함)
     @GetMapping(value="/myCar/{mid}")
     public List<CarDTO> getMyCar(@PathVariable long mid) throws Exception {
             log.debug("mid" + mid);

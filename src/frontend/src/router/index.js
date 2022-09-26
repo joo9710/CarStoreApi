@@ -10,6 +10,7 @@ import test from "@/views/test";
 import test2 from "@/views/test2";
 import SignUp from "@/views/SignUp";
 import WishList from "@/views/WishList";
+import MyPage from "@/views/MyPage";
 
 Vue.use(VueRouter)
 
@@ -64,7 +65,14 @@ const routes = [
     path: '/WishList',
     name: 'WishList',
     component: WishList
+  },
+
+  {
+    path: '/MyPage',
+    name: 'MyPage',
+    component: MyPage
   }
+
 ]
 
 const router = new VueRouter({

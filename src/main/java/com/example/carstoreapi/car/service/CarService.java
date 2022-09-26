@@ -212,7 +212,7 @@ public class CarService {
             return carCount;
     }
 
-    // 나의 판매차량
+    // 판매차량 가져오기 (댓글수 포함)
     public List<CarDTO> getMyCar (long mid) throws Exception {
         return carDAO.getMyCar(mid);
     }

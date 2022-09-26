@@ -1,81 +1,77 @@
 <template>
-  <div>
+  <v-row class="blue" style="height: 100vh">
     <div v-show="dataMsg">위시리스트가 없습니다.</div>
-    <div
-        v-for="(data, index) in wishList"
-        :key="index"
+    <div v-for="(data, index) in wishList"
+         :key="index"
     >
-      <v-card
-          class="mx-auto my-12"
-          width="280"
+      <v-col cols="12" class="ma-12">
+            <v-card width="190" height="450px">
+              <v-img
+                  :src="require('@/assets/thumb/' + data.thumb)"
+              />
 
-      >
-        <v-img
-            :src="require('@/assets/thumb/' + data.thumb)"
-        />
+              <div class="pa-3">
 
-        <div>
+                <router-link :to="{ name: 'CarDetail', query:{ carId: data.carId}}">
+                  <span style="font-size: 14px">
+                    {{data.carName}}
+                  </span>
+                </router-link>
+              </div>
 
-          <router-link :to="{ name: 'CarDetail', query:{ carId: data.carId}}">
-            <v-card-title>
+              <v-card-text>
+                <v-row
+                    align="center"
+                    class="mx-0"
+                >
 
-              차량명 : {{data.carName}}
-            </v-card-title>
-          </router-link>
-        </div>
+                  <div class="black--text ms-4">
+                    연식 : {{data.year}}
+                  </div>
+                </v-row>
 
-        <v-card-text>
-          <v-row
-              align="center"
-              class="mx-0"
-          >
+                <v-row
+                    align="center"
+                    class="mx-0"
+                >
+                  <div class="black--text ms-4">
+                    주행거리 : {{data.distance}}
+                  </div>
+                </v-row>
 
-            <div class="black--text ms-4">
-              연식 : {{data.year}}
-            </div>
-          </v-row>
+                <v-row
+                    align="center"
+                    class="mx-0"
+                >
+                  <div  class="black--text ms-4">지역 : {{data.area}}</div>
+                </v-row>
 
-          <v-row
-              align="center"
-              class="mx-0"
-          >
-            <div class="black--text ms-4">
-              주행거리 : {{data.distance}}
-            </div>
-          </v-row>
+                <v-row
+                    align="center"
+                    class="mx-0"
+                >
+                  <div  class="black--text ms-4">가격 : {{data.price}}</div>
+                </v-row>
+              </v-card-text>
 
-          <v-row
-              align="center"
-              class="mx-0"
-          >
-            <div  class="black--text ms-4">지역 : {{data.area}}</div>
-          </v-row>
-
-          <v-row
-              align="center"
-              class="mx-0"
-          >
-            <div  class="black--text ms-4">가격 : {{data.price}}</div>
-          </v-row>
-        </v-card-text>
-
-        <v-divider class="mx-4"></v-divider>
+              <v-divider class="mx-4"></v-divider>
 
 
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-              color="deep-purple lighten-2"
-              text
-              @click="delWishCar(data.wid)"
-          >
-            찜목록 삭제
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="deep-purple lighten-2"
+                    text
+                    @click="delWishCar(data.wid)"
+                >
+                  찜목록 삭제
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+      </v-col>
     </div>
-  </div>
+  </v-row>
 </template>
 
 <script>
