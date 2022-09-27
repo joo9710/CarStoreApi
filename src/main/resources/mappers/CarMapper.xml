@@ -87,6 +87,12 @@
         Where a.mid = #{mid}  GROUP BY a.carId
     </select>
 
+    <update id="putAuthor" parameterType="com.example.carstoreapi.car.model.CarDTO">
+        UPDATE Car
+        SET author = #{author}
+        WHERE mid = #{mid}
+    </update>
+
    <!-- <select id="getCountComment" parameterType="int" resultType="com.example.carstoreapi.car.model.CountDTO">
         Select a.carId, COUNT(b.carId) As commentCount
         FROM Car a

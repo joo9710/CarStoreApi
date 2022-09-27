@@ -50,4 +50,7 @@ public interface CarDAO {
 
     /*// 댓글수 전체 list
     List<CountDTO>getCountComment();*/
+
+    //nickName변경시 author 수정
+    int putAuthor(long mid,String author);
 }

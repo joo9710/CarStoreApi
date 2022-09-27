@@ -273,9 +273,7 @@ export default {
     console.log(this.users)
   },
 
-    showWish() {
-      this.users[i].select = !this.users[i].select
-    }
+
 
 },
 
