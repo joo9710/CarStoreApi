@@ -5,8 +5,31 @@
     <update id="putMember" parameterType="com.example.carstoreapi.member.model.MemberDTO">
         UPDATE member
         SET nickName = #{nickName},
-            phoneNumber = #{phoneNumber},
-            password = #{password}
+            phoneNumber = #{phoneNumber}
         WHERE mid = #{mid};
     </update>
+
+    <select id="getMemberInfo" resultType="com.example.carstoreapi.member.model.MemberDTO">
+        SELECT *
+        FROM member
+        WHERE mid = #{mid}
+    </select>
+
+    <update id="putPwd" parameterType="com.example.carstoreapi.member.model.MemberDTO">
+        UPDATE member
+        SET password = #{password}
+        WHERE mid = #{mid};
+    </update>
+
+    <select id="duplicateCheck" resultType="boolean">
+        SELECT nickName
+        FROM Member
+        WHERE nickName = #{nickName}
+    </select>
+
+    <select id="duplicateCheckEmail" resultType="boolean">
+        SELECT email
+        FROM Member
+        WHERE email = #{email}
+    </select>
 </mapper>

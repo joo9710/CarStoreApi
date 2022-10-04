@@ -49,4 +49,9 @@ public class CommentController {
         return commentService.delComment(cid);
     }
 
+//    // 댓글 수 count
+//    @GetMapping(value = "/countComment/{carId}")
+//    public Integer getCountComment(@PathVariable int carId) throws Exception {
+//        return commentService.getCountComment(carId);
+//    }
 }
