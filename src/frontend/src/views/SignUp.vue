@@ -7,6 +7,9 @@
         lg="4"
     >
       <v-card ref="form">
+        <v-card-title>
+          회원가입
+        </v-card-title>
         <v-card-text>
           <v-text-field
               ref="fullName"
@@ -16,6 +19,10 @@
               placeholder="홍길동"
               required
           ></v-text-field>
+
+          <v-row class="ma-0">
+            <v-col cols="9">
+
           <v-text-field
               ref="email"
               v-model="email"
@@ -27,6 +34,17 @@
               counter="25"
               required
           ></v-text-field>
+
+            </v-col>
+            <v-col cols="3">
+              <v-btn
+                  color="primary"
+                  @click="duplicateCheckEmail()"
+              >
+                중복확인
+              </v-btn>
+            </v-col>
+          </v-row>
           <v-form>
             <v-text-field
                 ref="password"
@@ -60,6 +78,9 @@
             ></v-text-field>
           </v-form>
 
+          <v-row class="ma-0">
+            <v-col cols="9">
+
           <v-text-field
               ref="nickName"
               v-model="nickName"
@@ -70,6 +91,18 @@
               required
               placeholder="바다"
           ></v-text-field>
+
+            </v-col>
+
+            <v-col cols="3">
+              <v-btn
+                  color="primary"
+                  @click="duplicateCheckNickName()"
+              >
+                중복확인
+              </v-btn>
+            </v-col>
+          </v-row>
 
           <v-text-field
               ref="area"
@@ -131,7 +164,11 @@ export default {
     show1:false,
     show2:false,
     link1:"Login",
-    link2:"Car"
+    link2:"Car",
+
+    emailCheck:null,
+    nickNameCheck:null
+
   }),
   watch: {
     name () {
@@ -151,37 +188,74 @@ export default {
     },
 
     submit () {
-    if(this.phoneNumber == null){
-      return null;
-    } else{
-      if (this.password == this.passCheck) {
-        let data = {};
-        data.fullName = this.fullName;
-        data.email = this.email;
-        data.password = this.password;
-        data.nickName = this.nickName;
-        data.area = this.area;
-        data.phoneNumber = this.phoneNumber;
+      if(this.emailCheck == true && this.nickNameCheck == true) {
+        if (this.phoneNumber == null) {
+          return null;
+        } else {
+          if (this.password == this.passCheck) {
+            let data = {};
+            data.fullName = this.fullName;
+            data.email = this.email;
+            data.password = this.password;
+            data.nickName = this.nickName;
+            data.area = this.area;
+            data.phoneNumber = this.phoneNumber;
 
-        this.$axios.post("/api/member", JSON.stringify(data), {
-          headers: {
-            "Content-Type": `application/json`,
-          },
-        }).then((res) => {
-          if (res.status === 200) {
-            console.log(res.data);
-            alert("회원가입이 완료 되었습니다!");
-            this.linkTo(this.link1);
-          }
-        })
-            .catch(err => {
-              console.log(err.res);
+            this.$axios.post("/api/member", JSON.stringify(data), {
+              headers: {
+                "Content-Type": `application/json`,
+              },
+            }).then((res) => {
+              if (res.status === 200) {
+                console.log(res.data);
+                alert("회원가입이 완료 되었습니다!");
+                this.linkTo(this.link1);
+              }
             })
-      } else {
-        alert("Password를 다시 확인해 주세요");
+                .catch(err => {
+                  console.log(err.res);
+                })
+          } else {
+            alert("Password를 다시 확인해 주세요");
+          }
+        }
       }
-    }
+      else {
+        alert("중복확인을 먼저 해주세요");
+      }
     },
+
+    duplicateCheckEmail() {
+      let email = this.email;
+
+      this.$axios.get("/member/checkEmail/" + email)
+      .then(res => {
+        if (res.data === true) {
+          alert("이미 사용중인 email 입니다.")
+          this.emailCheck = false;
+        }
+        else {
+          alert("사용가능한 email 입니다.")
+          this.emailCheck = true;
+        }
+      })
+    },
+
+    duplicateCheckNickName(){
+      let nickName = this.nickName;
+
+      this.$axios.get("/member/check/" + nickName)
+      .then(res => {
+        if(res.data === true) {
+          alert("이미 사용중인 닉네임 입니다.")
+          this.nickNameCheck = false;
+        }
+        else {
+          alert("사용가능한 닉네임 입니다.")
+          this.nickNameCheck = true;
+        }
+      })
+    }
   },
 }
 </script>

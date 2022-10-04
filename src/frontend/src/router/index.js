@@ -11,6 +11,7 @@ import test2 from "@/views/test2";
 import SignUp from "@/views/SignUp";
 import WishList from "@/views/WishList";
 import MyPage from "@/views/MyPage";
+import putMember from "@/views/putMember";
 
 Vue.use(VueRouter)
 
@@ -71,6 +72,11 @@ const routes = [
     path: '/MyPage',
     name: 'MyPage',
     component: MyPage
+  },
+  {
+    path: '/putMember',
+    name: 'putMember',
+    component: putMember
   }
 
 ]

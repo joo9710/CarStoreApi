@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const userStore = {
     state: {
         userId: '',
@@ -8,6 +7,7 @@ const userStore = {
         fullName:'',
         email:'',
         mid:'',
+        password:'',
         nickName:'',
         area:'',
         fileName:'',
@@ -28,6 +28,9 @@ const userStore = {
         },
         putUserInfo: function (state, data) {
             state.nickName = data.nickName
+            state.fullName = data.fullName
+            state.phoneNumber = data.phoneNumber
+            state.passwrod = data.password
             state.area = data.area
             state.mid = data.mid
             console.log("nickName state : " + data.nickName)
@@ -48,6 +51,8 @@ const userStore = {
                 state.email=''
                 state.mid=''
                 state.nickName=''
+                state.password=''
+                state.phoneNumber=''
                 state.area=''
                 state.fileName=''
             console.log("logout state : " + state.mid)
@@ -87,6 +92,8 @@ const userStore = {
                     console.log(res.data)
                     data.fullName = res.data.fullName
                     data.nickName = res.data.nickName
+                    data.phoneNumber = res.data.phoneNumber
+                    data.password = res.data.password
                     data.area = res.data.area
                     data.mid = res.data.mid
                     commit('putUserInfo', data)

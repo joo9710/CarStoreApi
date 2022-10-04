@@ -9,7 +9,7 @@
                 outlined
                 rounded
                 text
-                @click="putMember()">회원정보 수정</v-btn>
+                @click="linkTo(link2)">회원정보 수정</v-btn>
           </div>
         </v-col>
 
@@ -125,6 +125,7 @@ export default {
   data() {
     return {
       link1 :'WishList',
+      link2 :'putMember',
       nickName : this.$store.state.userStore.nickName,
 
       wishList:[],
