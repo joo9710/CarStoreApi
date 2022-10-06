@@ -28,6 +28,8 @@ public class Car {
     private String carName;
     @Column(name = "subCarName")
     private String subCarName;
+    @Column(name = "national")
+    private String national;
 
     @Column(name = "year")
     private String year;
@@ -58,6 +60,7 @@ public class Car {
                  String author,
                  String carName,
                  String subCarName,
+                 String national,
                  String year,
                  String distance,
                  String fuel,
@@ -75,6 +78,7 @@ public class Car {
         this.author = author;
         this.carName = carName;
         this.subCarName = subCarName;
+        this.national = national;
         this.year = year;
         this.distance = distance;
         this.fuel = fuel;

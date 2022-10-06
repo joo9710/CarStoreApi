@@ -101,5 +101,17 @@
         Where 1 GROUP BY a.carId
 
     </select>-->
+
+    <select id="getNationalCar" resultType="com.example.carstoreapi.car.model.CarDTO">
+        select *
+        FROM car
+        WHERE national = #{national}
+    </select>
+
+    <select id="getCompanyOfCar" resultType="com.example.carstoreapi.car.model.CarDTO">
+        select *
+        FROM  car
+        where carName LIKE CONCAT('%',#{company},'%')
+    </select>
 </mapper>
 

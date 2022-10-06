@@ -158,4 +158,16 @@ public class CarController {
         return carService.getCountComment();
     }
 */
+
+    // 국산 or 수입차 list
+    @GetMapping(value= "/national/{national}")
+    public List<CarDTO> getNationalCar(@PathVariable String national) throws Exception {
+        return carService.getNationalCar(national);
+    }
+
+    // 회사별 차량 조회
+    @GetMapping(value= "/companies/{company}")
+    public List<CarDTO> getCompanyOfCar(@PathVariable String company) throws Exception {
+        return carService.getCompanyOfCar(company);
+    }
 }

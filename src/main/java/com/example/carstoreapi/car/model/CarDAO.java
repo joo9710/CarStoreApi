@@ -53,4 +53,10 @@ public interface CarDAO {
 
     //nickName변경시 author 수정
     int putAuthor(long mid,String author);
+
+    //국산 or 수입차 list
+    List getNationalCar(String national);
+
+    // 회사별 차량 조회
+    List getCompanyOfCar(String company);
 }

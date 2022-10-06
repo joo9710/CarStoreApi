@@ -222,4 +222,13 @@ public class CarService {
         return carDAO.getCountComment();
     }*/
 
+    //국산 or 수입차 list
+    public List<CarDTO> getNationalCar(String national) throws Exception {
+        return carDAO.getNationalCar(national);
+    }
+
+    // 회사별 차량 조회
+    public List<CarDTO> getCompanyOfCar(String company) throws Exception {
+        return carDAO.getCompanyOfCar(company);
+    }
 }
