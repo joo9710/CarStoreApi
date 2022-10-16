@@ -8,6 +8,7 @@
       <v-data-table
           :headers="headers"
           :items="users"
+
           class="elevation-1">
 
           <template v-slot:item.action="{item}">
@@ -24,6 +25,7 @@
         <template v-slot:top>
           <v-toolbar
               flat
+              color="red"
           >
 
             <div v-show="wishBtnShow">
@@ -65,7 +67,10 @@
 
           <v-form>
             <v-row>
-               <v-col>
+              <v-spacer></v-spacer>
+               <v-col
+                   cols="2"
+               >
                   <v-select
                     class="pl-8"
                     label="검색조건"
@@ -76,12 +81,15 @@
                     </v-select>
                 </v-col>
 
-              <v-col>
+              <v-col
+              cols="3">
                 <v-text-field
                     v-model="carName">
                 </v-text-field>
               </v-col>
-              <v-col class="pt-5 pl-xl-4">
+
+              <v-col class="pt-5 pl-xl-4"
+              cols="2">
                 <v-btn block color="primary"
                        @click="keywordSearch">검색
                 </v-btn>

@@ -12,6 +12,7 @@ import SignUp from "@/views/SignUp";
 import WishList from "@/views/WishList";
 import MyPage from "@/views/MyPage";
 import putMember from "@/views/putMember";
+import CompanyOfCar from "@/views/CompanyOfCar";
 
 Vue.use(VueRouter)
 
@@ -77,6 +78,12 @@ const routes = [
     path: '/putMember',
     name: 'putMember',
     component: putMember
+  },
+
+  {
+    path: '/CompanyOfCar',
+    name:'CompanyOfCar',
+    component: CompanyOfCar
   }
 
 ]
