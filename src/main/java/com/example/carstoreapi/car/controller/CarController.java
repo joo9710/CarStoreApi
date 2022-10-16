@@ -91,6 +91,8 @@ public class CarController {
     public String uploadFile(@RequestParam("author")String author,
                              @RequestParam("mid")Long mid,
                              @RequestParam("carName")String carName,
+                             @RequestParam("national")String national,
+                             @RequestParam("subCarName")String subCarName,
                              @RequestParam("year")String year,
                              @RequestParam("distance")String distance,
                              @RequestParam("fuel")String fuel,
@@ -105,6 +107,8 @@ public class CarController {
         carDTO.setMid(mid);
         carDTO.setAuthor(author.replace("\"", ""));
         carDTO.setCarName(carName.replace("\"", ""));
+        carDTO.setNational(national.replace("\"", ""));
+        carDTO.setSubCarName(subCarName.replace("\"", ""));
         carDTO.setYear(year.replace("\"", ""));
         carDTO.setDistance(distance.replace("\"", ""));
         carDTO.setFuel(fuel.replace("\"", ""));
@@ -170,4 +174,27 @@ public class CarController {
     public List<CarDTO> getCompanyOfCar(@PathVariable String company) throws Exception {
         return carService.getCompanyOfCar(company);
     }
+
+    // 회사별 차량 조회 및 페이징
+    @PostMapping(value = "/pageCompany")
+    public Page<Car> getCompanyOfListPage(@RequestBody Page3DTO page3DTO) {
+        return carService.getCompanyOfListPage(page3DTO.getCompany(), page3DTO.getPage(), page3DTO.getSize());
+    }
+
+    // 회사별 차량 조회 및 페이징
+    @GetMapping(value = "/pageCompany")
+    public Page<Car> getCompanyOfListPage(@RequestParam String company,
+                                          @RequestParam int page,
+                                          @RequestParam int size) {
+        return carService.getCompanyOfListPage(company, page, size);
+    }
+
+
+
+//    @PostMapping(value = "/page")
+//    public Page<Car> getPageList(@RequestBody Page2DTO page2DTO) {
+//        return carService.getPageList(page2DTO.getPage(), page2DTO.getSize());
+//    }
+
+
 }

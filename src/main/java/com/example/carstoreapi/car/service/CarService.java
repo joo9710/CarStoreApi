@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,7 +58,6 @@ public class CarService {
 
      */
 
-
     public List<CarDTO> getPageCarList(Criteria criteria) {
             int total = carDAO.getTotalCar();
 
@@ -65,10 +65,9 @@ public class CarService {
     }
 
 
-
     public Page<Car> getPageList(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return carRepository.findCarsByIsDel("N", pageRequest);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,"carId"));
+        return carRepository.findCarsByIsDel("N",pageRequest);
     }
 
     public Page<Car> getSearch(String category, String keyword, int page, int size) {
@@ -230,5 +229,11 @@ public class CarService {
     // 회사별 차량 조회
     public List<CarDTO> getCompanyOfCar(String company) throws Exception {
         return carDAO.getCompanyOfCar(company);
+    }
+
+    // 회사별 차량 조회 및 페이징
+    public Page<Car> getCompanyOfListPage(String company, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return carRepository.findCarByCarNameContainingAndIsDel(company, "N", pageRequest);
     }
 }
