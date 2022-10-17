@@ -236,4 +236,10 @@ public class CarService {
         PageRequest pageRequest = PageRequest.of(page, size);
         return carRepository.findCarByCarNameContainingAndIsDel(company, "N", pageRequest);
     }
+
+    //회사 선택시 지역 선택 조회 및 페이징
+    public Page<Car> getCompanyOfAreaList(String company, String area, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return carRepository.findCarByCarNameContainingAndAreaAndIsDel(company, area, "N", pageRequest);
+    }
 }
