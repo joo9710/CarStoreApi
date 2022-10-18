@@ -46,6 +46,7 @@
                   hide-details
                   rounded
                   solo-inverted
+                  v-model="carName"
               ></v-text-field>
 
             </v-responsive>
@@ -53,7 +54,9 @@
 
           <v-col cols="1">
             <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
+              <v-icon
+
+              >mdi-magnify</v-icon>
             </v-btn>
 
           </v-col>
@@ -122,51 +125,18 @@
               <v-list color="transparent">
                 <v-list-item>
                   <v-select
-                  class="pl-8"
-                  label="지역선택"
-                  v-model="area"
-                  :items="pickArea"
-                  item-text="name"
-                  item-value="id"
-                  @change="linkTo3(area)"
+                      class="pl-8"
+                      label="지역선택"
+                      v-model="area"
+                      :items="pickArea"
+                      item-text="name"
+                      item-value="id"
+
                   >
                   </v-select>
                 </v-list-item>
-
-                <v-list-group
-                  :value="true"
-                  v-for="item in items"
-                  :key="item.title"
-                  v-model="item.active"
-
-                  no-action
-                >
-                <template v-slot:activator>
-                  <v-list-item-content>
-                    <v-list-item-title
-                      v-text="item.title"
-                      @click="linkTo2(item.title)"
-                    >
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </template>
-
-                  <v-list-item
-                    :value="true"
-                    v-for="detail in item.items"
-                    :key="detail.title">
-
-                    <v-list-item-content>
-                      <v-list-item-title
-                          @click="linkTo2(detail.title)"
-                          class="blue--text"
-                          v-text="detail.title"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                </v-list-group>
-
                 <v-list-item
+                    v-show="selectKorea"
                     v-for="(company,idx) in companies"
                     :key="idx"
                     link
@@ -179,9 +149,9 @@
                   </v-list-item-content>
                 </v-list-item>
 
-                <v-divider class="my-2"></v-divider>
 
                 <v-list-item
+                    v-show="selectForeign"
                     v-for="(company2,idx) in companies2"
                     :key="`o-${idx}`"
                     link
@@ -198,13 +168,52 @@
             </v-sheet>
           </v-col>
 
-          <v-col>
+          <v-col >
             <v-sheet
                 min-height="70vh"
                 align="center"
                 rounded="lg"
                 color=""
             >
+
+              <!--              <v-row-->
+              <!--                  align="center"-->
+              <!--                  class="mx-0"-->
+              <!--              >-->
+
+              <!--              <v-col cols="2">-->
+
+
+              <!--              <v-select-->
+              <!--                  class="pl-8"-->
+              <!--                  label="검색조건"-->
+              <!--                  v-model="category"-->
+              <!--                  :items="keywords"-->
+              <!--                  item-text="name"-->
+              <!--                  item-value="id">-->
+              <!--              </v-select>-->
+              <!--              </v-col>-->
+
+              <!--                <v-col cols="7">-->
+              <!--                  <v-responsive max-width="auto">-->
+              <!--                    <v-text-field-->
+              <!--                        dense-->
+              <!--                        flat-->
+              <!--                        hide-details-->
+              <!--                        rounded-->
+              <!--                        solo-inverted-->
+              <!--                    ></v-text-field>-->
+
+              <!--                  </v-responsive>-->
+              <!--                </v-col>-->
+
+              <!--                <v-col cols="1">-->
+              <!--                    <v-btn icon>-->
+              <!--                      <v-icon>mdi-magnify</v-icon>-->
+              <!--                    </v-btn>-->
+
+              <!--                </v-col>-->
+              <!--        </v-row>-->
 
               <div>
                 <v-data-table
@@ -251,7 +260,7 @@
                         :length="totalPage"
                         prev-icon="mdi-menu-left"
                         next-icon="mdi-menu-right"
-                        @input="getCompanyOfListPage"
+                        @input="getCarOfNational"
                     ></v-pagination>
                   </div>
                 </template>
@@ -268,10 +277,10 @@
 
 </template>
 
-<script>
 
+<script>
 export default {
-  name: 'CompanyOfCar.vue',
+  name: "CarOfNational.vue",
 
   data() {
     return {
@@ -279,6 +288,11 @@ export default {
         {national:'국산'},
         {national:'수입'}
       ],
+
+      selectKorea:false,
+      selectForeign:false,
+
+      national: this.$route.query.national,
 
       individuals: [
         {individual:'마이페이지', link:"MyPage"},
@@ -293,6 +307,7 @@ export default {
         {company:'르노코리아'},
         {company:'쌍용'}
       ],
+
 
       companies2: [
         {company:'벤츠'},
@@ -388,13 +403,13 @@ export default {
           title: '쉐보레',
         },
 
-       {
-         active: '',
-         items: [
-           { title: 'SM5' },
-           { title: 'SM6' },
-           { title: 'QM6' },
-         ],
+        {
+          active: '',
+          items: [
+            { title: 'SM5' },
+            { title: 'SM6' },
+            { title: 'QM6' },
+          ],
           title: '르노코리아',
         },
 
@@ -408,6 +423,7 @@ export default {
         },
 
       ],
+
 
     }
   },
@@ -430,6 +446,7 @@ export default {
 
     linkTo4(national){
       this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+      this.$router.go(0);
     },
 
     logout() {
@@ -440,23 +457,11 @@ export default {
     },
 
 
+    getCarOfNational() {
 
-    showWishSelectSet(item) {
-      console.log(item)
-      for (let i = 0; i < 5; i++) {
-        if (this.users[i].carId === item) {
-          console.log("true")
-          this.users[i].select = !this.users[i].select
-        }
-      }
-      console.log(this.users)
-    },
-
-    getCompanyOfListPage() {
-
-      this.$axios.get("car/pageCompany", {
+      this.$axios.get("car/national", {
         params: {
-          company: this.company,
+          national: this.national,
           page : this.page -1,
           size : this.size
         }
@@ -464,23 +469,26 @@ export default {
           .then(response => {
             this.totalPage = response.data.totalPages;
             this.users = response.data.content;
+            if(this.national == '국산') {
+              this.selectKorea= true;
+            }else
+              this.selectForeign =true;
             console.log(response.data.content);
           })
 
     },
 
-
     getConsole() {
-      console.log("company : " + this.company)
+      console.log("national : " + this.national)
     },
-
-
 
   },
 
   mounted() {
-    this.getCompanyOfListPage();
+    this.getCarOfNational();
     this.getConsole();
-  },
+  }
+
 }
 </script>
+

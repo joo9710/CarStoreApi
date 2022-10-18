@@ -13,6 +13,9 @@ import WishList from "@/views/WishList";
 import MyPage from "@/views/MyPage";
 import putMember from "@/views/putMember";
 import CompanyOfCar from "@/views/CompanyOfCar";
+import CarSearch from "@/views/CarSearch";
+import pageCompanyOfArea from "@/views/pageCompanyOfArea";
+import CarOfNational from "@/views/CarOfNational";
 
 Vue.use(VueRouter)
 
@@ -84,6 +87,23 @@ const routes = [
     path: '/CompanyOfCar',
     name:'CompanyOfCar',
     component: CompanyOfCar
+  },
+
+  {
+    path: '/CarSearch',
+    name:'CarSearch',
+    component: CarSearch
+  },
+
+  {
+    path: '/pageCompanyOfArea',
+    name:'pageCompanyOfArea',
+    component: pageCompanyOfArea
+  },
+  {
+    path: '/CarOfNational',
+    name:'CarOfNational',
+    component: CarOfNational
   }
 
 ]
