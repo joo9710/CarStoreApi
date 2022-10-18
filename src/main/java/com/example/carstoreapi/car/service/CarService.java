@@ -222,8 +222,9 @@ public class CarService {
     }*/
 
     //국산 or 수입차 list
-    public List<CarDTO> getNationalCar(String national) throws Exception {
-        return carDAO.getNationalCar(national);
+    public Page<Car> getNationalCar(String national, int page, int size) throws Exception {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return carRepository.findCarByNationalAndIsDel(national, "N", pageRequest);
     }
 
     // 회사별 차량 조회

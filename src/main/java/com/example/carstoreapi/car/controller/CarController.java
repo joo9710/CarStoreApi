@@ -155,9 +155,11 @@ public class CarController {
 */
 
     // 국산 or 수입차 list
-    @GetMapping(value= "/national/{national}")
-    public List<CarDTO> getNationalCar(@PathVariable String national) throws Exception {
-        return carService.getNationalCar(national);
+    @GetMapping(value= "/national")
+    public Page<Car> getNationalCar(@RequestParam String national,
+                                    @RequestParam int page,
+                                    @RequestParam int size) throws Exception {
+        return carService.getNationalCar(national, page, size);
     }
 
     // 회사별 차량 조회

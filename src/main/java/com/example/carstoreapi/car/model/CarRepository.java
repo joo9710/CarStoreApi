@@ -17,4 +17,6 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
         Page<Car> findCarByAuthorContainingAndIsDel(String author, String isDel, Pageable pageable);
 
         Page<Car> findCarByCarNameContainingAndAreaAndIsDel(String carName, String area, String isDel, Pageable pageable);
+
+        Page<Car> findCarByNationalAndIsDel(String national, String isDel, Pageable pageable);
 }
