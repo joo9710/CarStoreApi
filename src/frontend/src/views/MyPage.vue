@@ -89,11 +89,9 @@
             <v-btn
                 tile
                 color="primary"
+                @click="linkTo6"
             >
-              <v-icon left>
-                mdi-pencil
-              </v-icon>
-              글쓰기</v-btn>
+              뒤로가기</v-btn>
           </v-col>
 
           <v-col cols="12"
@@ -122,7 +120,7 @@
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
-      <v-col cols="12" class="red">
+      <v-col cols="12">
 
 
     <v-row justify="center">
@@ -148,7 +146,7 @@
                   outlined
                   rounded
                   text
-                  @click="linkTo(link1)">상세 보기</v-btn>
+                  @click="linkTo3">비교하기</v-btn>
             </div>
 
             <v-row class="ma-0 ">
@@ -188,7 +186,7 @@
                   outlined
                   rounded
                   text
-                  @click="linkTo(link1)">상세 보기</v-btn>
+                  @click="linkTo(link3)">자세히</v-btn>
 
             </div>
 
@@ -268,11 +266,13 @@ export default {
       ],
 
       carName: '',
+
       category:'',
       keywords:['작성자', '차량명','지역'],
 
       link1 :'WishList',
       link2 :'putMember',
+      link3 :'SaleOfMyCar',
       nickName : this.$store.state.userStore.nickName,
 
       wishList:[],
@@ -297,15 +297,24 @@ export default {
     },
 
     linkTo3() {
-      if(this.dataMsg2==true) {
+      if(this.dataMsg2===true) {
         alert("찜한 차량이 없습니다.");
       }else {
         this.$router.push({name:"WishList"});
       }
     },
 
+    linkTo4(national){
+      this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+      this.$router.go(0);
+    },
+
     linkTo5(){
       this.$router.push({name:"test2"})
+    },
+
+    linkTo6() {
+      this.$router.go(-1);
     },
 
     getWishList() {
