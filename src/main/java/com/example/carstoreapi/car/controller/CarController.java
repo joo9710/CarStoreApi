@@ -201,6 +201,11 @@ public class CarController {
         return carService.getCompanyOfAreaList(company, area, page, size);
     }
 
+    // 판매중인 차량 모아보기
+    @PostMapping (value = "/saleOfMyCar")
+    public Page<Car> saleOfMyCar(@RequestBody Page3DTO page3DTO) {
+        return carService.saleOfMyCar(page3DTO.getMid(), page3DTO.getPage(), page3DTO.getSize());
+    }
 
 
 //    @PostMapping(value = "/page")

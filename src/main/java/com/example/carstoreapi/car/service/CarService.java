@@ -243,4 +243,9 @@ public class CarService {
         PageRequest pageRequest = PageRequest.of(page, size);
         return carRepository.findCarByCarNameContainingAndAreaAndIsDel(company, area, "N", pageRequest);
     }
+
+    public Page<Car> saleOfMyCar(Long mid, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return carRepository.findCarByMidAndIsDel(mid, "N", pageRequest);
+    }
 }

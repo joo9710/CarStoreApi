@@ -35,5 +35,4 @@ public class WishlistController {
     public ApiResponse<WishlistDTO> delWishList(@PathVariable long wid) throws Exception{
         return wishlistservice.delWishList(wid);
     }
-
 }
