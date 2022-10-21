@@ -99,6 +99,7 @@
             <v-btn
                 tile
                 color="success"
+                @click="linkTo5"
             >
               <v-icon
                   left>
@@ -447,6 +448,10 @@ export default {
     linkTo4(national){
       this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
       this.$router.go(0);
+    },
+
+    linkTo5(){
+      this.$router.push({name:"test2"})
     },
 
     logout() {

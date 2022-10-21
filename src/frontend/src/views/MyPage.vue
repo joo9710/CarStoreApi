@@ -115,11 +115,9 @@
 
     </v-app-bar>
 
-
-
     <v-main class="grey lighten-3">
       <v-container>
-        <v-row>
+        <v-row >
       <v-col cols="12">
 
 
@@ -146,10 +144,10 @@
                   outlined
                   rounded
                   text
-                  @click="linkTo3">비교하기</v-btn>
+                  @click="linkTo3">자세히</v-btn>
             </div>
 
-            <v-row class="ma-0 ">
+            <v-row class="ma-0" justify="center">
               <div v-if="dataMsg2">위시리스트가 없습니다.</div>
               <div v-for="(data, index) in wishList"
                    :key="index"
@@ -186,11 +184,11 @@
                   outlined
                   rounded
                   text
-                  @click="linkTo(link3)">자세히</v-btn>
+                  @click="linkTo(link3)">전체 보기</v-btn>
 
             </div>
 
-            <v-row class="ma-0">
+            <v-row class="ma-0" justify="center">
               <div v-if="dataMsg">판매중인 차량이 없습니다.</div>
               <div v-for="(data, index) in myCarList"
                    :key="index"

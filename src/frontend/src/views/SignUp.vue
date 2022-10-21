@@ -104,14 +104,16 @@
             </v-col>
           </v-row>
 
-          <v-text-field
+          <v-select
+              :items="pickArea"
               ref="area"
+              :menu-props="{ bottom: true, offsetY: true }"
               v-model="area"
               :rules="[() => !!area || '지역이 비어있습니다.']"
               label="지역"
               required
               placeholder="서울"
-          ></v-text-field>
+          ></v-select>
           <v-text-field
               ref="phoneNumber"
               v-model="phoneNumber"
@@ -159,6 +161,8 @@ export default {
     password: null,
     passCheck:null,
     area:null,
+    pickArea: ['서울','부산','대구','인천','경기','대전','광주','울산','충남','충북','강원','경남','경북','전남','전북','제주'],
+
     phoneNumber:null,
     formHasErrors: false,
     show1:false,

@@ -55,6 +55,7 @@ export default {
       this.dialog = true;
 
     },
+
     change(){
       console.log(this.content)
       let data = {};

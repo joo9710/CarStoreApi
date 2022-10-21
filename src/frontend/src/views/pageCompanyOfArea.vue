@@ -18,11 +18,12 @@
 
           <v-col cols="2" >
             <v-btn
-                v-for="link in links"
-                :key="link"
+                v-for="(national,idx) in nationals"
+                :key="idx"
                 text
+                @click="linkTo4(national.national)"
             >
-              {{ link }}
+              {{ national.national }}
             </v-btn>
           </v-col>
 
@@ -240,10 +241,11 @@ export default {
   name: "pageCompanyOfArea.vue",
   data() {
     return {
-      links: [
-        '국산',
-        '수입',
+      nationals: [
+        {national:'국산'},
+        {national:'수입'}
       ],
+
 
       individuals: [
         {individual: '마이페이지', link: "MyPage"},
@@ -318,6 +320,12 @@ export default {
       this.$router.push({name:"pageCompanyOfArea", query: {company : this.company, area: area, page : this.page -1, size: this.size }})
       this.$router.go(0);
     },
+
+    linkTo4(national){
+      this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+      this.$router.go(0);
+    },
+
 
     logout() {
       console.log('logout')

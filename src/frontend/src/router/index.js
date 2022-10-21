@@ -16,6 +16,7 @@ import CompanyOfCar from "@/views/CompanyOfCar";
 import CarSearch from "@/views/CarSearch";
 import pageCompanyOfArea from "@/views/pageCompanyOfArea";
 import CarOfNational from "@/views/CarOfNational";
+import SaleOfMyCar from "@/views/SaleOfMyCar";
 
 Vue.use(VueRouter)
 
@@ -104,7 +105,13 @@ const routes = [
     path: '/CarOfNational',
     name:'CarOfNational',
     component: CarOfNational
-  }
+  },
+  {
+    path: '/SaleOfMyCar',
+    name:'SaleOfMyCar',
+    component: SaleOfMyCar
+  },
+
 
 ]
 

@@ -87,12 +87,9 @@
               <v-btn
                   tile
                   color="primary"
-                  @click="linkTo(link1)"
+                  @click="linkTo6"
               >
-                <v-icon left>
-                  mdi-pencil
-                </v-icon>
-                글쓰기</v-btn>
+                뒤로가기</v-btn>
             </v-col>
 
             <v-col cols="12"
@@ -119,7 +116,8 @@
     <v-main class="grey lighten-3">
       <v-container>
     <v-row>
-      <v-col cols="12">
+      <v-col cols="1"></v-col>
+      <v-col cols="10">
       <div>
         <v-data-table
             :headers="headers"
@@ -212,6 +210,10 @@ export default {
   },
 
   methods: {
+
+    linkTo6() {
+      this.$router.go(-1);
+    },
 
     retrieveUsers() {
       let data = {};

@@ -166,34 +166,75 @@
 
                 </v-list-group>
 
-                <v-list-item
-                    v-for="(company,idx) in companies"
-                    :key="idx"
-                    link
-                    @click="linkTo2(company.company)"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{company.company}}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
 
-                <v-divider class="my-2"></v-divider>
 
-                <v-list-item
-                    v-for="(company2,idx) in companies2"
-                    :key="`o-${idx}`"
-                    link
-                    @click="linkTo2(company2.company)"
-                    color="grey lighten-4"
+                <v-divider>
+                </v-divider>
+
+
+
+
+                <v-list-group
+                    :value="true"
+                    v-for="item in items2"
+                    :key="item.title"
+                    v-model="item.active"
+
+                    no-action
                 >
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{company2.company}}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+                  <template v-slot:activator>
+                    <v-list-item-content>
+                      <v-list-item-title
+                          v-text="item.title"
+                          @click="linkTo2(item.title)"
+                      >
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+
+                  <v-list-item
+                      :value="true"
+                      v-for="detail in item.items"
+                      :key="detail.title">
+
+                    <v-list-item-content>
+                      <v-list-item-title
+                          @click="linkTo2(detail.title)"
+                          class="blue--text"
+                          v-text="detail.title"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                </v-list-group>
+
+<!--                <v-list-item-->
+<!--                    v-for="(company,idx) in companies"-->
+<!--                    :key="idx"-->
+<!--                    link-->
+<!--                    @click="linkTo2(company.company)"-->
+<!--                >-->
+<!--                  <v-list-item-content>-->
+<!--                    <v-list-item-title>-->
+<!--                      {{company.company}}-->
+<!--                    </v-list-item-title>-->
+<!--                  </v-list-item-content>-->
+<!--                </v-list-item>-->
+
+<!--                <v-divider class="my-2"></v-divider>-->
+
+<!--                <v-list-item-->
+<!--                    v-for="(company2,idx) in companies2"-->
+<!--                    :key="`o-${idx}`"-->
+<!--                    link-->
+<!--                    @click="linkTo2(company2.company)"-->
+<!--                    color="grey lighten-4"-->
+<!--                >-->
+<!--                  <v-list-item-content>-->
+<!--                    <v-list-item-title>-->
+<!--                      {{company2.company}}-->
+<!--                    </v-list-item-title>-->
+<!--                  </v-list-item-content>-->
+<!--                </v-list-item>-->
               </v-list>
             </v-sheet>
           </v-col>
@@ -409,6 +450,61 @@ export default {
 
       ],
 
+      items2: [
+        {
+          active: '',
+          items: [
+            { title: 'E-클래스' },
+            { title: 'S-클래스' },
+            { title: 'C-클래스' },
+            { title: 'CLA-클래스' },
+            { title: 'CLS-클래스' },
+            { title: 'GLE-클래스' },
+
+          ],
+          title: '벤츠',
+        },
+
+        {
+          active: '',
+          items: [
+            { title: '3시리즈' },
+            { title: '5시리즈' },
+            { title: '7시리즈' },
+            { title: 'X1' },
+            { title: 'X2' },
+            { title: 'X3' },
+            { title: 'X4' },
+            { title: 'X5' },
+            { title: 'X6' },
+            { title: 'X7' },
+
+
+          ],
+          title: 'BMW',
+        },
+
+        {
+          active: '',
+          items: [
+            { title: 'A3' },
+            { title: 'A4' },
+            { title: 'A5' },
+            { title: 'A6' },
+            { title: 'A7' },
+            { title: 'A8' },
+            { title: 'Q5' },
+            { title: 'Q7' },
+
+          ],
+          title: '아우디',
+        },
+
+      ],
+
+      showForeign:false,
+      showKorean:false
+
     }
   },
 
@@ -464,6 +560,10 @@ export default {
           .then(response => {
             this.totalPage = response.data.totalPages;
             this.users = response.data.content;
+            if(this.items.includes(this.company)) {
+              this.showKorean = true;
+            } else
+              this.showKorean = false;
             console.log(response.data.content);
           })
 

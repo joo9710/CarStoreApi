@@ -8,7 +8,7 @@
         댓글삭제
       </v-card-title>
 
-      <span> 댓글을 삭제하시겠습니까?</span>
+      <span> 댓글을 정말 삭제하시겠습니까?</span>
       <v-divider></v-divider>
       <v-card-actions>
 

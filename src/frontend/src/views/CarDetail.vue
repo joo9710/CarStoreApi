@@ -1,6 +1,210 @@
 <template>
-  <div>
-    <v-card width="650px" height="790px" >
+  <v-app id="inspire">
+    <v-app-bar
+        app
+        color="white"
+        flat
+    >
+      <v-container class="py-0 fill-height">
+
+        <v-row class="ma-0">
+          <v-col cols="1">
+            <v-avatar
+                class="mr-10"
+                color="grey darken-1"
+                size="32"
+            ></v-avatar>
+          </v-col>
+
+          <v-col cols="2" >
+            <v-btn
+                v-for="(national,idx) in nationals"
+                :key="idx"
+                text
+                @click="linkTo4(national.national)"
+            >
+              {{ national.national }}
+            </v-btn>
+          </v-col>
+
+          <v-col cols="2">
+            <v-select
+                class="pl-8"
+                label="검색조건"
+                v-model="category"
+                :items="keywords"
+                item-text="name"
+                item-value="id">
+            </v-select>
+          </v-col>
+
+          <v-col cols="3">
+            <v-responsive max-width="auto">
+              <v-text-field
+                  dense
+                  flat
+                  hide-details
+                  rounded
+                  solo-inverted
+                  v-model="carName"
+              ></v-text-field>
+
+            </v-responsive>
+          </v-col>
+
+          <v-col cols="1">
+            <v-btn icon>
+              <v-icon
+
+              >mdi-magnify</v-icon>
+            </v-btn>
+
+          </v-col>
+
+          <v-col cols="3" >
+            <v-btn
+                v-for="(individual,idx) in individuals"
+                :key="idx"
+                @click="linkTo(individual.link)"
+                text
+            >
+              {{ individual.individual }}
+            </v-btn>
+          </v-col>
+
+        </v-row>
+
+        <v-spacer></v-spacer>
+
+
+        <v-row
+            align="center"
+            justify="space-around">
+          <v-col cols=12
+                 md="6"
+                 class="">
+
+            <v-btn
+                tile
+                color="primary"
+                @click="linkTo3"
+            >
+              <v-icon left>
+                mdi-arrow-left
+              </v-icon>
+              뒤로가기</v-btn>
+          </v-col>
+
+          <v-col cols="12"
+                 md="6">
+            <v-btn
+                tile
+                color="success"
+                @click="linkTo5"
+            >
+              <v-icon
+                  left>
+                mdi-home
+              </v-icon>
+              홈화면</v-btn>
+          </v-col>
+
+        </v-row>
+
+      </v-container>
+
+
+    </v-app-bar>
+
+
+    <v-main class="grey lighten-3">
+
+      <v-container>
+        <v-row>
+        <v-col cols="2">
+          <v-sheet color="grey lighten-3" rounded="lg">
+
+            <v-row justify="center">
+            <v-list color="transparent">
+
+
+              <v-list-item>
+                <v-row>
+                <v-btn
+                    tile
+                    color="success"
+                    @click="putAuthority()"
+                >
+                  <v-icon
+                      left>
+                    mdi-pencil
+                  </v-icon>
+                  글 수정</v-btn>
+
+                </v-row>
+              </v-list-item>
+
+              <v-list-item>
+                <v-row>
+                  <v-btn
+                      tile
+                      color="success"
+                      @click="delAuthority()"
+                  >
+                    <v-icon
+                        left>
+                      mdi-delete
+                    </v-icon>
+                    글 삭제</v-btn>
+
+                </v-row>
+              </v-list-item>
+
+              <v-list-item>
+                <v-row>
+                  <v-btn
+                      tile
+                      color="success"
+                      @click="addWishList()"
+                  >
+                    <v-icon
+                        left>
+                      mdi-thumb-up
+                    </v-icon>
+                    찜 하기</v-btn>
+
+                </v-row>
+              </v-list-item>
+
+              <v-list-item>
+                <v-row>
+                  <v-btn
+                      tile
+                      color="success"
+                      @click="linkTo5"
+                  >
+                    <v-icon
+                        left>
+                      mdi-arrow-left
+                    </v-icon>
+                    글 목록</v-btn>
+
+                </v-row>
+              </v-list-item>
+            </v-list>
+            </v-row>
+
+          </v-sheet>
+        </v-col>
+
+
+
+    <v-card width="750" height="auto" >
+      <v-img
+          v-if="userFile.fileName"
+          :src="require('@/assets/'+ userFile.fileName)"
+          style="object-fit: cover"
+          alt=""/>
       <div>작성자 : {{users.author}}</div>
       <div>차량명 : {{users.carName}}</div>
       <div>연식 : {{users.year}}</div>
@@ -13,19 +217,9 @@
       <div>글쓴 시간 : {{users.writeTime}}</div>
       <div>조회수 : {{users.readCount}}</div>
 
-      <v-img
-        v-if="userFile.fileName"
-        :src="require('@/assets/'+ userFile.fileName)"
-        style="object-fit: cover"
-        alt=""/>
+<v-spacer vertical></v-spacer>
+   <v-divider></v-divider>
 
-      <v-btn @click="putAuthority()">글 수정</v-btn>
-      <v-btn @click="delAuthority()">글 삭제</v-btn>
-      <v-btn @click="linkTo(link1)">글 목록</v-btn>
-      <v-btn @click="addWishList()">찜하기</v-btn>
-    </v-card>
-
-    <v-card width="650px" height="1500px" >
       <v-form>
         <v-container>
           <v-row>
@@ -51,6 +245,7 @@
           :items="cusers"
           class="elevation-1">
 
+
         <template v-slot:item.actions="{ item }">
 
           <v-icon
@@ -60,7 +255,7 @@
           >
             mdi-pencil
           </v-icon>
-            /
+          /
           <v-icon
               class="mr-2"
               @click="delOpenDialog(item.cid,item.mid)"
@@ -69,6 +264,10 @@
           </v-icon>
         </template>
       </v-data-table>
+    </v-card>
+
+    <v-card width="750" height="auto">
+
 
 
     </v-card>
@@ -82,7 +281,11 @@
   <CarCommentDel
     ref="CommentDel">
   </CarCommentDel>
-  </div>
+
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 <script>
 
@@ -105,6 +308,7 @@ export default {
       nickName:this.$store.state.userStore.nickName,
       carName:'',
       content: '',
+      subCarName:'',
       year:'',
       distance:'',
       area:'',
@@ -120,6 +324,18 @@ export default {
       ],
 
 
+      nationals: [
+        {national:'국산'},
+        {national:'수입'}
+      ],
+
+      individuals: [
+        {individual:'마이페이지', link:"MyPage"},
+        {individual:'로그아웃', link:"Mypage"}
+      ],
+
+      category:'',
+      keywords:['작성자', '차량명','지역'],
     }
   },
 
@@ -159,6 +375,16 @@ export default {
           let carId = this.$route.query.carId
           this.$router.push({name:"CarChange", query: { carId: carId }})
         },
+
+        linkTo3() {
+          this.$router.go(-1);
+        },
+
+        linkTo5(){
+          this.$router.push({name:"test2"})
+        },
+
+
 
         //글 상세내용 보여주기
         retrieveUsers() {
@@ -256,6 +482,7 @@ export default {
           data.mid = this.mid
           data.carId = this.$route.query.carId
           data.carName = this.users.carName
+            data.subCarName=this.users.subCarName
           data.year =this.users.year
           data.distance =this.users.distance
           data.area =this.users.area
@@ -267,7 +494,7 @@ export default {
               "Content-Type": `application/json`,
             }
           }).then(res => {
-            if(res.data.success===true) {
+            if(res.data.success === true) {
               alert('찜목록에 추가되었습니다.')
             } else {
               alert("이미 찜목록에 추가된 차량입니다.");

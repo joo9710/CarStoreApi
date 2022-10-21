@@ -1,4 +1,115 @@
 <template>
+  <v-row justify="center">
+    <v-col
+      cols="10"
+      sm="8"
+      md="6"
+      lg="4">
+      <v-card ref="form">
+        <v-card-title>
+          차량정보 수정
+        </v-card-title>
+        <v-card-text>
+
+          <v-text-field
+              ref="carName"
+              v-model="users.carName"
+              label="차량명"
+              placeholder="예) 기아 K5 2세대 1.7 디젤 SX 노블레스"
+              required
+          >
+          </v-text-field>
+
+
+          <v-text-field
+              ref="distance"
+              v-model="users.distance"
+              label="주행거리"
+              placeholder="예) 22,013km"
+              required
+          >
+          </v-text-field>
+
+          <v-text-field
+              ref="price"
+              v-model="users.price"
+              label="가격"
+              placeholder="예) 2,200만원"
+              required
+          >
+          </v-text-field>
+
+          <v-textarea v-model="users.content" ref="content"
+                      filled
+                      내용을 입력하세요
+                      name="input-7-4"
+                      label="차량정보 입력"
+          ></v-textarea>
+
+          <tr style="height: 160px">
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-card style="width: 200px; height: 200px">
+                  <img
+                      :src="thumbUrl"
+                      style="object-fit: cover; width: 200px; height: 200px;"
+                      alt=""
+                  >
+                </v-card>
+
+                <div class="file-div">
+                  <h5>썸네일 이미지 선택</h5>
+                  <input @change="upload2" type="file" id="thumb" accept="image/png, image/jpeg" multiple>
+                  <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
+                </div>
+
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <v-card style="width: 200px; height: 200px">
+                  <img
+                      :src="imageUrl"
+                      style="object-fit: cover; width: 200px; height: 200px;"
+                      alt=""
+                  >
+                </v-card>
+
+                <div class="file-div">
+                  <h5>게시글 이미지 선택</h5>
+                  <input @change="upload" type="file" id="file" accept="image/png, image/jpeg" multiple>
+                  <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
+                </div>
+
+              </v-col>
+            </v-row>
+          </tr>
+
+        </v-card-text>
+
+        <v-divider class="mt-12"></v-divider>
+        <v-card-actions>
+          <v-btn
+              color="primary"
+              text
+              @click="linkTo(link1)"
+          >
+            취소
+          </v-btn>
+
+          <v-spacer></v-spacer>
+
+          <v-btn
+              color="primary"
+              text
+              @click="change"
+          >
+            완료
+          </v-btn>
+
+        </v-card-actions>
+
+      </v-card>
+
   <div>
     <h1>차량정보 수정</h1>
 
@@ -38,6 +149,45 @@
         </table>
       </form>
 
+      <tr style="height: 160px">
+        <v-col>
+          <v-card style="width: 200px; height: 200px">
+            <img v-for="(item,i) in imageUrl" :key="i" :src="item.url"
+                style="object-fit: cover; width: 200px; height: 200px;"
+                alt=""
+            >
+          </v-card>
+
+          <div class="file-div">
+            <h5>게시글 이미지 선택</h5>
+            <input type="file" id="file" @change="upload" accept="image/png, image/jpeg" multiple>
+            <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
+          </div>
+
+        </v-col>
+      </tr>
+
+      <tr style="height: 160px">
+        <v-col>
+          <v-card style="width: 200px; height: 200px">
+            <img
+                :src="thumbUrl"
+                style="object-fit: cover; width: 200px; height: 200px;"
+                alt=""
+            >
+          </v-card>
+
+          <div class="file-div">
+            <h5>썸네일 이미지 선택</h5>
+            <input @change="upload2" type="file" id="thumb" accept="image/png, image/jpeg">
+            <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
+          </div>
+
+        </v-col>
+      </tr>
+
+
+
       <div class="btnWrap">
         <v-btn @click="change">완료</v-btn>
         <v-btn @click="linkTo(link1)" >취소</v-btn>
@@ -47,6 +197,9 @@
 
 
   </div>
+
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -63,6 +216,7 @@ export default {
       content:'',
       link1: "Car",
 
+      thumbUrl:this.$store.state.userStore.thumb,
       imageUrl: this.$store.state.userStore.fileName,
       imgFile:[],
 
@@ -120,7 +274,19 @@ export default {
       })
 
 
-    }
+    },
+
+    upload(e) {
+      let imageFile = e.target.files;
+      this.imgFile = imageFile[0]
+      this.imageUrl = URL.createObjectURL(imageFile[0]);
+    },
+
+    upload2(e) {
+      let thumbFile = e.target.files;
+      this.thumbFile = thumbFile[0]
+      this.thumbUrl = URL.createObjectURL(thumbFile[0]);
+    },
 
   }
 }
