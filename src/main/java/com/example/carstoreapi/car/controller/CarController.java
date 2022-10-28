@@ -91,7 +91,7 @@ public class CarController {
                              @RequestParam("price")String price,
                              @RequestParam("content")String content,
                              @RequestParam("thumb")MultipartFile multipartThumb,
-                             @RequestParam("file")MultipartFile multipartFile){
+                             @RequestParam("file") List<MultipartFile> multipartFile){
 
 
         CarDTO carDTO = new CarDTO();
@@ -109,6 +109,7 @@ public class CarController {
 
        int newId = carService.postCar(carDTO);
        log.debug("test : " + newId);
+       log.debug("Files : " + multipartFile);
        carService.saveThumb(newId, multipartThumb);
        return carService.saveFile(newId, multipartFile);
 

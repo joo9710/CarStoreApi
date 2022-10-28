@@ -21,7 +21,7 @@ public class CarStoreApiApplication {
         SpringApplication.run(CarStoreApiApplication.class, args);
     }
 
-    // Bean : 해당 메서드의 리턴되는 오브젝츠를 IOC로 등록
+    // Bean : 해당 메서드의 리턴되는 오브젝트를 IOC로 등록
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {

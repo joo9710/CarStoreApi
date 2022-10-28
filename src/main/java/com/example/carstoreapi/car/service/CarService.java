@@ -118,25 +118,66 @@ public class CarService {
         }
     }
 
+//    //파일 등록
+//    public String saveFile(int carId, MultipartFile[] multipartFile) {
+//
+//        FileDTO fileDTO = new FileDTO();
+//        for(MultipartFile multipartFile1 : multipartFile) {
+//            String imgFileName = carId + "carId" + multipartFile1.getOriginalFilename();
+//
+//            Path imgFilePath = Paths.get(uploadFolder + imgFileName);
+//
+//            for(int i=0; i< multipartFile.length; i++) {
+//                if (multipartFile1.getSize() != 0) {
+//                    try {
+//                        Files.write(imgFilePath, multipartFile1.getBytes());
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    fileDTO.setCarId(carId);
+//                    fileDTO.setFileName(imgFileName);
+//                    int result = fileDAO.fileUpload(fileDTO);
+//                    log.debug("multipartFile: " + multipartFile1);
+//                    return "저장 결과 : " + result;
+//                }
+//            }
+//        }
+//        return null;
+//    }
+
     //파일 등록
-    public String saveFile(int carId, MultipartFile multipartFile) {
+    public String saveFile(int carId, List<MultipartFile> multipartFile) {
 
         FileDTO fileDTO = new FileDTO();
-        String imgFileName = carId + "carId" + multipartFile.getOriginalFilename();
-        Path imgFilePath = Paths.get(uploadFolder + imgFileName);
 
-        if (multipartFile.getSize() != 0) {
-            try {
-                Files.write(imgFilePath, multipartFile.getBytes());
-            } catch (Exception e) {
-                e.printStackTrace();
+            for(int i=0; i <multipartFile.size(); i++) {
+                log.debug("파일 몇개?: "+ multipartFile.size());
+                String imgFileName = carId + "carId" + multipartFile.get(i).getOriginalFilename();
+                log.debug("첫번째 파일 원본이름: " + multipartFile.get(0).getOriginalFilename());
+                log.debug("두번째 파일 원본이름: " + multipartFile.get(1).getOriginalFilename());
+                log.debug("imgFileName: " + imgFileName);
+
+
+                log.debug("getSize: " + multipartFile.get(0).getSize());
+                log.debug("getSize: " + multipartFile.get(1).getSize());
+                Path imgFilePath = Paths.get(uploadFolder + imgFileName);
+
+
+                if (multipartFile.get(i).getSize() != 0) {
+                    try {
+                        Files.write(imgFilePath, multipartFile.get(i).getBytes());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    fileDTO.setCarId(carId);
+                    fileDTO.setFileName(imgFileName);
+                    fileDAO.fileUpload(fileDTO);
+                    log.debug("multipartFile: " + multipartFile);
             }
-            fileDTO.setCarId(carId);
-            fileDTO.setFileName(imgFileName);
-            int result = fileDAO.fileUpload(fileDTO);
-            return "저장 결과 : " + result;
+
         }
-        return null;
+        return "파일업로드 완료" ;
+
     }
 
     // 썸네일 등록
