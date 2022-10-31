@@ -103,6 +103,12 @@ public class CarService {
         return new ApiResponse(true, data);
     }
 
+    // 파일 읽기
+    public ApiResponse<FileDTO> getFileByCarId(int carId) {
+        List<FileDTO> data = fileDAO.getFileByCarId(carId);
+        return new ApiResponse(true, carId + "FileData",data);
+    }
+
     //글 쓰기
     public Integer postCar(CarDTO carDTO) throws Exception {
 
@@ -215,11 +221,7 @@ public class CarService {
         return result;
     }
 
-    // 파일 읽기
-    public ApiResponse<FileDTO> getFileByCarId(int carId) {
-        FileDTO data = fileDAO.getFileByCarId(carId);
-        return new ApiResponse(true, data);
-    }
+
 
     //글 수정
     public String putCar(int carId, CarDTO carDTO) throws Exception {

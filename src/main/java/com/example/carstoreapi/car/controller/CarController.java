@@ -67,6 +67,13 @@ public class CarController {
         return carService.getCarById(carId);
     }
 
+    // 파일 읽기
+    @GetMapping(value = "/showFile/{carId}")
+    public ApiResponse<FileDTO> getFileByCarId(@PathVariable int carId) throws Exception {
+        log.debug("FileData: " + carId);
+        return carService.getFileByCarId(carId);
+    }
+
     //글 등록
     @PostMapping(value = "/")
     public ApiResponse<CarDTO> postCar(@RequestBody CarDTO carDTO) throws Exception{
@@ -115,12 +122,7 @@ public class CarController {
 
     }
 
-    // 파일 읽기
-    @GetMapping(value = "/showFile/{carId}")
-    public ApiResponse<FileDTO> getFileByCarId(@PathVariable int carId) throws Exception {
-        log.debug("FileData: " + carId);
-        return carService.getFileByCarId(carId);
-    }
+
 
     //글 수정
     @PutMapping(value = "/{carId}")

@@ -272,7 +272,8 @@
 
               <div class="file-div">
                 <h5>게시글 이미지 선택</h5>
-                <input @change="upload" type="file" id="file" accept="image/png, image/jpeg">
+                <input @change="upload" ref="imageFile" type="file" id="file"
+                       accept="image/png, image/jpeg" multiple>
                 <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
               </div>
 
@@ -349,7 +350,7 @@ export default {
       imageUrl: this.$store.state.userStore.fileName,
       thumbUrl:this.$store.state.userStore.thumb,
       thumbFile:[],
-      imgFile:[],
+      imgFile:{},
 
       fuels: ['가솔린', '디젤', 'LPG', '전기', '수소', '하이브리드'],
       fuel:'',
@@ -376,8 +377,11 @@ export default {
 
     editImage() {
       console.log(this.thumbFile)
+      console.log(this.imgFile)
       let data = new FormData();
-      data.append("file", this.imgFile);
+      for(let i =0; i<this.imgFile.length; i++){
+      data.append("file", this.imgFile[i]);
+      }
       data.append("thumb", this.thumbFile);
       data.append("mid", this.mid);
       data.append("author", JSON.stringify(this.nickName));
@@ -404,16 +408,19 @@ export default {
         console.log(response.data)
           alert("글이 작성되었습니다.");
           this.linkTo(this.link1);
+          console.log(this.thumbFile);
+          console.log(this.imgFile);
         }
       }).catch(error => {
         console.log(error.response);
       })
     },
 
-    upload(e) {
-      let imageFile = e.target.files;
-      this.imgFile = imageFile[0]
-      this.imageUrl = URL.createObjectURL(imageFile[0]);
+    upload() {
+      // let imageFile = e.target.files;
+      this.imgFile = this.$refs.imageFile.files;
+      this.imageUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
+      console.log("imgFile: " + this.imgFile);
     },
 
     upload2(e) {

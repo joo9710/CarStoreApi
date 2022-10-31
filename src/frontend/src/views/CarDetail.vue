@@ -199,12 +199,22 @@
 
 
 
-    <v-card width="750" height="auto" >
-      <v-img
-          v-if="userFile.fileName"
-          :src="require('@/assets/'+ userFile.fileName)"
+    <v-card width="750" height="auto">
+
+      <v-carousel>
+        <v-carousel-item
+
+          v-for="(data,idx) in userFile"
+          :key="idx"
+          :src="require('@/assets/'+ data.fileName)"
           style="object-fit: cover"
-          alt=""/>
+
+          reverse-transition="fade-transition"
+          transition="fade-transition"
+          >
+        </v-carousel-item>
+      </v-carousel>
+
       <div>작성자 : {{users.author}}</div>
       <div>차량명 : {{users.carName}}</div>
       <div>연식 : {{users.year}}</div>
@@ -301,6 +311,7 @@ export default {
     return {
       users: '',
       userFile: '',
+      fileName:'',
       cusers:[],
       cuser:'',
       link1: "Car",
@@ -405,7 +416,7 @@ export default {
           this.$axios.get("car/showFile/" + carId)
           .then(response => {
             this.userFile = response.data.data;
-            console.log(response.data.data);
+            console.log(this.userFile);
           })
           .catch(e => {
             console.log(e);
