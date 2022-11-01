@@ -215,6 +215,9 @@
         </v-carousel-item>
       </v-carousel>
 
+      <v-alert
+          outlined
+          color="black">
       <div>작성자 : {{users.author}}</div>
       <div>차량명 : {{users.carName}}</div>
       <div>연식 : {{users.year}}</div>
@@ -226,8 +229,10 @@
       <div>글쓴 날짜 : {{users.writeDate}}</div>
       <div>글쓴 시간 : {{users.writeTime}}</div>
       <div>조회수 : {{users.readCount}}</div>
+      </v-alert>
 
 <v-spacer vertical></v-spacer>
+
    <v-divider></v-divider>
 
       <v-form>
@@ -394,7 +399,6 @@ export default {
         linkTo5(){
           this.$router.push({name:"test2"})
         },
-
 
 
         //글 상세내용 보여주기

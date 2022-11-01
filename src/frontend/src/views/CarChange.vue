@@ -1,11 +1,128 @@
 <template>
+  <v-app id="inspire">
+    <v-app-bar
+        app
+        color="white"
+        flat
+    >
+      <v-container class="py-0 fill-height">
+
+        <v-row class="ma-0">
+          <v-col cols="1">
+            <v-avatar
+                class="mr-10"
+                color="grey darken-1"
+                size="32"
+            ></v-avatar>
+          </v-col>
+
+          <v-col cols="2" >
+            <v-btn
+                v-for="(national,idx) in nationals"
+                :key="idx"
+                text
+                @click="linkTo4(national.national)"
+            >
+              {{ national.national }}
+            </v-btn>
+          </v-col>
+
+          <v-col cols="2">
+            <v-select
+                class="pl-8"
+                label="검색조건"
+                v-model="category"
+                :items="keywords"
+                item-text="name"
+                item-value="id">
+            </v-select>
+          </v-col>
+
+          <v-col cols="3">
+            <v-responsive max-width="auto">
+              <v-text-field
+                  dense
+                  flat
+                  hide-details
+                  rounded
+                  solo-inverted
+                  v-model="carName"
+              ></v-text-field>
+
+            </v-responsive>
+          </v-col>
+
+          <v-col cols="1">
+            <v-btn icon>
+              <v-icon
+
+              >mdi-magnify</v-icon>
+            </v-btn>
+
+          </v-col>
+
+          <v-col cols="3" >
+            <v-btn
+                v-for="(individual,idx) in individuals"
+                :key="idx"
+                @click="linkTo(individual.link)"
+                text
+            >
+              {{ individual.individual }}
+            </v-btn>
+          </v-col>
+
+        </v-row>
+
+        <v-spacer></v-spacer>
+
+
+        <v-row
+            align="center"
+            justify="space-around">
+          <v-col cols=12
+                 md="6"
+                 class="">
+
+            <v-btn
+                tile
+                color="primary"
+                @click="linkTo3"
+            >
+              <v-icon left>
+                mdi-arrow-left
+              </v-icon>
+              뒤로가기</v-btn>
+          </v-col>
+
+          <v-col cols="12"
+                 md="6">
+            <v-btn
+                tile
+                color="success"
+                @click="linkTo5"
+            >
+              <v-icon
+                  left>
+                mdi-home
+              </v-icon>
+              홈화면</v-btn>
+          </v-col>
+
+        </v-row>
+
+      </v-container>
+
+    </v-app-bar>
+
+    <v-main class="grey lighten-3">
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+
   <v-row justify="center">
-    <v-col
-      cols="10"
-      sm="8"
-      md="6"
-      lg="4">
-      <v-card ref="form">
+
+      <v-card ref="form" width="750" height="auto">
         <v-card-title>
           차량정보 수정
         </v-card-title>
@@ -46,43 +163,6 @@
                       label="차량정보 입력"
           ></v-textarea>
 
-          <tr style="height: 160px">
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-card style="width: 200px; height: 200px">
-                  <img
-                      :src="thumbUrl"
-                      style="object-fit: cover; width: 200px; height: 200px;"
-                      alt=""
-                  >
-                </v-card>
-
-                <div class="file-div">
-                  <h5>썸네일 이미지 선택</h5>
-                  <input @change="upload2" type="file" id="thumb" accept="image/png, image/jpeg" multiple>
-                  <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
-                </div>
-
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-card style="width: 200px; height: 200px">
-                  <img
-                      :src="imageUrl"
-                      style="object-fit: cover; width: 200px; height: 200px;"
-                      alt=""
-                  >
-                </v-card>
-
-                <div class="file-div">
-                  <h5>게시글 이미지 선택</h5>
-                  <input @change="upload" type="file" id="file" accept="image/png, image/jpeg" multiple>
-                  <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
-                </div>
-
-              </v-col>
-            </v-row>
-          </tr>
 
         </v-card-text>
 
@@ -110,96 +190,13 @@
 
       </v-card>
 
-  <div>
-    <h1>차량정보 수정</h1>
 
-    <div class="AddWrap">
-      <form>
-        <table class="tbAdd">
-          <colgroup>
-            <col width="15%" />
-            <col width="*" />
-          </colgroup>
-
-          <tr>
-            <th>차량명</th>
-            <td><input type="carName" v-model="users.carName" ref="carName" /></td>
-          </tr>
-
-          <tr>
-            <th>주행거리</th>
-            <td><textarea v-model="users.distance" ref="distance"></textarea></td>
-          </tr>
-
-          <tr>
-            <th>지역</th>
-            <td><textarea v-model="users.area" ref="area"></textarea></td>
-          </tr>
-
-          <tr>
-            <th>가격</th>
-            <td><textarea v-model="users.price" ref="users.price"></textarea></td>
-          </tr>
-
-          <tr>
-            <th>내용</th>
-            <td><textarea v-model="users.content" ref="content"></textarea></td>
-          </tr>
-
-        </table>
-      </form>
-
-      <tr style="height: 160px">
-        <v-col>
-          <v-card style="width: 200px; height: 200px">
-            <img v-for="(item,i) in imageUrl" :key="i" :src="item.url"
-                style="object-fit: cover; width: 200px; height: 200px;"
-                alt=""
-            >
-          </v-card>
-
-          <div class="file-div">
-            <h5>게시글 이미지 선택</h5>
-            <input type="file" id="file" @change="upload" accept="image/png, image/jpeg" multiple>
-            <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
-          </div>
-
-        </v-col>
-      </tr>
-
-      <tr style="height: 160px">
-        <v-col>
-          <v-card style="width: 200px; height: 200px">
-            <img
-                :src="thumbUrl"
-                style="object-fit: cover; width: 200px; height: 200px;"
-                alt=""
-            >
-          </v-card>
-
-          <div class="file-div">
-            <h5>썸네일 이미지 선택</h5>
-            <input @change="upload2" type="file" id="thumb" accept="image/png, image/jpeg">
-            <label class="input-label" for="file"><v-icon color="white">mdi-pencil</v-icon></label>
-          </div>
-
-        </v-col>
-      </tr>
-
-
-
-      <div class="btnWrap">
-        <v-btn @click="change">완료</v-btn>
-        <v-btn @click="linkTo(link1)" >취소</v-btn>
-      </div>
-
-    </div>
-
-
-  </div>
-
-    </v-col>
   </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -208,6 +205,20 @@ export default {
 
   data() {
     return {
+
+      nationals: [
+        {national:'국산'},
+        {national:'수입'}
+      ],
+
+      individuals: [
+        {individual:'마이페이지', link:"MyPage"},
+        {individual:'로그아웃', link:"Mypage"}
+      ],
+
+      category:'',
+      keywords:['작성자', '차량명','지역'],
+
       users:'',
       area:this.$store.state.userStore.area,
       carName:'',
@@ -233,6 +244,15 @@ export default {
     linkTo(data) {
       this.$router.push({name: data})
     },
+
+    linkTo3() {
+      this.$router.go(-1);
+    },
+
+    linkTo5(){
+      this.$router.push({name:"test2"})
+    },
+
 
 
     retrieveUsers() {

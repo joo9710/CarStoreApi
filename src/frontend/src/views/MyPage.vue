@@ -117,7 +117,7 @@
 
     <v-main class="grey lighten-3">
       <v-container>
-        <v-row >
+        <v-row>
       <v-col cols="12">
 
 
@@ -236,6 +236,7 @@
 
         </v-row>
       </v-card>
+
     </v-row>
       </v-col>
         </v-row>
