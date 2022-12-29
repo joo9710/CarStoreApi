@@ -18,11 +18,12 @@
 
           <v-col cols="2" >
             <v-btn
-                v-for="link in links"
-                :key="link"
+                v-for="(national,idx) in nationals"
+                :key="idx"
                 text
+                @click="linkTo4(national.national)"
             >
-              {{ link }}
+              {{ national.national }}
             </v-btn>
           </v-col>
 
@@ -54,22 +55,47 @@
           <v-col cols="1">
             <v-btn icon>
               <v-icon
-              @click="linkTo2"
+              @click="linkTo7"
               >mdi-magnify</v-icon>
             </v-btn>
 
           </v-col>
 
-          <v-col cols="3" >
-            <v-btn
-                v-for="(individual,idx) in individuals"
-                :key="idx"
-                @click="linkTo(individual.link)"
-                text
-            >
-              {{ individual.individual }}
-            </v-btn>
-          </v-col>
+          <div v-show="wishBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  v-for="(individual,idx) in individuals1"
+                  :key="idx"
+                  @click="linkTo(individual.link)"
+                  text
+              >
+                {{ individual.individual }}
+              </v-btn>
+            </v-col>
+          </div>
+
+          <div v-show="wishBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  v-for="(individual,idx) in individuals2"
+                  :key="idx"
+                  @click="logout()"
+                  text
+              >
+                {{ individual.individual }}
+              </v-btn>
+            </v-col>
+          </div>
+
+          <div v-show="loginBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  @click= "linkTo6()"
+                  text
+              >
+                로그인</v-btn>
+            </v-col>
+          </div>
 
         </v-row>
 
@@ -86,6 +112,7 @@
             <v-btn
                 tile
                 color="primary"
+                @click="linkTo(link1)"
             >
               <v-icon left>
                 mdi-pencil
@@ -98,6 +125,7 @@
             <v-btn
                 tile
                 color="success"
+                @click="linkTo5"
             >
               <v-icon
                   left>
@@ -230,16 +258,18 @@ export default {
 
   data() {
     return {
-      links: [
-        '국산',
-        '수입',
+      nationals: [
+        {national:'국산'},
+        {national:'수입'}
       ],
 
-      individuals: [
-        {individual:'마이페이지', link:"MyPage"},
-        {individual:'로그아웃', link:"Mypage"}
+      individuals1: [
+        {individual:'마이페이지', link:"MyPage"}
       ],
 
+      individuals2: [
+        {individual:'로그아웃', link:"Car"}
+      ],
       companies: [
         {company:'현대'},
         {company:'제네시스'},
@@ -297,9 +327,43 @@ export default {
       this.$router.push({name: data})
     },
 
-    linkTo2() {
+    linkTo2(company){
+      this.$router.push({name:"CompanyOfCar", query: {company : company, page : this.page -1, size: this.size }})
+    },
+
+    linkTo3(company){
+      if(this.area === null) {
+        this.linkTo2(company)
+      }
+
+      else {
+        this.$router.push({name:"pageCompanyOfArea", query: {company : company, area: this.area, page : this.page -1, size: this.size }})
+        this.$router.go(0);
+      }
+    },
+
+    linkTo4(national){
+      this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+      this.$router.go(0);
+    },
+
+    linkTo5(){
+      this.$router.push({name:"Car"})
+    },
+
+    linkTo6() {
+      this.$router.push({name:"Login"})
+    },
+
+    linkTo7() {
       this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
       this.$router.go(0);
+    },
+
+    logout() {
+      console.log('logout')
+      this.$store.dispatch('logout')
+      alert("로그아웃 처리 되었습니다.");
     },
 
     keywordSearch() {
@@ -319,6 +383,14 @@ export default {
             console.log(this.carName);
             console.log(this.page);
             console.log(this.size);
+
+            if (this.$store.state.userStore.mid == 0) {
+              this.loginBtnShow = true
+              this.wishBtnShow = false
+            } else {
+              this.loginBtnShow = false
+              this.wishBtnShow = true
+            }
 
           })
           .catch(e => {

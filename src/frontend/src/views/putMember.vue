@@ -333,7 +333,7 @@ export default {
     },
 
     linkTo5(){
-      this.$router.push({name:"test2"})
+      this.$router.push({name:"Car"})
     },
 
 

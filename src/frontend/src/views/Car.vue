@@ -1,159 +1,345 @@
 <template>
+  <v-app id="inspire">
+    <v-app-bar
+        app
+        color="white"
+        flat
+    >
+      <v-container class="py-0 fill-height">
 
-  <div class="grey darken-1">
-    <v-row justify="center">
-    <v-card width="830px" height="900px">
+        <v-row class="ma-0">
+          <v-col cols="1">
+            <v-avatar
+                class="mr-10"
+                color="grey darken-1"
+                size="32"
+            ></v-avatar>
+          </v-col>
 
-
-      <v-data-table
-          :headers="headers"
-          :items="users"
-
-          class="elevation-1">
-
-          <template v-slot:item.action="{item}">
-            <v-icon
-                small
-                class="mr2"
-                @click="showWishSelectSet(item.carId)"
-                :color="item.select ? 'rgb(200,80,80)' : 'rgb(180,180,180)'"
-                >mdi-heart
-            </v-icon>
-
-          </template>
-
-        <template v-slot:top>
-          <v-toolbar
-              flat
-              color="red"
-          >
-
-            <div v-show="wishBtnShow">
-            <v-btn class="ma-4"
-                   outlined
-                   rounded
-                   text
-                   @click="linkTo(link1)">글 쓰기</v-btn>
-            </div>
-
-            <v-spacer></v-spacer>
-
-            <div v-show = "loginBtnShow">
+          <v-col cols="2" >
             <v-btn
-                outlined
-                rounded
-                @click="linkTo(link2)">로그인</v-btn>
-            </div>
-
-
-            <div v-show ="wishBtnShow">
-              <v-btn
-                  outlined
-                  rounded
-                  text
-                  @click="linkTo(link4)">마이페이지</v-btn>
-            </div>
-
-            <div v-show="wishBtnShow">
-            <v-btn
-                outlined
-                rounded
+                v-for="(national,idx) in nationals"
+                :key="idx"
                 text
-                @click="logout()">로그아웃</v-btn>
-            </div>
-          </v-toolbar>
+                @click="linkTo4(national.national)"
+            >
+              {{ national.national }}
+            </v-btn>
+          </v-col>
+
+          <v-col cols="2">
+            <v-select
+                class="pl-8"
+                label="검색조건"
+                v-model="category"
+                :items="keywords"
+                item-text="name"
+                item-value="id">
+            </v-select>
+          </v-col>
+
+          <v-col cols="3">
+            <v-responsive max-width="auto">
+              <v-text-field
+                  dense
+                  flat
+                  hide-details
+                  rounded
+                  solo-inverted
+                  v-model="carName"
+              ></v-text-field>
+
+            </v-responsive>
+          </v-col>
+
+          <v-col cols="1">
+            <v-btn icon
+            @click="linkTo7">
+              <v-icon
+              >mdi-magnify</v-icon>
+
+            </v-btn>
+
+          </v-col>
+
+          <div v-show="wishBtnShow">
+          <v-col cols="1" >
+            <v-btn
+                v-for="(individual,idx) in individuals1"
+                :key="idx"
+                @click="linkTo(individual.link)"
+                text
+            >
+              {{ individual.individual }}
+            </v-btn>
+          </v-col>
+          </div>
+
+          <div v-show="wishBtnShow">
+          <v-col cols="1" >
+            <v-btn
+                v-for="(individual,idx) in individuals2"
+                :key="idx"
+                @click="logout()"
+                text
+            >
+              {{ individual.individual }}
+            </v-btn>
+          </v-col>
+          </div>
+
+          <div v-show="loginBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  @click= "linkTo6()"
+                  text
+              >
+              로그인</v-btn>
+            </v-col>
+          </div>
+
+        </v-row>
+
+        <v-spacer></v-spacer>
+
+
+        <v-row
+            align="center"
+            justify="space-around">
+          <v-col cols=12
+                 md="6"
+                 class="">
+
+            <v-btn
+                tile
+                color="primary"
+                @click="linkTo(link1)"
+            >
+              <v-icon left>
+                mdi-pencil
+              </v-icon>
+              글쓰기</v-btn>
+          </v-col>
+
+          <v-col cols="12"
+                 md="6">
+            <v-btn
+                tile
+                color="success"
+                @click="linkTo5"
+            >
+              <v-icon
+                  left>
+                mdi-home
+              </v-icon>
+              홈화면</v-btn>
+          </v-col>
+
+        </v-row>
+
+      </v-container>
+
+
+    </v-app-bar>
 
 
 
-          <v-form>
-            <v-row>
-              <v-spacer></v-spacer>
-               <v-col
-                   cols="2"
-               >
+
+    <v-main class="grey lighten-3">
+      <v-container>
+        <v-row>
+          <v-col cols="2">
+            <v-sheet rounded="lg">
+              <v-list color="transparent">
+                <v-list-item>
                   <v-select
-                    class="pl-8"
-                    label="검색조건"
-                    v-model="category"
-                    :items="keywords"
-                    item-text="name"
-                    item-value="id">
-                    </v-select>
-                </v-col>
+                      class="pl-8"
+                      label="지역선택"
+                      v-model="area"
+                      :items="pickArea"
+                      item-text="name"
+                      item-value="id"
 
-              <v-col
-              cols="3">
-                <v-text-field
-                    v-model="carName">
-                </v-text-field>
-              </v-col>
+                  >
+                  </v-select>
+                </v-list-item>
+                <v-list-item
+                    v-for="(company,idx) in companies"
+                    :key="idx"
+                    link
+                    @click="linkTo3(company.company)"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{company.company}}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
 
-              <v-col class="pt-5 pl-xl-4"
-              cols="2">
-                <v-btn block color="primary"
-                       @click="keywordSearch">검색
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-form>
+                <v-divider class="my-2"></v-divider>
 
-        </template>
+                <v-list-item
+                    v-for="(company2,idx) in companies2"
+                    :key="`o-${idx}`"
+                    link
+                    @click="linkTo2(company2.company)"
+                    color="grey lighten-4"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{company2.company}}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-sheet>
+          </v-col>
 
-        <template v-slot:item.thumb="{ item }">
-          <v-img
-              v-if="item.thumb"
-              :src="require('@/assets/thumb/'+ item.thumb)"
-              style="object-fit: cover"
-              height="120px"
-              width="180px"
-              alt=""/>
-        </template>
+          <v-col >
+            <v-sheet
+                min-height="70vh"
+                align="center"
+                rounded="lg"
+                color=""
+            >
 
-        <template v-slot:item.content="{ item }">
-          <v-row>
-            <v-col cols="12" class="pa-0">
-              <router-link :to="{ name: 'CarDetail', query:{ carId: item.carId } }">
-                {{item.carName}}
-              </router-link>
+              <!--              <v-row-->
+              <!--                  align="center"-->
+              <!--                  class="mx-0"-->
+              <!--              >-->
 
-            </v-col>
+              <!--              <v-col cols="2">-->
 
-            <v-col cols="12" class="pa-0">
-              <span>{{item.year}} | </span>
-              <span>{{item.distance}} | </span>
-              <span>{{item.fuel}} | </span>
-              <span>{{item.area}}</span>
-            </v-col>
-          </v-row>
 
-        </template>
+              <!--              <v-select-->
+              <!--                  class="pl-8"-->
+              <!--                  label="검색조건"-->
+              <!--                  v-model="category"-->
+              <!--                  :items="keywords"-->
+              <!--                  item-text="name"-->
+              <!--                  item-value="id">-->
+              <!--              </v-select>-->
+              <!--              </v-col>-->
 
-      </v-data-table>
+              <!--                <v-col cols="7">-->
+              <!--                  <v-responsive max-width="auto">-->
+              <!--                    <v-text-field-->
+              <!--                        dense-->
+              <!--                        flat-->
+              <!--                        hide-details-->
+              <!--                        rounded-->
+              <!--                        solo-inverted-->
+              <!--                    ></v-text-field>-->
 
-      <template>
-        <div class="text-center">
-          <v-pagination
-              v-model="page"
-              :length="totalPage"
-              prev-icon="mdi-menu-left"
-              next-icon="mdi-menu-right"
-              @input="retrieveUsers"
-          ></v-pagination>
-        </div>
-      </template>
+              <!--                  </v-responsive>-->
+              <!--                </v-col>-->
 
-    </v-card>
-    </v-row>
-  </div>
+              <!--                <v-col cols="1">-->
+              <!--                    <v-btn icon>-->
+              <!--                      <v-icon>mdi-magnify</v-icon>-->
+              <!--                    </v-btn>-->
+
+              <!--                </v-col>-->
+              <!--        </v-row>-->
+
+              <div>
+                <v-data-table
+                    :headers="headers"
+                    :items="users"
+                    hide-default-footer
+                    class="elevation-1"
+                >
+
+                  <template v-slot:item.thumb="{ item }">
+                    <v-img
+                        v-if="item.thumb"
+                        :src="require('@/assets/thumb/'+ item.thumb)"
+                        style="object-fit: cover"
+                        height="120px"
+                        width="180px"
+                        alt=""/>
+                  </template>
+
+                  <template v-slot:item.content="{ item }">
+                    <v-row>
+                      <v-col cols="12" class="pa-0">
+                        <router-link :to="{ name: 'CarDetail', query:{ carId: item.carId } }">
+                          {{item.carName}}
+                        </router-link>
+
+                      </v-col>
+
+                      <v-col cols="12" class="pa-0">
+                        <span>{{item.year}} | </span>
+                        <span>{{item.distance}} | </span>
+                        <span>{{item.fuel}} | </span>
+                        <span>{{item.area}}</span>
+                      </v-col>
+                    </v-row>
+
+                  </template>
+                </v-data-table>
+
+                <template>
+                  <div class="text-center">
+                    <v-pagination
+                        v-model="page"
+                        :length="totalPage"
+                        prev-icon="mdi-menu-left"
+                        next-icon="mdi-menu-right"
+                        @input="retrieveUsers"
+                    ></v-pagination>
+                  </div>
+                </template>
+
+              </div>
+
+              <!--  -->
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 
 </template>
 
 <script>
 export default {
-  name: "Car",
-
   data: () => ({
+    nationals: [
+      {national:'국산'},
+      {national:'수입'}
+    ],
+
+    individuals1: [
+      {individual:'마이페이지', link:"MyPage"}
+    ],
+
+    individuals2: [
+      {individual:'로그아웃', link:"Car"}
+    ],
+
+    companies: [
+      {company:'현대'},
+      {company:'제네시스'},
+      {company:'기아'},
+      {company:'쉐보레'},
+      {company:'르노코리아'},
+      {company:'쌍용'}
+    ],
+
+    companies2: [
+      {company:'벤츠'},
+      {company:'BMW'},
+      {company:'아우디'},
+    ],
+
+    pickArea: ['서울','부산','대구','인천','경기','대전','광주','울산','충남','충북','강원','경남','경북','전남','전북','제주'],
+    area:null,
+
     users: [],
+    cusers: [],
     search: '',
     carName: '',
 
@@ -161,6 +347,7 @@ export default {
     link2: "Login",
     link3: "WishList",
     link4: "MyPage",
+    link5: "CompanyOfCar",
 
     page: 1,
     size: 5,
@@ -181,22 +368,14 @@ export default {
     select: true,
 
 
-    wishCars: [],
-
     headers: [
       {text: '', value: 'thumb'},
       {text: '차량정보', value: 'content'},
-      {text: '찜하기', value: 'action', align: 'center', sortable: false},
+      {text: '등록일', value: 'writeDate', align: 'center', sortable: false},
       {text: '가격', value: 'price', align: 'center', sortable: false},
     ],
 
   }),
-
-  watch: {
-    select(msg) {
-      console.log('new wish' + msg);
-    },
-  },
 
   methods: {
 
@@ -210,7 +389,6 @@ export default {
         },
       }).then(response => {
         console.log(response.data)
-
         this.users = response.data.content;
         this.totalPage = response.data.totalPages;
         for (let i = 0; i < response.data.length; i++) {
@@ -225,7 +403,6 @@ export default {
           this.wishBtnShow = true
         }
 
-
       })
           .catch(e => {
             console.log(e);
@@ -234,12 +411,12 @@ export default {
 
     keywordSearch() {
       this.$axios.get("car/search", {
-          params: {
-              category : this.category,
-              keyword : this.carName,
-              page : this.page-1,
-              size : this.size
-          }
+        params: {
+          category : this.category,
+          keyword : this.carName,
+          page : this.page-1,
+          size : this.size
+        }
       })
           .then(response => {
             this.totalPage = response.data.totalPages;
@@ -253,45 +430,102 @@ export default {
 
 
 
-  linkTo(data) {
-    this.$router.push({name: data})
-  },
-
-  logout() {
-    console.log('logout')
-    this.$store.dispatch('logout')
-    alert("로그아웃 처리 되었습니다.");
-
-  },
-
-
-  //찜목록 추가
-  postWishList() {
-
-  },
-
-  showWishSelectSet(item) {
-    console.log(item)
-    for (let i = 0; i < 5; i++) {
-      if (this.users[i].carId === item) {
-        console.log("true")
-        this.users[i].select = !this.users[i].select
+    linkTo(data) {
+      if(this.$store.state.userStore.mid != 0)
+      {
+      this.$router.push({name: data})
       }
+      else {
+        alert("로그인 후 이용가능합니다.")
+      }
+    },
+
+    linkTo2(company){
+      this.$router.push({name:"CompanyOfCar", query: {company : company, page : this.page -1, size: this.size }})
+    },
+
+    linkTo3(company){
+      if(this.area === null) {
+        this.linkTo2(company)
+      }
+
+      else {
+        this.$router.push({name:"pageCompanyOfArea", query: {company : company, area: this.area, page : this.page -1, size: this.size }})
+        this.$router.go(0);
+      }
+    },
+
+    linkTo4(national){
+      this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+      this.$router.go(0);
+    },
+
+    linkTo5(){
+      this.$router.push({name:"Car"})
+    },
+
+    linkTo6() {
+      this.$router.push({name:"Login"})
+    },
+
+    linkTo7() {
+      this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+    },
+
+    logout() {
+      console.log('logout')
+      this.$store.dispatch('logout')
+      alert("로그아웃 처리 되었습니다.");
+    },
+
+
+    //찜목록 추가
+    postWishList() {
+
+    },
+
+    showWishSelectSet(item) {
+      console.log(item)
+      for (let i = 0; i < 5; i++) {
+        if (this.users[i].carId === item) {
+          console.log("true")
+          this.users[i].select = !this.users[i].select
+        }
+      }
+      console.log(this.users)
+    },
+
+    getCompanyOfListPage(company) {
+      let data = {};
+      data.company = company;
+      data.page = this.page - 1;
+      data.size = this.size;
+
+      this.$axios.post("car/pageCompany", JSON.stringify(data), {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      })
+          .then(response => {
+            this.totalPage = response.data.totalPages;
+            this.users = response.data.content;
+            console.log(response.data.content);
+          })
+
+    },
+
+    paginate() {
+
     }
-    console.log(this.users)
   },
-
-
-
-},
 
   mounted() {
     this.retrieveUsers();
   },
-
-
-
 }
-
 </script>
+
+
+
+
 

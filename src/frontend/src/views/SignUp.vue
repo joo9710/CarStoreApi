@@ -126,7 +126,9 @@
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
           <v-btn
+              color="red"
           @click="linkTo(link2)"
+          text
           >
             취소
           </v-btn>

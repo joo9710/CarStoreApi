@@ -53,7 +53,8 @@
           </v-col>
 
           <v-col cols="1">
-            <v-btn icon>
+            <v-btn icon
+                   @click="linkTo7">
               <v-icon
 
               >mdi-magnify</v-icon>
@@ -61,16 +62,41 @@
 
           </v-col>
 
-          <v-col cols="3" >
-            <v-btn
-                v-for="(individual,idx) in individuals"
-                :key="idx"
-                @click="linkTo(individual.link)"
-                text
-            >
-              {{ individual.individual }}
-            </v-btn>
-          </v-col>
+          <div v-show="wishBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  v-for="(individual,idx) in individuals1"
+                  :key="idx"
+                  @click="linkTo(individual.link)"
+                  text
+              >
+                {{ individual.individual }}
+              </v-btn>
+            </v-col>
+          </div>
+
+          <div v-show="wishBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  v-for="(individual,idx) in individuals2"
+                  :key="idx"
+                  @click="logout()"
+                  text
+              >
+                {{ individual.individual }}
+              </v-btn>
+            </v-col>
+          </div>
+
+          <div v-show="loginBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  @click= "linkTo6()"
+                  text
+              >
+                로그인</v-btn>
+            </v-col>
+          </div>
 
         </v-row>
 
@@ -330,6 +356,10 @@ export default {
       area:'',
       price:'',
       thumb:'',
+
+      loginBtnShow: false,
+      wishBtnShow: false,
+
       headers: [
         {text: '작성자', value: 'author'},
         {text: '내용', value: 'content'},
@@ -345,9 +375,12 @@ export default {
         {national:'수입'}
       ],
 
-      individuals: [
-        {individual:'마이페이지', link:"MyPage"},
-        {individual:'로그아웃', link:"Mypage"}
+      individuals1: [
+        {individual:'마이페이지', link:"MyPage"}
+      ],
+
+      individuals2: [
+        {individual:'로그아웃', link:"Car"}
       ],
 
       category:'',
@@ -396,9 +429,30 @@ export default {
           this.$router.go(-1);
         },
 
-        linkTo5(){
-          this.$router.push({name:"test2"})
+        linkTo4(national){
+          this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+          this.$router.go(0);
         },
+
+        linkTo5(){
+          this.$router.push({name:"Car"})
+        },
+
+        linkTo6() {
+          this.$router.push({name:"Login"})
+        },
+
+        linkTo7() {
+          this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+        },
+
+        logout() {
+          console.log('logout')
+          this.$store.dispatch('logout')
+          alert("로그아웃 처리 되었습니다.");
+        },
+
+
 
 
         //글 상세내용 보여주기
@@ -408,6 +462,15 @@ export default {
               .then(response => {
                 this.users = response.data.data;
                 console.log(response.data.data);
+
+                if (this.$store.state.userStore.mid == 0) {
+                  this.loginBtnShow = true
+                  this.wishBtnShow = false
+                } else {
+                  this.loginBtnShow = false
+                  this.wishBtnShow = true
+                }
+
               })
               .catch(e => {
                 console.log(e);

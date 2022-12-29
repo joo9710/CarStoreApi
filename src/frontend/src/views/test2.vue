@@ -87,6 +87,7 @@
             <v-btn
                 tile
                 color="primary"
+                @click="linkTo(link1)"
             >
               <v-icon left>
                 mdi-pencil
@@ -359,7 +360,6 @@ export default {
         },
       }).then(response => {
         console.log(response.data)
-
         this.users = response.data.content;
         this.totalPage = response.data.totalPages;
         for (let i = 0; i < response.data.length; i++) {
@@ -433,7 +433,6 @@ export default {
       console.log('logout')
       this.$store.dispatch('logout')
       alert("로그아웃 처리 되었습니다.");
-
     },
 
 
