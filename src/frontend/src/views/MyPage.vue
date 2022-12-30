@@ -55,7 +55,8 @@
           </v-col>
 
           <v-col cols="1">
-            <v-btn icon>
+            <v-btn icon
+            @click="linkTo7">
               <v-icon
 
               >mdi-magnify</v-icon>
@@ -63,16 +64,9 @@
 
           </v-col>
 
-          <v-col cols="3" >
-            <v-btn
-                v-for="(individual,idx) in individuals"
-                :key="idx"
-                @click="linkTo(individual.link)"
-                text
-            >
-              {{ individual.individual }}
-            </v-btn>
-          </v-col>
+
+
+
 
         </v-row>
 
@@ -259,11 +253,6 @@ export default {
         {national:'수입'}
       ],
 
-      individuals: [
-        {individual:'마이페이지', link:"MyPage"},
-        {individual:'로그아웃', link:"Mypage"}
-      ],
-
       carName: '',
 
       category:'',
@@ -315,6 +304,17 @@ export default {
     linkTo6() {
       this.$router.go(-1);
     },
+
+    linkTo7() {
+      this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+    },
+
+    logout() {
+      console.log('logout')
+      this.$store.dispatch('logout')
+      alert("로그아웃 처리 되었습니다.");
+    },
+
 
     getWishList() {
 

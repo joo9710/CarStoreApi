@@ -52,22 +52,48 @@
           </v-col>
 
           <v-col cols="1">
-            <v-btn icon>
+            <v-btn icon
+            @click="linkTo7">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
 
           </v-col>
 
-          <v-col cols="3" >
-            <v-btn
-                v-for="(individual,idx) in individuals"
-                :key="idx"
-                @click="linkTo(individual.link)"
-                text
-            >
-              {{ individual.individual }}
-            </v-btn>
-          </v-col>
+          <div v-show="wishBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  v-for="(individual,idx) in individuals1"
+                  :key="idx"
+                  @click="linkTo(individual.link)"
+                  text
+              >
+                {{ individual.individual }}
+              </v-btn>
+            </v-col>
+          </div>
+
+          <div v-show="wishBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  v-for="(individual,idx) in individuals2"
+                  :key="idx"
+                  @click="logout()"
+                  text
+              >
+                {{ individual.individual }}
+              </v-btn>
+            </v-col>
+          </div>
+
+          <div v-show="loginBtnShow">
+            <v-col cols="1" >
+              <v-btn
+                  @click= "linkTo6()"
+                  text
+              >
+                로그인</v-btn>
+            </v-col>
+          </div>
 
         </v-row>
 
@@ -249,10 +275,14 @@ export default {
       ],
 
 
-      individuals: [
-        {individual: '마이페이지', link: "MyPage"},
-        {individual: '로그아웃', link: "Mypage"}
+      individuals1: [
+        {individual:'마이페이지', link:"MyPage"}
       ],
+
+      individuals2: [
+        {individual:'로그아웃', link:"Car"}
+      ],
+
 
       companies: [
         {company: '현대'},
@@ -332,6 +362,13 @@ export default {
       this.$router.push({name:"Car"})
     },
 
+    linkTo6() {
+      this.$router.push({name:"Login"})
+    },
+
+    linkTo7() {
+      this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+    },
 
     logout() {
       console.log('logout')
@@ -354,6 +391,14 @@ export default {
             this.totalPage = response.data.totalPages;
             this.users = response.data.content;
             console.log(response.data.content);
+
+            if (this.$store.state.userStore.mid == 0) {
+              this.loginBtnShow = true
+              this.wishBtnShow = false
+            } else {
+              this.loginBtnShow = false
+              this.wishBtnShow = true
+            }
           })
     }
 

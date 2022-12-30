@@ -53,7 +53,8 @@
           </v-col>
 
           <v-col cols="1">
-            <v-btn icon>
+            <v-btn icon
+            @click="linkTo7">
               <v-icon
 
               >mdi-magnify</v-icon>
@@ -274,8 +275,7 @@ export default {
       ],
 
       individuals: [
-        {individual:'마이페이지', link:"MyPage"},
-        {individual:'로그아웃', link:"Mypage"}
+        {individual:'마이페이지', link:"MyPage"}
       ],
 
       category:'',
@@ -332,10 +332,19 @@ export default {
       this.$router.go(-1);
     },
 
+    linkTo4(national){
+      this.$router.push({name:"CarOfNational", query: {national: national, page: this.page -1, size: this.size}})
+      this.$router.go(0);
+    },
+
+
     linkTo5(){
       this.$router.push({name:"Car"})
     },
 
+    linkTo7() {
+      this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+    },
 
     getMemberInfo() {
       let mid = this.$store.state.userStore.mid

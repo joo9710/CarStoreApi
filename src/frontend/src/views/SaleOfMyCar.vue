@@ -188,8 +188,7 @@ export default {
       ],
 
       individuals: [
-        {individual:'마이페이지', link:"MyPage"},
-        {individual:'로그아웃', link:"Mypage"}
+        {individual:'마이페이지', link:"MyPage"}
       ],
 
       headers: [
@@ -211,9 +210,18 @@ export default {
 
   methods: {
 
+    linkTo5(){
+      this.$router.push({name:"Car"})
+    },
+
     linkTo6() {
       this.$router.go(-1);
     },
+
+    linkTo7() {
+      this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+    },
+
 
     retrieveUsers() {
       let data = {};

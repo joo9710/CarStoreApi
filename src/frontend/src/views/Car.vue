@@ -462,6 +462,7 @@ export default {
 
     linkTo5(){
       this.$router.push({name:"Car"})
+      this.$router.go(0);
     },
 
     linkTo6() {

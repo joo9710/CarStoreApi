@@ -55,9 +55,7 @@
           <v-col cols="1">
             <v-btn icon
                    @click="linkTo7">
-              <v-icon
-
-              >mdi-magnify</v-icon>
+              <v-icon>mdi-magnify</v-icon>
             </v-btn>
 
           </v-col>
