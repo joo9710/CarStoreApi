@@ -142,7 +142,6 @@
 
 
     <v-main class="grey lighten-3">
-
       <v-container>
         <v-row>
         <v-col cols="2">
@@ -324,6 +323,81 @@
         </v-row>
       </v-container>
     </v-main>
+
+
+    <v-footer
+        color="white"
+        padless
+    >
+      <v-row
+          align="center"
+          justify="center"
+          no-gutters
+      >
+
+        <v-btn
+            text
+            rounded
+            class="my-2"
+            @click="linkTo5"
+        >
+          <v-icon>
+            mdi-home
+          </v-icon>
+
+        </v-btn>
+        <v-btn
+            text
+            rounded
+            class="my-2"
+            @click="linkTo8"
+        >
+          <v-icon>
+            mdi-heart
+          </v-icon>
+
+        </v-btn>
+
+        <v-btn
+            :href="`https://github.com/joo9710/CarStoreApi`" target="_blank"
+            text
+            rounded
+            class="my-2"
+        >
+          <v-icon>mdi-github</v-icon>
+        </v-btn>
+
+        <v-btn
+            :href="`https://youtube.com`" target="_blank"
+            text
+            rounded
+            class="my-2"
+        >
+          <v-icon>mdi-youtube</v-icon>
+        </v-btn>
+
+        <v-btn
+            :href="`https://www.instagram.com/`" target="_blank"
+            text
+            rounded
+            class="my-2"
+        >
+
+          <v-icon>mdi-instagram</v-icon>
+
+        </v-btn>
+
+        <v-btn
+            :href="`https://z00h.tistory.com/`" target="_blank"
+            text
+            rounded
+            class="my-2"
+        >
+          <span>Blog</span>
+        </v-btn>
+      </v-row>
+    </v-footer>
+
   </v-app>
 </template>
 <script>
@@ -442,6 +516,14 @@ export default {
 
         linkTo7() {
           this.$router.push({name:"CarSearch", query: {category: this.category, keyword: this.carName, page: this.page-1, size: this.size}})
+        },
+
+        linkTo8() {
+          if(this.$store.state.userStore.mid ==0) {
+            alert("로그인 후 사용 바랍니다.");
+          }else {
+            this.$router.push({name:"WishList"});
+          }
         },
 
         logout() {
