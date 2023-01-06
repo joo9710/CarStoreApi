@@ -255,6 +255,8 @@
       </v-container>
     </v-main>
 
+    <v-divider></v-divider>
+
     <v-footer
         color="white"
         padless

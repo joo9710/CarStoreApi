@@ -1,10 +1,11 @@
 <template>
-  <v-app id="app">
+  <v-app id="inspire">
     <v-app-bar
         app
         color="white"
         flat
     >
+
       <v-container class="py-0 fill-height">
         <v-row class="ma-0">
           <v-col cols="1">
@@ -100,14 +101,20 @@
       </v-row>
       </v-container>
     </v-app-bar>
+
     <v-main class="grey lighten-3">
       <v-container>
-        <v-layout row wrap class="text-xs-center">
-          <v-flex>
-            <v-card flat class="mx-auto" width="400">
-              <v-row style="margin-top: 60px">
+        <v-row>
+          <v-col cols="12">
+            <v-row justify="center">
+              <v-col
+                cols="8"
+                sm="5">
+            <v-card>
+              <v-row style="margin-top: 30px">
                 <v-col>
-                  <v-form style="width: 400px; height: 300px">
+                  <v-form style="width: 460px; height: 370px">
+
                     <div class="mx-3">
                       <v-icon color="black" size="30px"></v-icon>
                       Email
@@ -119,6 +126,7 @@
                         ></v-text-field>
                       </div>
                     </div>
+
                     <div class="mx-3">
                       <v-icon color="black" size="30px"></v-icon>
                       Password
@@ -131,6 +139,7 @@
                         ></v-text-field>
                       </div>
                     </div>
+
 
                     <v-card-actions>
                       <v-btn
@@ -157,8 +166,11 @@
                 </v-col>
               </v-row>
             </v-card>
-          </v-flex>
-        </v-layout>
+                 </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+
       </v-container>
 
     </v-main>

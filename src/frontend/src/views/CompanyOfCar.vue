@@ -236,34 +236,6 @@
 
                 </v-list-group>
 
-<!--                <v-list-item-->
-<!--                    v-for="(company,idx) in companies"-->
-<!--                    :key="idx"-->
-<!--                    link-->
-<!--                    @click="linkTo2(company.company)"-->
-<!--                >-->
-<!--                  <v-list-item-content>-->
-<!--                    <v-list-item-title>-->
-<!--                      {{company.company}}-->
-<!--                    </v-list-item-title>-->
-<!--                  </v-list-item-content>-->
-<!--                </v-list-item>-->
-
-<!--                <v-divider class="my-2"></v-divider>-->
-
-<!--                <v-list-item-->
-<!--                    v-for="(company2,idx) in companies2"-->
-<!--                    :key="`o-${idx}`"-->
-<!--                    link-->
-<!--                    @click="linkTo2(company2.company)"-->
-<!--                    color="grey lighten-4"-->
-<!--                >-->
-<!--                  <v-list-item-content>-->
-<!--                    <v-list-item-title>-->
-<!--                      {{company2.company}}-->
-<!--                    </v-list-item-title>-->
-<!--                  </v-list-item-content>-->
-<!--                </v-list-item>-->
               </v-list>
             </v-sheet>
           </v-col>

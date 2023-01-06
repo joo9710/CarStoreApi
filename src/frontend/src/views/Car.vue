@@ -203,45 +203,6 @@
                 color=""
             >
 
-              <!--              <v-row-->
-              <!--                  align="center"-->
-              <!--                  class="mx-0"-->
-              <!--              >-->
-
-              <!--              <v-col cols="2">-->
-
-
-              <!--              <v-select-->
-              <!--                  class="pl-8"-->
-              <!--                  label="검색조건"-->
-              <!--                  v-model="category"-->
-              <!--                  :items="keywords"-->
-              <!--                  item-text="name"-->
-              <!--                  item-value="id">-->
-              <!--              </v-select>-->
-              <!--              </v-col>-->
-
-              <!--                <v-col cols="7">-->
-              <!--                  <v-responsive max-width="auto">-->
-              <!--                    <v-text-field-->
-              <!--                        dense-->
-              <!--                        flat-->
-              <!--                        hide-details-->
-              <!--                        rounded-->
-              <!--                        solo-inverted-->
-              <!--                    ></v-text-field>-->
-
-              <!--                  </v-responsive>-->
-              <!--                </v-col>-->
-
-              <!--                <v-col cols="1">-->
-              <!--                    <v-btn icon>-->
-              <!--                      <v-icon>mdi-magnify</v-icon>-->
-              <!--                    </v-btn>-->
-
-              <!--                </v-col>-->
-              <!--        </v-row>-->
-
               <div>
                 <v-data-table
                     :headers="headers"
@@ -294,7 +255,7 @@
 
               </div>
 
-              <!--  -->
+
             </v-sheet>
           </v-col>
         </v-row>
