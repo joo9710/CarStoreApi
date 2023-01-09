@@ -255,8 +255,8 @@
 export default {
   data() {
     return {
-      userId: "123@naver.com",
-      userPassword: "123",
+      userId: "",
+      userPassword: "",
       token:'',
       nickName:'',
       link1:"SignUp",

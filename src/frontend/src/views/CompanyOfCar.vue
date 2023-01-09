@@ -493,6 +493,7 @@ export default {
             { title: '레이' },
             { title: '쏘렌토' },
             { title: '스포티지' },
+            {title: '스팅어'}
           ],
           title: '기아',
         },

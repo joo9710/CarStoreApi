@@ -46,7 +46,7 @@
                   hide-details
                   rounded
                   solo-inverted
-                  v-model="carName"
+                  v-model="carName1"
               ></v-text-field>
 
             </v-responsive>

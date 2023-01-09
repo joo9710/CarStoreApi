@@ -573,6 +573,10 @@ export default {
 
         //댓글 쓰기
         writeComment () {
+          if(this.$store.state.userStore.mid==0) {
+            alert('로그인 후 이용가능합니다.')
+            this.$router.go(0);
+          }else{
           let data = {}
           data.carId = this.$route.query.carId
           data.mid = this.mid
@@ -594,6 +598,7 @@ export default {
             .catch((err)=>{
               console.log(err);
             })
+        }
         },
 
         clearComment () {
