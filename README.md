@@ -38,5 +38,9 @@ https://github.com/joo9710/CarStoreApi
 1. run application
 
 
-
+#
+### 개인 블로그 및 유튜브(시연영상)
+# Tistory(https://z00h.tistory.com/)
+# 시연영상1(https://www.youtube.com/watch?v=tywMhF8RbcM)
+# 시연영상2(https://www.youtube.com/watch?v=ph3-tIOScog)
 
