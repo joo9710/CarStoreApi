@@ -29,6 +29,7 @@
 4. DBeaver 버전21.2.1 [download page](https://dbeaver.io/download/)
 5. Vue.js 버전 2.6.14 [download page](https://vuejs.org/guide/quick-start.html)
 6. Vuetify 버전 2.5.1 [download page](https://vuetifyjs.com/en/getting-started/installation/)
+7. npm run serve
 
 #### B. git clone
 https://github.com/joo9710/CarStoreApi
