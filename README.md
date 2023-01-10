@@ -5,12 +5,20 @@
 <img src="https://img.shields.io/badge/Mybatis-000000?style=flat-square&logo=evaer&logoColor=white"/>
 <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat-square&logo=IntelliJ IDEA&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=GitHub&logoColor=white"/> <img src="https://img.shields.io/badge/DBevaer-000000?style=flat-square&logo=evaer&logoColor=white"/>
 
+
+
+
 #
 ### :raised_hands:소개:raised_hands:
 
 * 누구나 쉽게 거래할 수 있는 중고차 거래 사이트 
 * A used car trading site that anyone can easily trade
-* 
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/83700323/211506807-29368a41-ffd5-4ea2-ac8a-93a197732361.PNG">
+</p>
+
+
 #
 ### :baby_chick: how to install :baby_chick:
 #### A. TOOL download 
