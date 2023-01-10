@@ -16,12 +16,12 @@ A used car trading site that anyone can easily trade
 3. mariadb 10.6 [download page](https://downloads.mariadb.org/)
 4. DBeaver 버전21.2.1 [download page](https://dbeaver.io/download/)
 5. Vue.js 버전 2.6.14 [download page](https://vuejs.org/guide/quick-start.html)
-6. Vuetify 버전 2.5.1 [download page](https://vuetifyjs.com/en/getting-started/installation/) [mybatis-logo]
+6. Vuetify 버전 2.5.1 [download page](https://vuetifyjs.com/en/getting-started/installation/)
 
 #### B. git clone <img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=GitHub&logoColor=white"/>
 https://github.com/joo9710/CarStoreApi
 
-#### C. run application (ON Intellij IDEA) <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat-square&logo=IntelliJ IDEA&logoColor=white"/>
+#### C. run application (ON <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat-square&logo=IntelliJ IDEA&logoColor=white"/>) 
 0. open Intellij IDEA
 1. run application
 
