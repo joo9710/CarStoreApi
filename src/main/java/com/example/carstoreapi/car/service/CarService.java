@@ -95,7 +95,7 @@ public class CarService {
     }
 
 
-    //{carId} 글 읽기
+    //{carId} 글 읽기"
     public ApiResponse<CarDTO> getCarById(int carId) {
         CarDTO data = carDAO.getCarById(carId);
         carDAO.updateReadCount(carId);
