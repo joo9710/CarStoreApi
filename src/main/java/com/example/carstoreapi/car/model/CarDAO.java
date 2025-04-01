@@ -38,7 +38,7 @@ public interface CarDAO {
     int updateReadCount(int carId);
 
     //carId 1증가
-    int maxCarId();
+    Integer maxCarId();
 
     //썸네일 업로드
     int thumbUpload(int carId, String thumb);

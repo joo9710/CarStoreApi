@@ -85,7 +85,6 @@ public class CarService {
          else if(Objects.equals(category, "작성자")) {
             return carRepository.findCarByAuthorContainingAndIsDel(keyword, "N", pageRequest);
         }
-
          return null;
     }
 
@@ -157,17 +156,10 @@ public class CarService {
         FileDTO fileDTO = new FileDTO();
 
             for(int i=0; i <multipartFile.size(); i++) {
-                log.debug("파일 몇개?: "+ multipartFile.size());
                 String imgFileName = carId + "carId" + multipartFile.get(i).getOriginalFilename();
-                log.debug("첫번째 파일 원본이름: " + multipartFile.get(0).getOriginalFilename());
-                log.debug("두번째 파일 원본이름: " + multipartFile.get(1).getOriginalFilename());
+                log.debug(i+1 + "번째 파일 원본이름: " + multipartFile.get(i).getOriginalFilename());
                 log.debug("imgFileName: " + imgFileName);
-
-
-                log.debug("getSize: " + multipartFile.get(0).getSize());
-                log.debug("getSize: " + multipartFile.get(1).getSize());
                 Path imgFilePath = Paths.get(uploadFolder + imgFileName);
-
 
                 if (multipartFile.get(i).getSize() != 0) {
                     try {
@@ -209,8 +201,8 @@ public class CarService {
     // 글 추가 시 마지막 쓴 CarId +1로 세팅, (maxCarId)찾기
     public Integer getNewCarIdValue() {
         int result;
-        int carOfMaxId = carDAO.maxCarId();
-        if (carOfMaxId == 0) {
+        Integer carOfMaxId = carDAO.maxCarId();
+        if (carOfMaxId == 0 || carOfMaxId == null) {
             result = 1;
             log.debug("no Car Data, maxId is 1");
         } else {
@@ -220,7 +212,6 @@ public class CarService {
         log.debug("newCarIdValue= " + result);
         return result;
     }
-
 
 
     //글 수정

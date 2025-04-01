@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -33,8 +34,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         Collections.unmodifiableList(
             Arrays.asList(
                     "/api/member",
-                    "/authenticate"
+                    "/authenticate",
+                    "member/checkEmail",
+                    "/member/**",
+                    "/**"
             ));
+
+
 
     public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil, TokenService tokenService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
@@ -87,8 +93,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
 
     }
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return EXCLUDE_URL.stream().anyMatch(exclude -> exclude.equalsIgnoreCase(request.getServletPath()));
+        return EXCLUDE_URL.stream().anyMatch(pattern -> pathMatcher.match(pattern, request.getServletPath()));
     }
 }

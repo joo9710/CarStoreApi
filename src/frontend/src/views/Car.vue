@@ -394,7 +394,7 @@ export default {
     keywords:['작성자', '차량명','지역'],
 
 
-    loginBtnShow: false,
+    loginBtnShow: true,
     wishBtnShow: false,
 
     //위시리스트
@@ -402,7 +402,6 @@ export default {
     absolute: true,
     selectWishList: [],
     select: true,
-
 
     headers: [
       {text: '', value: 'thumb'},

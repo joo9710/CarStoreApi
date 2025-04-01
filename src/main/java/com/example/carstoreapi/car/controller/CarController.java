@@ -74,14 +74,14 @@ public class CarController {
         return carService.getFileByCarId(carId);
     }
 
-    //글 등록
-    @PostMapping(value = "/")
-    public ApiResponse<CarDTO> postCar(@RequestBody CarDTO carDTO) throws Exception{
-
-     //   CarDTO dto = carService.postCar(carDTO);
-      //  return new ApiResponse(true, dto);
-        return null;
-    }
+//    //글 등록
+//    @PostMapping(value = "/")
+//    public ApiResponse<CarDTO> postCar(@RequestBody CarDTO carDTO) throws Exception{
+//
+//     //   CarDTO dto = carService.postCar(carDTO);
+//      //  return new ApiResponse(true, dto);
+//        return null;
+//    }
 
     // 글 및 파일 등록
     @SneakyThrows
@@ -113,15 +113,14 @@ public class CarController {
         carDTO.setArea(area.replace("\"", ""));
         carDTO.setPrice(price.replace("\"", ""));
         carDTO.setContent(content.replace("\"", ""));
+        carDTO.setIsDel("N");
 
        int newId = carService.postCar(carDTO);
        log.debug("test : " + newId);
        log.debug("Files : " + multipartFile);
        carService.saveThumb(newId, multipartThumb);
        return carService.saveFile(newId, multipartFile);
-
     }
-
 
 
     //글 수정
@@ -185,7 +184,6 @@ public class CarController {
         log.debug(":"+page);
         return carService.getSearch(category, keyword, page, size);
     }
-
 
     // 회사별 차량 조회 및 페이징
     @GetMapping(value = "/pageCompany")
